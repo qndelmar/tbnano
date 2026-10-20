@@ -118,12 +118,13 @@ def episode_metrics(
         calls[k] == calls[k + 1] == calls[k + 2] for k in range(len(calls) - 2)
     )
 
-    # grounded_first_call (spec v2 3): the first valid call either names a
-    # file mentioned in the instruction or is an inspect command. Defined
-    # for every episode; False when there was no valid call at all.
+    # grounded_first_call (spec v2 3): among tasks whose instruction names a
+    # file, the first valid call either names that file or is an inspect
+    # command. None (n/a, skipped by the aggregate) when no file is named;
+    # False when there was no valid call at all.
     files = instruction_files(instruction)
-    grounded = False
-    if calls:
+    grounded: Optional[bool] = False if files else None
+    if calls and files:
         name, args = calls[0]
         try:
             argtext = json.dumps(json.loads(args))

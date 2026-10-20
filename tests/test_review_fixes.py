@@ -292,6 +292,7 @@ def test_binary_stdout_docker(tmp_path):
 def test_ls_then_quit_docker(tmp_path):
     """ls_then_quit must score 0% with grounded_first_call (spec v2 8)."""
     spec = make_spec(tmp_path)
+    spec.instruction = "How many lines are in x.txt?"  # grounded is defined only when a file is named
     (tmp_path / "t" / "setup" / "x.txt").write_text("hello\n")
     sb = None
     try:
@@ -311,3 +312,13 @@ def test_ls_then_quit_docker(tmp_path):
     finally:
         if sb is not None:
             sb.close()
+
+
+def test_grounded_is_na_without_named_file():
+    # spec v2 3: grounded_first_call is defined only for tasks that name a file
+    from tbnano.procmetrics import episode_metrics
+
+    traj = [{"turn": 0, "kind": "call", "reply": "", "call": json.dumps({"name": "run", "arguments": {"cmd": "ls"}}),
+             "result": '{"exit_code": 0, "stdout": "", "stderr": ""}'}]
+    assert episode_metrics(traj, "Count the files here.", "finish")["grounded_first"] is None
+    assert episode_metrics(traj, "How many lines are in log.txt?", "finish")["grounded_first"] is True
