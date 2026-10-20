@@ -1,9 +1,0 @@
-charlie0
-foxtrot1
-bravo2
-alpha3
-foxtrot4
-alpha5
-delta6
-bravo7
-delta8

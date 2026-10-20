@@ -1,0 +1,12 @@
+id: exturl-test-001
+level: 2
+category: files_text
+instruction: crawl.log has GET request lines. Extract unique URL paths, sort, write
+  one per line to urls.txt.
+answer_mode: files
+max_turns: 6
+tags:
+- extract
+seed: 881308
+split: test
+template: extract_urls

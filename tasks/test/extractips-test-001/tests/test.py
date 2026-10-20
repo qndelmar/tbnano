@@ -2,10 +2,11 @@ import os
 from pathlib import Path
 
 BASE = Path(os.environ.get("TBNANO_TASK_DIR", "/task"))
-EXPECTED = ['114.76.76.229', '119.78.40.191', '138.72.7.42', '150.151.27.19', '174.133.1.208', '194.148.95.107', '241.111.34.160', '5.138.98.131', '80.153.124.216', '88.189.215.46']
+EXPECTED = '107.101.28.21\n133.109.8.118\n204.150.210.167\n216.37.120.207\n228.134.12.9\n237.103.178.141\n242.248.196.13\n85.21.89.154\n'
+OUT = 'clients.txt'
 
-def test_ips_file():
-    p = BASE / "clients.txt"
-    assert p.exists(), "clients.txt missing"
-    got = [l.strip() for l in p.read_text().splitlines() if l.strip()]
-    assert got == EXPECTED, f"got {got}"
+def test_file_present():
+    assert (BASE / OUT).exists(), f"{OUT} missing"
+
+def test_content():
+    assert (BASE / OUT).read_text() == EXPECTED

@@ -1,0 +1,12 @@
+id: gitdiff-test-001
+level: 3
+category: env
+instruction: The repo has uncommitted changes to f.txt. How many lines were added
+  (git diff numstat)? Answer with just the number.
+answer_mode: answer
+max_turns: 8
+tags:
+- git
+seed: 456040
+split: test
+template: git_diff_stat

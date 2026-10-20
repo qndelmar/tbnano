@@ -1,0 +1,12 @@
+import os
+from pathlib import Path
+
+BASE = Path(os.environ.get("TBNANO_TASK_DIR", "/task"))
+EXPECTED = 'keep1\nkeep2\nkeep3\nkeep5\nkeep6\nkeep7\nkeep8\nkeep9\nkeep10\nkeep12\nkeep14\nkeep15\nkeep16\nkeep18\nkeep19\nkeep20\nkeep22\nkeep23\nkeep24\nkeep25\nkeep26\nkeep27\nkeep28\nkeep29\nkeep30\nkeep31\nkeep32\nkeep33\nkeep35\nkeep36\nkeep37\nkeep38\nkeep39\nkeep40\nkeep41\nkeep43\nkeep44\nkeep46\nkeep48\nkeep49\nkeep50\n'
+OUT = 'kept.txt'
+
+def test_file_present():
+    assert (BASE / OUT).exists(), f"{OUT} missing"
+
+def test_content():
+    assert (BASE / OUT).read_text() == EXPECTED

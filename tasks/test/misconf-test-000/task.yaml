@@ -1,0 +1,12 @@
+id: misconf-test-000
+level: 2
+category: env
+instruction: app.py reads conf/settings.ini but the file is at settings.ini.bak in
+  the task dir. Put it in place, run app.py, write output to out.txt.
+answer_mode: files
+max_turns: 6
+tags:
+- mv
+seed: 25936
+split: test
+template: misplaced_conf

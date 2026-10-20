@@ -1,12 +1,12 @@
 id: jsonagg-test-000
 level: 2
 category: data
-instruction: records.json is a JSON array of objects with keys 'id', 'mode', 'value'.
-  Sum 'value' over objects with mode 'retired'. Answer with just the number.
+instruction: metrics.json is a JSON array of objects with 'temp' and 'on' fields.
+  Sum temp where on is true. Answer with just the number.
 answer_mode: answer
 max_turns: 6
 tags:
 - json
-- aggregate
-seed: 49321
+seed: 224300
 split: test
+template: json_agg

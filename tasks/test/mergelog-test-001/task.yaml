@@ -1,0 +1,13 @@
+id: mergelog-test-001
+level: 3
+category: files_text
+instruction: a.log and b.log are timestamped logs (line starts with ISO timestamp).
+  Merge them sorted by timestamp into merged.log.
+answer_mode: files
+max_turns: 8
+tags:
+- sort
+- merge
+seed: 764310
+split: test
+template: merge_logs

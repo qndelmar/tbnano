@@ -1,0 +1,11 @@
+id: ttail-train-000
+level: 1
+category: files_text
+instruction: Write the last 3 lines of big.txt to bottom.txt.
+answer_mode: files
+max_turns: 4
+tags:
+- tail
+seed: 885881
+split: train
+template: t_tail_n

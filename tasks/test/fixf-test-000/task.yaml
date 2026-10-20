@@ -1,0 +1,14 @@
+id: fixf-test-000
+level: 3
+category: physics
+instruction: accel.py should compute net upward accel = T/m - g, but it uses T*m -
+  g. Fix the formula, run it, write 'a=<value>' (just the number after 'accel:') to
+  out.txt.
+answer_mode: files
+max_turns: 7
+tags:
+- debug
+- formula
+seed: 56913
+split: test
+template: fix_formula

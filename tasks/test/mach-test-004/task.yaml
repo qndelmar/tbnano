@@ -1,0 +1,12 @@
+id: mach-test-004
+level: 1
+category: physics
+instruction: At T=15C the speed of sound is a=331.3*sqrt(1+T/273.15) m/s. What is
+  Mach 1.5 in m/s? Answer with just the number.
+answer_mode: answer
+max_turns: 5
+tags:
+- aero
+seed: 626189
+split: test
+template: mach_speed

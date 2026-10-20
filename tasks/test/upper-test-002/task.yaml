@@ -1,0 +1,12 @@
+id: upper-test-002
+level: 1
+category: files_text
+instruction: names.txt has one name per line. Uppercase every line into upper.txt
+  (same order).
+answer_mode: files
+max_turns: 4
+tags:
+- transform
+seed: 900307
+split: test
+template: upper_lines

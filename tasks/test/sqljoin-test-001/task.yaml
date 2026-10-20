@@ -1,0 +1,13 @@
+id: sqljoin-test-001
+level: 3
+category: data
+instruction: data.db has tables t(id, v) and keep(id). Sum t.v for ids present in
+  keep. Answer with just the number.
+answer_mode: answer
+max_turns: 8
+tags:
+- sqlite
+- join
+seed: 332757
+split: test
+template: sqlite_join

@@ -8,6 +8,6 @@ max_turns: 4
 tags:
 - grep
 - count
-- logs
-seed: 388962
+seed: 157405
 split: test
+template: log_count

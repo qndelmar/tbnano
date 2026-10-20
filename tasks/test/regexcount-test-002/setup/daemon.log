@@ -1,0 +1,104 @@
+[DEBUG] plain heartbeat
+[DEBUG] plain disk check ok
+[INFO] plain cache miss
+[INFO] has null here
+[WARN] plain job started
+[DEBUG] plain request handled
+[INFO] plain job started
+[CRITICAL] plain gc pause
+[ERROR] plain cache miss
+[CRITICAL] plain write complete
+[WARN] plain write complete
+[CRITICAL] plain request handled
+[CRITICAL] plain connection opened
+[DEBUG] plain probe failed
+[CRITICAL] plain gc pause
+[CRITICAL] plain disk check ok
+[INFO] has null here
+[ERROR] plain disk check ok
+[DEBUG] plain connection opened
+[ERROR] plain user login
+[ERROR] plain heartbeat
+[WARN] plain disk check ok
+[DEBUG] plain worker spawned
+[WARN] plain heartbeat
+[DEBUG] plain write complete
+[INFO] plain disk check ok
+[ERROR] plain retry scheduled
+[WARN] plain gc pause
+[ERROR] plain worker spawned
+[INFO] plain cache miss
+[WARN] plain probe failed
+[CRITICAL] plain retry scheduled
+[ERROR] plain heartbeat
+[ERROR] plain disk check ok
+[DEBUG] plain probe failed
+[CRITICAL] plain user login
+[WARN] has null here
+[CRITICAL] plain write complete
+[WARN] plain connection opened
+[CRITICAL] plain retry scheduled
+[INFO] plain request handled
+[ERROR] plain disk check ok
+[CRITICAL] plain heartbeat
+[DEBUG] has null here
+[INFO] plain connection opened
+[ERROR] plain gc pause
+[WARN] plain heartbeat
+[WARN] plain heartbeat
+[ERROR] plain job started
+[WARN] plain disk check ok
+[WARN] plain worker spawned
+[DEBUG] plain heartbeat
+[ERROR] plain request handled
+[CRITICAL] plain connection opened
+[DEBUG] plain worker spawned
+[WARN] plain user login
+[DEBUG] plain write complete
+[ERROR] plain gc pause
+[ERROR] plain retry scheduled
+[ERROR] plain gc pause
+[INFO] plain cache miss
+[ERROR] plain job started
+[INFO] plain probe failed
+[WARN] plain job started
+[DEBUG] plain worker spawned
+[ERROR] plain user login
+[DEBUG] plain request handled
+[ERROR] plain connection opened
+[CRITICAL] plain user login
+[INFO] plain worker spawned
+[CRITICAL] plain probe failed
+[INFO] plain probe failed
+[ERROR] plain worker spawned
+[WARN] plain request handled
+[CRITICAL] plain worker spawned
+[INFO] plain gc pause
+[CRITICAL] plain disk check ok
+[DEBUG] plain request handled
+[ERROR] plain cache miss
+[CRITICAL] plain worker spawned
+[INFO] plain write complete
+[INFO] plain retry scheduled
+[ERROR] has null here
+[INFO] has null here
+[DEBUG] plain heartbeat
+[WARN] plain probe failed
+[CRITICAL] plain gc pause
+[WARN] plain cache miss
+[WARN] plain request handled
+[WARN] plain connection opened
+[WARN] plain retry scheduled
+[INFO] plain job started
+[WARN] plain gc pause
+[WARN] plain user login
+[WARN] plain user login
+[ERROR] plain write complete
+[INFO] has null here
+[DEBUG] plain retry scheduled
+[INFO] plain probe failed
+[CRITICAL] plain gc pause
+[CRITICAL] plain probe failed
+[CRITICAL] plain heartbeat
+[WARN] plain request handled
+[WARN] plain request handled

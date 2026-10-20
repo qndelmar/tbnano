@@ -1,0 +1,12 @@
+id: fixini-test-002
+level: 2
+category: code
+instruction: app.ini has a broken section header '[main'. Fix it so configparser reads
+  it, then write port to out.txt.
+answer_mode: files
+max_turns: 6
+tags:
+- ini
+seed: 333112
+split: test
+template: fix_ini

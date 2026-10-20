@@ -1,0 +1,12 @@
+id: tgrepv-train-002
+level: 2
+category: files_text
+instruction: Remove every 'DROP' line from list.txt; write the rest to kept.txt in
+  original order.
+answer_mode: files
+max_turns: 5
+tags:
+- grep -v
+seed: 195886
+split: train
+template: t_grep_v

@@ -1,0 +1,11 @@
+id: tmkp-train-002
+level: 1
+category: env
+instruction: Create nested directory 'x/y' and an empty file 'x/y/f.txt'.
+answer_mode: files
+max_turns: 4
+tags:
+- mkdir
+seed: 484686
+split: train
+template: t_mkpath

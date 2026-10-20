@@ -1,0 +1,12 @@
+id: palt-test-001
+level: 1
+category: physics
+instruction: 'Pressure altitude for P=850 hPa (ISA: h=44330*(1-(P/1013.25)^0.1903)
+  m). Answer with just the number.'
+answer_mode: answer
+max_turns: 5
+tags:
+- atmo
+seed: 688933
+split: test
+template: pressure_alt

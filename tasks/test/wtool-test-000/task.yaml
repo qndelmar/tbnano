@@ -1,0 +1,12 @@
+id: wtool-test-000
+level: 3
+category: code
+instruction: Write a shell script count.sh that counts lines equal to 'fail' in results.txt
+  and prints the number. Run it, save output to out.txt.
+answer_mode: files
+max_turns: 8
+tags:
+- script
+seed: 51710
+split: test
+template: write_tool

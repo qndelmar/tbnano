@@ -1,9 +1,6 @@
-cat > ops.py <<'EOF'
-def clamp(x, lo, hi):
-    if x < lo:
-        return lo
-    if x > hi:
-        return hi
-    return x
+cat > offbyone.py <<'EOF'
+xs = [int(x) for x in open('nums.txt')]
+print(sum(xs))
 EOF
-python3 check.py
+python3 offbyone.py > out.txt
+cat out.txt

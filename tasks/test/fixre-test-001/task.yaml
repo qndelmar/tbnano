@@ -1,0 +1,12 @@
+id: fixre-test-001
+level: 2
+category: code
+instruction: 'count.py crashes: the regex ''[0-9+'' is invalid. Fix it to match lines
+  containing digits, run it on in.txt, write output to out.txt.'
+answer_mode: files
+max_turns: 6
+tags:
+- regex
+seed: 687798
+split: test
+template: fix_regex

@@ -1,1 +1,1 @@
-grep -c '\[WARN\]' app.log > answer.txt
+grep -c '\[ERROR\]' server.log > answer.txt

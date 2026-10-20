@@ -1,9 +1,20 @@
 """Backend for our own checkpoints (`ckpt:<path>`).
 
-Spec 3/7: for our models the chat template is `render()` from
+Spec 3/7 + review: for our models the chat template is `render()` from
 `chat_format.py` in our training repo, and inference is a wrapper over
-`agent.py` exposing `load()` / `generate()`. Point tbnano at that repo
-with TBNANO_OURS_REPO (default: sibling dir `../small-test-llm`).
+`agent.py` exposing
+
+    model, tok, device = agent.load(ckpt_path)
+    out_ids = agent.generate(model, tok, ids, device, max_new=..., temp=...)
+
+taking *token ids*; the tokenizer is `tokenizer/tokenizer.json`
+(`tokenizers.Tokenizer`); `chat_format.render` expects
+`assistant.tool_calls`, `{"role": "tool", "responses": [...]}` and a
+`tools=` list, and we append `<|im_start|>assistant\n` ourselves
+(reference: Agent._prompt_ids / Agent.reply in ../agent.py).
+
+Point tbnano at that repo with TBNANO_OURS_REPO (default:
+../small-test-llm). Our models are trained at ctx 1024 → max_context.
 """
 
 from __future__ import annotations
@@ -14,8 +25,9 @@ import sys
 from pathlib import Path
 from typing import Any, Optional
 
-from ..tokens import ApproxTokenizer, Tokenizer
 from .base import BackendReply
+
+GEN_PROMPT_SUFFIX = "<|im_start|>assistant\n"
 
 
 def _import_from(path: Path, name: str):
@@ -28,52 +40,60 @@ def _import_from(path: Path, name: str):
 
 class OursBackend:
     name = "ours"
+    max_context = 1024  # our checkpoints train at ctx 1024
 
     def __init__(self, ckpt: str, repo: Optional[str] = None, **_):
         self.ckpt = ckpt
         self.repo = Path(
             repo or os.environ.get("TBNANO_OURS_REPO", "../small-test-llm")
         ).resolve()
-        self._agent = None
+        self._model = None
+        self._device = None
+        self._agent_mod = None
         self._render = None
         self._tok = None
 
     def _load(self) -> None:
-        if self._agent is not None:
+        if self._agent_mod is not None:
             return
         agent_py = self.repo / "agent.py"
         fmt_py = self.repo / "chat_format.py"
-        if not agent_py.exists() or not fmt_py.exists():
-            raise FileNotFoundError(
-                f"ours backend needs agent.py and chat_format.py in "
-                f"{self.repo} (set TBNANO_OURS_REPO)"
-            )
+        tok_json = self.repo / "tokenizer" / "tokenizer.json"
+        for p in (agent_py, fmt_py, tok_json):
+            if not p.exists():
+                raise FileNotFoundError(
+                    f"ours backend needs {p} (set TBNANO_OURS_REPO)"
+                )
         fmt = _import_from(fmt_py, "ours_chat_format")
         self._render = fmt.render
-        agent = _import_from(agent_py, "ours_agent")
-        self._agent = agent.load(self.ckpt)
-        tok_mod = self.repo / "tokenizer.py"
-        if tok_mod.exists():
-            self._tok = _import_from(tok_mod, "ours_tokenizer")
+        self._agent_mod = _import_from(agent_py, "ours_agent")
+        self._model, agent_tok, self._device = self._agent_mod.load(self.ckpt)
+        from tokenizers import Tokenizer
 
-    def tokenizer(self) -> Tokenizer:
+        self._tok = Tokenizer.from_file(str(tok_json))
+
+    def tokenizer(self):
         self._load()
         outer = self
 
         class _T:
             def count(self, text: str) -> int:
-                if outer._tok is not None and hasattr(outer._tok, "encode"):
-                    return len(outer._tok.encode(text))
-                return ApproxTokenizer().count(text)
+                return len(outer._tok.encode(text).ids)
 
         return _T()
 
+    def _prompt_ids(self, messages, tools=None):
+        text = self._render(messages, tools=tools or [])
+        return self._tok.encode(text + GEN_PROMPT_SUFFIX).ids
+
     def count_context(self, messages: list[dict[str, Any]]) -> int:
         self._load()
+        from ..tools import TOOL_SCHEMAS
+
         try:
-            return self.tokenizer().count(self._render(messages))
+            return len(self._prompt_ids(messages, TOOL_SCHEMAS))
         except Exception:
-            return super_count(self, messages)
+            return len(self._prompt_ids(messages))
 
     def generate(
         self,
@@ -84,13 +104,15 @@ class OursBackend:
         seed: Optional[int] = None,
     ) -> BackendReply:
         self._load()
-        prompt = self._render(messages)
-        text = self._agent.generate(
-            prompt, max_tokens=max_tokens, temperature=temperature, seed=seed
+        ids = self._prompt_ids(messages, tools)
+        out_ids = self._agent_mod.generate(
+            self._model,
+            self._tok,
+            ids,
+            self._device,
+            max_new=max_tokens,
+            temp=temperature,
         )
-        return BackendReply(text=text)
-
-
-def super_count(backend: OursBackend, messages) -> int:
-    tok = backend.tokenizer()
-    return sum(tok.count(str(m.get("content") or "")) + 8 for m in messages)
+        if out_ids and out_ids[: len(ids)] == ids:
+            out_ids = out_ids[len(ids):]
+        return BackendReply(text=self._tok.decode(out_ids))

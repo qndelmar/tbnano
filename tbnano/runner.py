@@ -94,12 +94,12 @@ def run_one(
     setup_dir = build_setup_tempdir(spec)
     sb = make_sandbox(sandbox_kind, **(sandbox_kwargs or {}))
     try:
-        sb.start(setup_dir, spec.tests_dir, spec.id)
+        sb.start(setup_dir, spec.id)  # tests stay outside the sandbox
         ep = run_episode(
             spec, backend, adapter, sb, tok, temperature=temperature, seed=seed
         )
         sb.write_submission(ep.answer)
-        tests = sb.run_tests(timeout=60.0)
+        tests = sb.run_tests(spec.tests_dir, timeout=60.0)
         rec = RunRecord(
             task_id=spec.id,
             resolved=tests.resolved,
@@ -111,6 +111,7 @@ def run_one(
             exec_seconds=ep.exec_seconds,
             level=spec.level,
             category=spec.category,
+            template=spec.template,
         )
         return rec, ep, tests.output
     finally:

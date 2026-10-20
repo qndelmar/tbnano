@@ -1,0 +1,13 @@
+id: tsvjson-test-001
+level: 1
+category: data
+instruction: in.tsv is tab-separated with header 'id\tname'. Convert to a JSON array
+  of {id:int, name:str} in out.json (same order).
+answer_mode: files
+max_turns: 5
+tags:
+- tsv
+- json
+seed: 597392
+split: test
+template: tsv_to_json

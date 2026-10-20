@@ -1,0 +1,11 @@
+id: twclines-train-007
+level: 1
+category: files_text
+instruction: How many lines does data.txt have? Answer with just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- wc
+seed: 25652
+split: train
+template: t_wc_lines

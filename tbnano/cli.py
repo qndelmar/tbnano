@@ -39,6 +39,14 @@ def cmd_run(args: argparse.Namespace) -> int:
     else:
         fmt, backend_kind = args.format, args.backend
 
+    if args.sandbox == "local" and backend_kind != "scripted" and not args.unsafe_local:
+        print(
+            "refusing: --sandbox local executes model commands directly on "
+            "this host (no container boundary, HOME=task dir only). Use "
+            "--sandbox docker, or pass --unsafe-local to acknowledge.",
+            file=sys.stderr,
+        )
+        return 2
     adapter = get_adapter(fmt)
     tasks = list(iter_tasks(Path(args.tasks)))
     if not tasks:
@@ -54,7 +62,12 @@ def cmd_run(args: argparse.Namespace) -> int:
         if backend_kind == "scripted":
             return make_backend(model, "scripted")
         if shared["b"] is None:
-            shared["b"] = make_backend(model, backend_kind)
+            kw: dict = {}
+            if backend_kind in ("transformers", "vllm", "mlx"):
+                kw["fmt"] = fmt
+            if backend_kind == "openai":
+                kw["base_url"] = args.base_url
+            shared["b"] = make_backend(model, backend_kind, **kw)
         return shared["b"]
 
     tok = None
@@ -108,16 +121,13 @@ def cmd_gen(args: argparse.Namespace) -> int:
     from .generators import FAMILIES, TEST_COUNTS, generate_split
 
     counts = None
-    if args.split == "train" and args.n:
-        per = max(1, args.n // len(FAMILIES))
-        counts = {fam: per for fam in FAMILIES}
-    elif args.n and args.split == "test":
+    if args.n and args.split == "test":
         # scale test proportionally
         base = sum(TEST_COUNTS.values())
         counts = {
             fam: max(1, round(args.n * c / base)) for fam, c in TEST_COUNTS.items()
         }
-    written = generate_split(args.split, Path(args.out), n_per_family=args.n, counts=counts)
+    written = generate_split(args.split, Path(args.out), counts=counts)
     print(f"wrote {len(written)} tasks to {args.out}")
     return 0
 
@@ -168,7 +178,13 @@ def main(argv=None) -> int:
     r.add_argument("--agent", choices=["oracle", "quitter"], default=None,
                    help="built-in validation agents (override --model/--format/--backend)")
     r.add_argument("--tasks", default=str(_default_tasks_dir()))
-    r.add_argument("--sandbox", default="local", choices=["local", "docker"])
+    r.add_argument("--sandbox", default="docker", choices=["local", "docker"])
+    r.add_argument("--unsafe-local", action="store_true",
+                   help="allow --sandbox local with a real model backend "
+                        "(DANGEROUS: commands run on this host)")
+    r.add_argument("--base-url", default=None,
+                   help="OpenAI-compatible endpoint for --backend openai "
+                        "(e.g. http://localhost:8000/v1 for `vllm serve`)")
     r.add_argument("--jobs", type=int, default=4)
     r.add_argument("--samples", type=int, default=1)
     r.add_argument("--temperature", type=float, default=0.0)

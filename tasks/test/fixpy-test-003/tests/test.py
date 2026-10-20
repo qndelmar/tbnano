@@ -1,10 +1,12 @@
-import os, sys
-sys.path.insert(0, os.environ.get('TBNANO_TASK_DIR', '/task'))
-from ops import clamp
+import os
+from pathlib import Path
 
-def test_clamp():
-    assert abs(clamp(5, 0, 10) - 5) < 1e-4, f'{ clamp(5, 0, 10) } != 5'
-    assert abs(clamp(15, 0, 10) - 10) < 1e-4, f'{ clamp(15, 0, 10) } != 10'
-    assert abs(clamp(-3, 0, 10) - 0) < 1e-4, f'{ clamp(-3, 0, 10) } != 0'
-    assert abs(clamp(11, 0, 10) - 10) < 1e-4, f'{ clamp(11, 0, 10) } != 10'
-    assert abs(clamp(7, 2, 8) - 7) < 1e-4, f'{ clamp(7, 2, 8) } != 7'
+BASE = Path(os.environ.get("TBNANO_TASK_DIR", "/task"))
+EXPECTED = '196\n'
+OUT = 'out.txt'
+
+def test_file_present():
+    assert (BASE / OUT).exists(), f"{OUT} missing"
+
+def test_content():
+    assert (BASE / OUT).read_text() == EXPECTED

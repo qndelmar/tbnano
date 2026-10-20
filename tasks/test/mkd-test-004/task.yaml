@@ -1,0 +1,12 @@
+id: mkd-test-004
+level: 2
+category: env
+instruction: app.py crashes because directory logs/ does not exist. Create it, run
+  app.py, write output to out.txt.
+answer_mode: files
+max_turns: 6
+tags:
+- mkdir
+seed: 741298
+split: test
+template: missing_dir

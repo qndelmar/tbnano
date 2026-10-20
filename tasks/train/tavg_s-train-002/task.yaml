@@ -1,0 +1,11 @@
+id: tavg_s-train-002
+level: 1
+category: physics
+instruction: A rocket travels 250 km in 5 h. Average speed km/h? Number only.
+answer_mode: answer
+max_turns: 4
+tags:
+- kinematics
+seed: 826767
+split: train
+template: t_avg_speed

@@ -1,0 +1,11 @@
+id: trev-train-003
+level: 1
+category: files_text
+instruction: Reverse the line order of seq.txt into rev.txt.
+answer_mode: files
+max_turns: 4
+tags:
+- tac
+seed: 149179
+split: train
+template: t_rev_lines

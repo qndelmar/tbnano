@@ -1,13 +1,13 @@
 id: csvagg-test-003
 level: 2
 category: data
-instruction: In metrics.csv, compute the maximum of column 'reading' for rows where
-  'sensor' is 'alpha'. Answer with just the number.
+instruction: sales.csv has columns id,qty,price,tag. What is the avg of column price?
+  Answer with just the number.
 answer_mode: answer
 max_turns: 6
 tags:
 - csv
-- aggregate
-seed: 734488
+- agg
+seed: 633140
 split: test
-origin: tb1/bank-trans-filter
+template: csv_agg

@@ -1,0 +1,11 @@
+id: tsqlmm-train-005
+level: 2
+category: data
+instruction: m.db has table t(id, v). What is max(v)? Answer with just the number.
+answer_mode: answer
+max_turns: 5
+tags:
+- sqlite
+seed: 130769
+split: train
+template: t_sql_minmax

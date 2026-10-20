@@ -1,0 +1,11 @@
+id: uconv-test-002
+level: 1
+category: physics
+instruction: Convert 60 mph to km/h. Answer with just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- convert
+seed: 54522
+split: test
+template: unit_conv

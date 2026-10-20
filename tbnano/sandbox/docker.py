@@ -78,17 +78,16 @@ class DockerSandbox:
         build_image(df, self.image)
 
     # -- lifecycle ------------------------------------------------------
-    def start(self, setup_dir: Path, tests_dir: Optional[Path], task_id: str) -> None:
+    def start(self, setup_dir: Path, task_id: str) -> None:
+        # Tests are NOT mounted during the episode (correct answers live in
+        # test.py — an agent able to `cat /tests/test.py` would cheat).
+        # run_tests() spins up a separate one-shot container that mounts
+        # the final /task read-only plus /tests.
         self.close_container()
         if self.task_dir.exists():
             shutil.rmtree(self.task_dir)
-        shutil.copytree(setup_dir, self.task_dir)
+        shutil.copytree(setup_dir, self.task_dir, symlinks=True)
         mounts = ["-v", f"{self.task_dir}:/task"]
-        if tests_dir is not None:
-            if self._tests_dir.exists():
-                shutil.rmtree(self._tests_dir)
-            shutil.copytree(tests_dir, self._tests_dir)
-            mounts += ["-v", f"{self._tests_dir}:/tests:ro"]
         name = f"tbnano-{task_id.replace('/', '-')[:40]}-{int(time.time() * 1000) % 10**9}"
         res = subprocess.run(
             [
@@ -193,12 +192,51 @@ class DockerSandbox:
     def write_submission(self, answer: str) -> None:
         self.write_file("/task/.submission/answer.txt", answer)
 
-    def run_tests(self, timeout: float) -> TestResult:
-        res = self._exec(
-            "cd /task && python3 -m pytest /tests -q --no-header "
-            "-o 'python_files=test.py test_*.py' --tb=short 2>&1 | tail -c 4000",
-            timeout=timeout,
-        )
+    def run_tests(self, tests_dir: Path, timeout: float) -> TestResult:
+        # Fresh one-shot container: final /task mounted read-only + the
+        # task's tests mounted read-only at /tests. The episode container
+        # never saw the tests, and the test container cannot mutate /task.
+        if self._tests_dir.exists():
+            shutil.rmtree(self._tests_dir)
+        shutil.copytree(tests_dir, self._tests_dir)
+        t0 = time.monotonic()
+        try:
+            proc = subprocess.run(
+                [
+                    "docker", "run", "--rm",
+                    "-u", f"{os.getuid()}:{os.getgid()}",
+                    "-e", "HOME=/tmp",
+                    "-e", f"TBNANO_TASK_DIR=/task",
+                    "--network", "none",
+                    "-v", f"{self.task_dir}:/task:ro",
+                    "-v", f"{self._tests_dir}:/tests_src:ro",
+                    "-w", "/task",
+                    self.image,
+                    "bash", "-lc",
+                    "cp -r /tests_src /tmp/tests && cd /tmp/tests && "
+                    "PYTHONDONTWRITEBYTECODE=1 python3 -m pytest /tmp/tests "
+                    "-v --no-header -p no:cacheprovider "
+                    "-o 'python_files=test.py test_*.py' --tb=line 2>&1 | tail -c 8000",
+                ],
+                stdin=subprocess.DEVNULL,
+                capture_output=True,
+                text=True,
+                timeout=timeout + 15,
+            )
+            res = ExecResult(
+                exit_code=proc.returncode,
+                stdout=proc.stdout,
+                stderr=proc.stderr,
+                elapsed=time.monotonic() - t0,
+            )
+        except subprocess.TimeoutExpired as e:
+            res = ExecResult(
+                exit_code=124,
+                stdout=e.stdout or "",
+                stderr=(e.stderr or "") + f"\n[tbnano: killed after {timeout}s]",
+                elapsed=time.monotonic() - t0,
+                timed_out=True,
+            )
         out = res.stdout + res.stderr
         tr = parse_pytest_summary(out)
         if tr.total == 0 and res.exit_code != 0:

@@ -1,0 +1,13 @@
+id: logwin-test-001
+level: 2
+category: files_text
+instruction: In daemon.log, count lines with level [ERROR] whose timestamp hour is
+  between 00 and 05 inclusive (format T HH:MM:SSZ). Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- grep
+- count
+seed: 301554
+split: test
+template: log_count_window

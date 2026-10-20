@@ -1,0 +1,12 @@
+id: tnsum-train-004
+level: 1
+category: files_text
+instruction: nums.txt has one integer per line. What is their sum? Answer with just
+  the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- sum
+seed: 913076
+split: train
+template: t_num_sum

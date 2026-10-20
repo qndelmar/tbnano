@@ -1,0 +1,12 @@
+id: sedrep-test-002
+level: 1
+category: files_text
+instruction: cfg.txt uses the old key 'MODE='. Write cfg_fixed.txt with every 'MODE='
+  replaced by 'prod='.
+answer_mode: files
+max_turns: 4
+tags:
+- sed
+seed: 268386
+split: test
+template: sed_replace

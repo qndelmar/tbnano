@@ -1,13 +1,13 @@
 id: fixpy-test-005
 level: 3
 category: code
-instruction: '`python3 check.py` prints wrong results — area_circle() in utils.py
-  is buggy. Fix utils.py so the outputs match the ''expect'' values.'
+instruction: avg.py is buggy (x is a str; convert with float()). Fix it so it prints
+  the correct value, then write its output to out.txt.
 answer_mode: files
 max_turns: 8
 tags:
+- debug
 - python
-- bugfix
-seed: 158389
+seed: 319875
 split: test
-origin: tb1/broken-python
+template: fix_python

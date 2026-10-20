@@ -1,0 +1,11 @@
+id: tmkp-train-003
+level: 1
+category: env
+instruction: Create nested directory 'a/b/c' and an empty file 'a/b/c/f.txt'.
+answer_mode: files
+max_turns: 4
+tags:
+- mkdir
+seed: 651513
+split: train
+template: t_mkpath

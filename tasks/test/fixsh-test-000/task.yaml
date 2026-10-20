@@ -1,0 +1,13 @@
+id: fixsh-test-000
+level: 2
+category: code
+instruction: run.sh fails ('do' must be on the 'for' line or after a semicolon). Fix
+  it and write its stdout to out.txt.
+answer_mode: files
+max_turns: 6
+tags:
+- debug
+- bash
+seed: 589556
+split: test
+template: fix_bash

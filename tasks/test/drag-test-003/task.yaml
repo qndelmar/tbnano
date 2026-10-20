@@ -1,0 +1,12 @@
+id: drag-test-003
+level: 1
+category: physics
+instruction: Drag force at v=51 m/s, Cd=0.43, area=0.0246 m^2, rho=1.225. (N). Answer
+  with just the number.
+answer_mode: answer
+max_turns: 5
+tags:
+- aero
+seed: 952110
+split: test
+template: drag_force

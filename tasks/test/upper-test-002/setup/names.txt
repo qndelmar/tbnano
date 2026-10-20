@@ -1,0 +1,14 @@
+echo29
+alpha37
+alpha77
+alpha40
+echo99
+beta7
+echo73
+gamma54
+echo68
+alpha42
+delta76
+alpha17
+gamma44
+beta3

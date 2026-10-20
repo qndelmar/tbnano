@@ -1,0 +1,12 @@
+id: regexcount-test-002
+level: 2
+category: files_text
+instruction: How many lines in daemon.log contain the word 'null'? Answer with just
+  the number.
+answer_mode: answer
+max_turns: 5
+tags:
+- grep
+seed: 290772
+split: test
+template: count_regex

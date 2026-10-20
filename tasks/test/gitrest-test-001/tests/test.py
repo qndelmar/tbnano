@@ -2,8 +2,11 @@ import os
 from pathlib import Path
 
 BASE = Path(os.environ.get("TBNANO_TASK_DIR", "/task"))
+EXPECTED = '65\n'
+OUT = 'out.txt'
 
-def test_restored():
-    p = BASE / "config.ini"
-    assert p.exists(), "config.ini not restored"
-    assert "payload-529" in p.read_text()
+def test_file_present():
+    assert (BASE / OUT).exists(), f"{OUT} missing"
+
+def test_content():
+    assert (BASE / OUT).read_text() == EXPECTED

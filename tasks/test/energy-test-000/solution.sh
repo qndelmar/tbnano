@@ -1,8 +1,1 @@
-python3 - <<'EOF'
-import csv
-rows=list(csv.DictReader(open('battery.csv')))
-t=[float(r['t_s']) for r in rows]
-p=[float(r['power_w']) for r in rows]
-e=sum((p[i]+p[i+1])/2*(t[i+1]-t[i]) for i in range(len(t)-1))/3600
-open('answer.txt','w').write(str(e))
-EOF
+python3 -c "m=1.0;T=22;t=1.0;a=(T-m*9.81)/m;v=a*t;print(0.5*m*v*v)" > answer.txt

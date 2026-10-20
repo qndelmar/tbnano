@@ -1,6 +1,6 @@
-python3 -c "
+python3 - <<'PY' > answer.txt
 import csv
-rows=[r for r in csv.DictReader(open('sales.csv'))]
-v=[float(r['revenue']) for r in rows if r['region']=='south']
-print({'mean':sum(v)/len(v),'sum':sum(v),'max':max(v),'count':len(v)}['sum'])
-" > answer.txt
+r=list(csv.DictReader(open('sales.csv')))
+v=[float(x['id']) for x in r]
+print({'sum':sum(v),'avg':sum(v)/len(v),'count':len(v)}['count'])
+PY

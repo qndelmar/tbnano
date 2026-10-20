@@ -1,0 +1,11 @@
+id: tcvhf-train-001
+level: 1
+category: data
+instruction: t.csv has 'id,val' rows (no header). Write the first 9 rows to head.csv.
+answer_mode: files
+max_turns: 4
+tags:
+- csv
+seed: 842173
+split: train
+template: t_csv_head_filter

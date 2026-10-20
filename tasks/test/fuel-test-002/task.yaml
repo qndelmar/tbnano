@@ -1,0 +1,12 @@
+id: fuel-test-002
+level: 1
+category: physics
+instruction: Motor burns 0.067 kg/s with 1.42 kg propellant. Burn time (s)? Answer
+  with just the number.
+answer_mode: answer
+max_turns: 5
+tags:
+- rocket
+seed: 478006
+split: test
+template: fuel_time

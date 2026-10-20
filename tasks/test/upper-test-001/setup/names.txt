@@ -1,0 +1,13 @@
+alpha56
+delta77
+beta75
+echo15
+gamma27
+echo10
+echo83
+alpha9
+echo26
+beta15
+echo47
+echo38
+beta50

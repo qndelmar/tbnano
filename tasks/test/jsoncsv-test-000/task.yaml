@@ -1,0 +1,13 @@
+id: jsoncsv-test-000
+level: 2
+category: data
+instruction: records.json is a JSON array of {id, v} objects. Convert to out.csv with
+  header 'id,v' in the same order.
+answer_mode: files
+max_turns: 6
+tags:
+- json
+- csv
+seed: 585583
+split: test
+template: json_to_csv

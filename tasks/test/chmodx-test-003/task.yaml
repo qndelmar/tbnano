@@ -1,0 +1,12 @@
+id: chmodx-test-003
+level: 2
+category: env
+instruction: tool.sh must be run as ./tool.sh but is not executable. Make it executable,
+  run it, write output to out.txt.
+answer_mode: files
+max_turns: 5
+tags:
+- chmod
+seed: 282070
+split: test
+template: chmod_run

@@ -1,0 +1,12 @@
+id: tcsvrev-train-001
+level: 1
+category: data
+instruction: pairs.csv is 'key,val' rows. Write rev.csv with rows 'val,key' (swap
+  columns).
+answer_mode: files
+max_turns: 4
+tags:
+- csv
+seed: 520028
+split: train
+template: t_csv_reverse

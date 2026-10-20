@@ -1,0 +1,12 @@
+id: tfixnone-train-005
+level: 1
+category: code
+instruction: f.py has a syntax error (missing colon after else). Fix and write output
+  to out.txt.
+answer_mode: files
+max_turns: 4
+tags:
+- debug
+seed: 533825
+split: train
+template: t_fix_none

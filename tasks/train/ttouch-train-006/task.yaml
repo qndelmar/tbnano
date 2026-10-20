@@ -1,0 +1,11 @@
+id: ttouch-train-006
+level: 1
+category: env
+instruction: Create an empty file named done.flag.
+answer_mode: files
+max_turns: 3
+tags:
+- touch
+seed: 42641
+split: train
+template: t_touch_flag

@@ -44,7 +44,7 @@ def sandbox(tmp_path):
     (tmp_path / "t" / "setup").mkdir(parents=True, exist_ok=True)
     (tmp_path / "t" / "tests").mkdir(exist_ok=True)
     sb = LocalSandbox(work_root=tmp_path / "sb")
-    sb.start(tmp_path / "t" / "setup", tmp_path / "t" / "tests", "t")
+    sb.start(tmp_path / "t" / "setup", "t")
     yield sb
     sb.close()
 

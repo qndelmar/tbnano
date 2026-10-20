@@ -1,1 +1,1 @@
-grep -c '\[CRITICAL\]' system.log > answer.txt
+grep -c '\[CRITICAL\]' svc.log > answer.txt

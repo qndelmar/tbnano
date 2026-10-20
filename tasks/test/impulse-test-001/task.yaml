@@ -1,0 +1,12 @@
+id: impulse-test-001
+level: 3
+category: physics
+instruction: thrust.csv has t,thrust at dt=0.01 s. Compute total impulse (N*s) by
+  trapezoid integration. Answer with just the number.
+answer_mode: answer
+max_turns: 8
+tags:
+- integrate
+seed: 182972
+split: test
+template: impulse_int

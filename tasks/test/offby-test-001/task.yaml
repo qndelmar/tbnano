@@ -1,0 +1,12 @@
+id: offby-test-001
+level: 2
+category: code
+instruction: seq.py prints 0..4 but must print 1..5. Fix it and write its output to
+  out.txt.
+answer_mode: files
+max_turns: 5
+tags:
+- debug
+seed: 325660
+split: test
+template: fix_offbyone

@@ -21,6 +21,7 @@ def write_task(
     tags: Optional[list[str]] = None,
     seed: int = 0,
     split: str = "test",
+    template: str = "",
     setup_files: Optional[dict[str, str]] = None,
     setup_sh: Optional[str] = None,
     test_py: str = "",
@@ -41,6 +42,7 @@ def write_task(
         "tags": tags or [],
         "seed": seed,
         "split": split,
+        "template": template or task_id.rsplit("-", 2)[0],
     }
     if origin:
         meta["origin"] = origin
@@ -96,6 +98,51 @@ def test_answer_value():
 
 def answer_test(expected: float, rel_tol: float = 1e-3) -> str:
     return ANSWER_TEST.format(expected=expected, rel_tol=rel_tol)
+
+
+FILES_TEST = """\
+import os
+from pathlib import Path
+
+BASE = Path(os.environ.get("TBNANO_TASK_DIR", "/task"))
+EXPECTED = {expected!r}
+OUT = {out!r}
+
+def test_file_present():
+    assert (BASE / OUT).exists(), f"{{OUT}} missing"
+
+def test_content():
+    assert (BASE / OUT).read_text() == EXPECTED
+"""
+
+
+def files_test(out: str, expected: str) -> str:
+    """pytest body: file `out` exists and equals `expected` exactly.
+    The _present check is zero-weight in `partial` (presence convention)."""
+    return FILES_TEST.format(expected=expected, out=out)
+
+
+def kv_test(out: str, expected: dict, rel_tol: float = 1e-6) -> str:
+    return f'''\
+import math, os
+from pathlib import Path
+
+BASE = Path(os.environ.get("TBNANO_TASK_DIR", "/task"))
+EXPECTED = {expected!r}
+
+def test_file_present():
+    assert (BASE / {out!r}).exists(), "{out} missing"
+
+def test_kv():
+    kv = {{}}
+    for line in (BASE / {out!r}).read_text().splitlines():
+        if "=" in line:
+            k, v = line.split("=", 1)
+            kv[k.strip()] = float(v)
+    for k, v in EXPECTED.items():
+        assert k in kv, f"{{k}} missing"
+        assert math.isclose(kv[k], v, rel_tol={rel_tol!r}), f"{{k}}: {{kv[k]}} != {{v}}"
+'''
 
 
 def json_dumps(obj) -> str:

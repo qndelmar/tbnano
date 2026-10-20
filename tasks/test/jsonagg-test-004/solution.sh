@@ -1,1 +1,1 @@
-python3 -c "import json;d=json.load(open('events.json'));print(sum(1 for r in d if r['state']=='idle'))" > answer.txt
+python3 -c "import json;d=json.load(open('metrics.json'));print(sum(x['watt'] for x in d if x['on']))" > answer.txt

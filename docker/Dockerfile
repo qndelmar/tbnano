@@ -5,7 +5,7 @@ FROM python:3.12-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         bash coreutils grep sed gawk findutils \
-        jq sqlite3 gcc make git bc \
+        jq sqlite3 gcc libc6-dev make git bc \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip install --no-cache-dir numpy pandas pytest

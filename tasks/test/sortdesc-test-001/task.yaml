@@ -1,0 +1,11 @@
+id: sortdesc-test-001
+level: 1
+category: files_text
+instruction: nums.txt has one integer per line. Sort numerically descending into sorted.txt.
+answer_mode: files
+max_turns: 4
+tags:
+- sort
+seed: 121536
+split: test
+template: sort_desc

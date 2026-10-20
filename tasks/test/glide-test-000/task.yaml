@@ -1,0 +1,11 @@
+id: glide-test-000
+level: 2
+category: physics
+instruction: Glide ratio L/D for CL=0.67, CD=0.071. Answer with just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- aero
+seed: 685136
+split: test
+template: glide_ratio

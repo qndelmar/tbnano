@@ -1,0 +1,11 @@
+id: trmblk-train-006
+level: 1
+category: code
+instruction: in.txt has blank lines. Remove them into clean.txt.
+answer_mode: files
+max_turns: 4
+tags:
+- sed
+seed: 532333
+split: train
+template: t_rm_blank

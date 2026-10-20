@@ -1,0 +1,11 @@
+id: tappend-train-004
+level: 1
+category: files_text
+instruction: Append the line 'done=313' to the end of cfg.ini.
+answer_mode: files
+max_turns: 4
+tags:
+- append
+seed: 331116
+split: train
+template: t_append_line

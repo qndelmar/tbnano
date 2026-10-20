@@ -1,0 +1,12 @@
+id: drag-test-001
+level: 1
+category: physics
+instruction: Drag force at v=50 m/s, Cd=0.35, area=0.0084 m^2, rho=1.225. (N). Answer
+  with just the number.
+answer_mode: answer
+max_turns: 5
+tags:
+- aero
+seed: 712214
+split: test
+template: drag_force

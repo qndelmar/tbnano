@@ -1,6 +1,6 @@
-python3 -c "
+python3 - <<'PY' > answer.txt
 import csv
-rows=[r for r in csv.DictReader(open('metrics.csv'))]
-v=[float(r['reading']) for r in rows if r['sensor']=='alpha']
-print({'mean':sum(v)/len(v),'sum':sum(v),'max':max(v),'count':len(v)}['max'])
-" > answer.txt
+r=list(csv.DictReader(open('sales.csv')))
+v=[float(x['price']) for x in r]
+print({'sum':sum(v),'avg':sum(v)/len(v),'count':len(v)}['avg'])
+PY

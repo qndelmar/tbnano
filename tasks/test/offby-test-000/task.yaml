@@ -1,0 +1,12 @@
+id: offby-test-000
+level: 2
+category: code
+instruction: seq.py prints 0..14 but must print 1..15. Fix it and write its output
+  to out.txt.
+answer_mode: files
+max_turns: 5
+tags:
+- debug
+seed: 378637
+split: test
+template: fix_offbyone

@@ -1,0 +1,11 @@
+id: tjsoncnt-train-002
+level: 1
+category: data
+instruction: list.json is a JSON array. How many elements? Answer with just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- json
+seed: 159608
+split: train
+template: t_json_count

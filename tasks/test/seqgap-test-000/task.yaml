@@ -1,0 +1,12 @@
+id: seqgap-test-000
+level: 2
+category: files_text
+instruction: ids.txt has consecutive integer IDs, exactly one missing. Which ID is
+  missing? Answer with just the number.
+answer_mode: answer
+max_turns: 5
+tags:
+- seq
+seed: 371510
+split: test
+template: seq_gap

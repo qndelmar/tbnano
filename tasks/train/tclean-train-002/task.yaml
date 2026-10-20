@@ -1,0 +1,11 @@
+id: tclean-train-002
+level: 1
+category: env
+instruction: Delete all *.tmp files but keep keep.txt.
+answer_mode: files
+max_turns: 4
+tags:
+- rm
+seed: 332644
+split: train
+template: t_cleanup

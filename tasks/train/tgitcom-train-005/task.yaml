@@ -1,0 +1,11 @@
+id: tgitcom-train-005
+level: 2
+category: env
+instruction: Append 'v2' to f.txt and commit the change with message 'upd'.
+answer_mode: files
+max_turns: 6
+tags:
+- git
+seed: 558527
+split: train
+template: t_git_commit

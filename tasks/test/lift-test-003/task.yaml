@@ -1,0 +1,12 @@
+id: lift-test-003
+level: 1
+category: physics
+instruction: 'Wing: area 1.05 m^2, CL 0.44, speed 34 m/s, rho=1.225 kg/m^3. Lift force
+  (N)? Answer with just the number.'
+answer_mode: answer
+max_turns: 5
+tags:
+- aero
+seed: 208229
+split: test
+template: lift_force

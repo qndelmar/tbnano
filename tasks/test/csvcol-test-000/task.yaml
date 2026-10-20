@@ -1,0 +1,13 @@
+id: csvcol-test-000
+level: 1
+category: files_text
+instruction: data.csv has header 'name,score,team'. Write just the values of column
+  'team' (skip the header) to extract.txt, one per line, in original order.
+answer_mode: files
+max_turns: 5
+tags:
+- csv
+- cut
+seed: 351116
+split: test
+template: csv_col

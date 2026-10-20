@@ -1,0 +1,13 @@
+id: csvcol-test-002
+level: 1
+category: files_text
+instruction: data.csv has header 'sku,qty,wh'. Write just the values of column 'wh'
+  (skip the header) to extract.txt, one per line, in original order.
+answer_mode: files
+max_turns: 5
+tags:
+- csv
+- cut
+seed: 695474
+split: test
+template: csv_col

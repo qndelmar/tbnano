@@ -1,0 +1,12 @@
+id: tpeak-test-001
+level: 3
+category: physics
+instruction: telem.csv has t,alt,v,t_p. At what time t does altitude peak? Answer
+  with just the number.
+answer_mode: answer
+max_turns: 7
+tags:
+- telemetry
+seed: 646986
+split: test
+template: peak_telem

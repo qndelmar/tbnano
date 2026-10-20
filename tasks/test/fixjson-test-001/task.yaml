@@ -1,0 +1,12 @@
+id: fixjson-test-001
+level: 2
+category: code
+instruction: conf.json fails to parse (trailing comma). Fix it, then write the value
+  of 'port' to out.txt.
+answer_mode: files
+max_turns: 6
+tags:
+- json
+seed: 663748
+split: test
+template: fix_json_conf

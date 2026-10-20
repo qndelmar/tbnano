@@ -1,0 +1,11 @@
+id: trpm_r-train-005
+level: 1
+category: physics
+instruction: Convert 6000 rpm to rad/s. Number only.
+answer_mode: answer
+max_turns: 4
+tags:
+- convert
+seed: 344739
+split: train
+template: t_rpm_rads

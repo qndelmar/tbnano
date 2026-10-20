@@ -1,0 +1,14 @@
+id: mrgcsv-test-006
+level: 4
+category: code
+instruction: Write merge.py that joins a.csv (id,va) and b.csv (id,vb) on id into
+  merged.csv 'id,va,vb' sorted by id, then run it. Verify merged.csv row count equals
+  the input count.
+answer_mode: files
+max_turns: 12
+tags:
+- write
+- csv
+seed: 567187
+split: test
+template: merge_csv

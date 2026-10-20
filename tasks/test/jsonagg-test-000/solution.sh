@@ -1,1 +1,1 @@
-python3 -c "import json;d=json.load(open('records.json'));print(sum(r['value'] for r in d if r['mode']=='retired'))" > answer.txt
+python3 -c "import json;d=json.load(open('metrics.json'));print(sum(x['temp'] for x in d if x['on']))" > answer.txt

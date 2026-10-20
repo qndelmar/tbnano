@@ -1,0 +1,12 @@
+id: batt-test-001
+level: 1
+category: physics
+instruction: A battery is 850 mAh rated 10C. What is the max continuous current (A)?
+  Answer with just the number.
+answer_mode: answer
+max_turns: 5
+tags:
+- battery
+seed: 323737
+split: test
+template: battery_c

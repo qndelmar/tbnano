@@ -58,13 +58,13 @@ def validate_one(
     setup_dir = build_setup_tempdir(spec)
     sb = make_sandbox(sandbox_kind, **(sandbox_kwargs or {}))
     try:
-        sb.start(setup_dir, spec.tests_dir, spec.id)
+        sb.start(setup_dir, spec.id)
         backend = ScriptedBackend(script="oracle")
         backend.set_oracle(split_script(spec.solution_sh.read_text()))
         ep = run_episode(spec, backend, adapter, sb, tok)
         oracle_end = ep.end_reason
         sb.write_submission(ep.answer)
-        tests = sb.run_tests(timeout=60.0)
+        tests = sb.run_tests(spec.tests_dir, timeout=60.0)
         oracle_ok = tests.resolved
         if ep.end_reason != "finish":
             problems.append(f"oracle ended as {ep.end_reason}")
@@ -75,9 +75,9 @@ def validate_one(
             )
 
         # --- empty run ---------------------------------------------------
-        sb.start(setup_dir, spec.tests_dir, spec.id)  # fresh copy
+        sb.start(setup_dir, spec.id)  # fresh copy
         sb.write_submission("")
-        empty_tests = sb.run_tests(timeout=60.0)
+        empty_tests = sb.run_tests(spec.tests_dir, timeout=60.0)
         empty_fails = not empty_tests.resolved
         if not empty_fails:
             problems.append("tests pass with EMPTY solution")
@@ -98,18 +98,31 @@ def validate_one(
 def check_leakage(
     test_specs: list[TaskSpec],
     train_root: Path,
-) -> tuple[bool, set[str]]:
-    """Hash every test instruction + setup file; none may appear in train."""
+) -> tuple[bool, set[str], dict]:
+    """Two checks (spec 5.4 + review):
+    1. Hash-level: no test instruction/setup file appears in train.
+    2. Template-level: test and train template sets must be disjoint —
+       same-template-different-data is still the same skill."""
     from .tasksio import iter_tasks
 
     test_fp: set[str] = set()
+    test_templates: set[str] = set()
     for s in test_specs:
         test_fp |= task_fingerprints(s)
+        test_templates.add(s.template)
     train_fp: set[str] = set()
+    train_templates: set[str] = set()
     for s in iter_tasks(train_root):
         train_fp |= task_fingerprints(s)
+        train_templates.add(s.template)
     overlap = test_fp & train_fp
-    return (len(overlap) == 0, overlap)
+    shared_templates = test_templates & train_templates
+    info = {
+        "n_test_templates": len(test_templates),
+        "n_train_templates": len(train_templates),
+        "shared_templates": sorted(shared_templates),
+    }
+    return (len(overlap) == 0 and not shared_templates, overlap, info)
 
 
 def validate_all(
@@ -134,9 +147,9 @@ def validate_all(
     n = len(verdicts)
     valid = sum(1 for v in verdicts if v.ok)
     oracle_resolved = sum(1 for v in verdicts if v.oracle_resolved)
-    leak_ok, overlap = (True, set())
+    leak_ok, overlap, leak_info = (True, set(), {})
     if check_leak and train_root:
-        leak_ok, overlap = check_leakage(specs, Path(train_root))
+        leak_ok, overlap, leak_info = check_leakage(specs, Path(train_root))
 
     summary = {
         "n_tasks": n,
@@ -145,6 +158,7 @@ def validate_all(
         "oracle_rate": oracle_resolved / n if n else 0.0,
         "leak_free": leak_ok,
         "leak_overlap_count": len(overlap),
+        **leak_info,
         "bad": [
             {"id": v.task_id, "problems": v.problems} for v in verdicts if not v.ok
         ],

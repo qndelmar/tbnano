@@ -1,1 +1,1 @@
-python3 -c "import json;d=json.load(open('events.json'));print(sum(r['value'] for r in d if r['status']=='failed'))" > answer.txt
+python3 -c "import json;d=json.load(open('metrics.json'));print(sum(x['score'] for x in d if x['on']))" > answer.txt

@@ -1,0 +1,12 @@
+id: envvar-test-003
+level: 2
+category: env
+instruction: app.py needs env var RUN_KEY. There is a file .key with the required
+  value. Export it and run app.py writing output to out.txt.
+answer_mode: files
+max_turns: 6
+tags:
+- env
+seed: 921145
+split: test
+template: env_var

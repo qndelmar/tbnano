@@ -1,0 +1,36 @@
+from=<svc54@b.org> size=1093
+from=<qa34@corp.net> size=8170
+from=<dev81@b.org> size=7821
+from=<dev17@a.com> size=3898
+other log line
+from=<dev81@b.org> size=7527
+from=<dev3@a.com> size=4248
+other log line
+other log line
+from=<dev3@a.com> size=1786
+other log line
+other log line
+other log line
+other log line
+other log line
+from=<ops67@a.com> size=3551
+other log line
+other log line
+other log line
+other log line
+other log line
+from=<qa34@b.org> size=8424
+from=<qa34@corp.net> size=6501
+other log line
+other log line
+from=<svc65@a.com> size=8333
+other log line
+from=<qa34@b.org> size=5379
+from=<dev3@a.com> size=3326
+from=<svc54@b.org> size=5308
+from=<dev81@b.org> size=4796
+from=<ops67@a.com> size=9028
+other log line
+other log line
+from=<ops67@a.com> size=1050
+from=<dev37@corp.net> size=6972

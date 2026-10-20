@@ -1,0 +1,12 @@
+id: batt-test-002
+level: 1
+category: physics
+instruction: A battery is 2200 mAh rated 30C. What is the max continuous current (A)?
+  Answer with just the number.
+answer_mode: answer
+max_turns: 5
+tags:
+- battery
+seed: 404131
+split: test
+template: battery_c

@@ -1,1 +1,1 @@
-grep -c '\[WARN\]' system.log > answer.txt
+grep -c '\[WARN\]' svc.log > answer.txt

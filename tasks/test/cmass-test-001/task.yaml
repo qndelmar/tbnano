@@ -1,0 +1,12 @@
+id: cmass-test-001
+level: 2
+category: physics
+instruction: parts.csv rows are 'mass_kg,pos_cm'. Compute the center of mass position
+  (cm). Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- mass
+seed: 948013
+split: test
+template: center_mass

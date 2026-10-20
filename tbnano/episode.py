@@ -31,6 +31,7 @@ END_MAX_TURNS = "max_turns"
 END_CONTEXT_OVERFLOW = "context_overflow"
 END_TIMEOUT = "timeout"
 END_NO_CALL = "no_call"
+END_HARNESS_ERROR = "harness_error"
 
 _NO_CALL_NUDGE = (
     "No tool call was detected in your reply. Respond with exactly one "
@@ -75,18 +76,49 @@ def run_episode(
     temperature: float = 0.0,
     seed: Optional[int] = None,
 ) -> EpisodeResult:
+    try:
+        return _run_episode(spec, backend, adapter, sandbox, tok, temperature, seed)
+    except Exception as e:  # one bad task/model quirk must not kill the run
+        import traceback
+
+        res = EpisodeResult(task_id=spec.id, end_reason=END_HARNESS_ERROR)
+        res.trajectory.append(
+            {"kind": "harness_error", "error": traceback.format_exc()}
+        )
+        return res
+
+
+def _run_episode(
+    spec: TaskSpec,
+    backend: Backend,
+    adapter: Adapter,
+    sandbox: Sandbox,
+    tok: Tokenizer,
+    temperature: float = 0.0,
+    seed: Optional[int] = None,
+) -> EpisodeResult:
     res = EpisodeResult(task_id=spec.id, end_reason=END_MAX_TURNS)
     messages: list[dict[str, Any]] = [
         {"role": "system", "content": adapter.system_prompt()},
         {"role": "user", "content": spec.instruction},
     ]
+    # Context limit = min(spec budget, the model's own context) — a model
+    # trained on 1024 tokens hits context_overflow at 1024, not silently.
+    max_ctx = min(
+        MAX_CONTEXT_TOKENS,
+        int(getattr(backend, "max_context", 0) or MAX_CONTEXT_TOKENS),
+    )
     res.tokens_used = backend.count_context(messages)
-    if res.tokens_used > MAX_CONTEXT_TOKENS:
+    if res.tokens_used > max_ctx:
         res.end_reason = END_CONTEXT_OVERFLOW
         return res
 
     text_streak = 0
     tools_arg = adapter.schemas() if adapter.native_tools else None
+
+    def _overflow(ctx: int) -> bool:
+        res.tokens_used = max(res.tokens_used, ctx)
+        return ctx > max_ctx
 
     for turn in range(spec.max_turns):
         reply = backend.generate(
@@ -123,6 +155,11 @@ def run_episode(
                 _update_tokens(res, backend, messages)
                 return res
             messages.append({"role": "user", "content": _NO_CALL_NUDGE})
+            # The nudge is part of the protocol and counts toward tokens.
+            if _overflow(backend.count_context(messages)):
+                res.end_reason = END_CONTEXT_OVERFLOW
+                res.turns_used = turn + 1
+                return res
             continue
         text_streak = 0
 
@@ -135,12 +172,29 @@ def run_episode(
             res.trajectory.append(
                 {"turn": turn, "reply": reply_text, "kind": "invalid", "error": err}
             )
+            if _overflow(backend.count_context(messages)):
+                res.end_reason = END_CONTEXT_OVERFLOW
+                res.turns_used = turn + 1
+                return res
             continue
 
         messages.append({"role": "assistant", "content": reply_text})
         res.trajectory.append(
             {"turn": turn, "reply": reply_text, "kind": "call", "call": call.to_json()}
         )
+
+        arg_err = _validate_args(call)
+        if arg_err is not None:
+            # A malformed argument is an invalid call — the model sees an
+            # error message, not a crashed benchmark.
+            res.invalid_calls += 1
+            messages.append({"role": "tool", "content": _ERROR_NUDGE.format(err=arg_err)})
+            res.trajectory[-1]["invalid"] = arg_err
+            if _overflow(backend.count_context(messages)):
+                res.end_reason = END_CONTEXT_OVERFLOW
+                res.turns_used = turn + 1
+                return res
+            continue
 
         if call.name == "finish":
             res.answer = str(call.arguments.get("answer", "") or "")
@@ -163,7 +217,7 @@ def run_episode(
 
         ctx = backend.count_context(messages)
         res.tokens_used = max(res.tokens_used, ctx)
-        if ctx > MAX_CONTEXT_TOKENS:
+        if ctx > max_ctx:
             res.end_reason = END_CONTEXT_OVERFLOW
             res.turns_used = turn + 1
             return res
@@ -176,6 +230,46 @@ def run_episode(
 
 def _update_tokens(res: EpisodeResult, backend: Backend, messages) -> None:
     res.tokens_used = max(res.tokens_used, backend.count_context(messages))
+
+
+_ARG_TYPES = {
+    "run": {"cmd": "string"},
+    "read_file": {"path": "string", "start": "int", "lines": "int"},
+    "write_file": {"path": "string", "content": "string"},
+    "finish": {"answer": "any"},
+}
+
+
+def _validate_args(call: ToolCall) -> Optional[str]:
+    """Type-check/coerce arguments per the tool's JSON schema. Returns an
+    error string for a malformed call (invalid call, not an exception)."""
+    a = call.arguments or {}
+    if not isinstance(a, dict):
+        return "arguments must be a JSON object"
+    spec_args = _ARG_TYPES.get(call.name)
+    if spec_args is None:
+        return f"unknown tool {call.name}"
+    for k, kind in spec_args.items():
+        if k not in a:
+            if kind == "string" and call.name == "run" and k == "cmd":
+                return "missing required argument 'cmd'"
+            if kind == "string" and k in ("path", "content"):
+                return f"missing required argument '{k}'"
+            continue  # optional arg with a default
+        v = a[k]
+        if kind == "string":
+            if not isinstance(v, str):
+                if isinstance(v, (int, float, bool)):
+                    a[k] = str(v)  # coerce scalars (finish(answer=42) etc.)
+                else:
+                    return f"argument '{k}' must be a string"
+        elif kind == "int":
+            if isinstance(v, bool) or not isinstance(v, int):
+                try:
+                    a[k] = int(v)
+                except (TypeError, ValueError):
+                    return f"argument '{k}' must be an integer, got {v!r}"
+    return None
 
 
 def _exec_call(call: ToolCall, sandbox: Sandbox) -> tuple[str, float, bool]:

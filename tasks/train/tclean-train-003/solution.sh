@@ -1,0 +1,2 @@
+rm -f *.tmp
+ls

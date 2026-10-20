@@ -1,0 +1,12 @@
+id: tsheb-train-002
+level: 1
+category: code
+instruction: s.sh runs with bash but lacks a shebang. Add '#!/bin/bash' as the first
+  line of s.sh.
+answer_mode: files
+max_turns: 4
+tags:
+- edit
+seed: 328410
+split: train
+template: t_add_shebang

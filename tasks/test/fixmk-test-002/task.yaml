@@ -1,0 +1,12 @@
+id: fixmk-test-002
+level: 3
+category: code
+instruction: 'Makefile fails (''missing separator''): the recipe is indented with
+  spaces. Fix it (tab), run `make`, write its output to out.txt.'
+answer_mode: files
+max_turns: 8
+tags:
+- make
+seed: 458721
+split: test
+template: fix_make

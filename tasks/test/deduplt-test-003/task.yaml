@@ -1,0 +1,13 @@
+id: deduplt-test-003
+level: 3
+category: data
+instruction: events.json is a JSON array of {id, ts, v} with duplicate ids. Keep only
+  the row with max ts per id, sorted by id, write a JSON array to out.json.
+answer_mode: files
+max_turns: 8
+tags:
+- json
+- dedup
+seed: 528233
+split: test
+template: dedup_latest

@@ -1,0 +1,80 @@
+[DEBUG] has retry here
+[CRITICAL] plain gc pause
+[DEBUG] plain write complete
+[CRITICAL] has retry here
+[INFO] has retry here
+[WARN] has retry here
+[DEBUG] has retry here
+[INFO] plain write complete
+[INFO] plain job started
+[WARN] has retry here
+[INFO] has retry here
+[INFO] plain worker spawned
+[INFO] has retry here
+[INFO] plain request handled
+[CRITICAL] has retry here
+[CRITICAL] plain user login
+[DEBUG] plain probe failed
+[INFO] plain cache miss
+[WARN] plain job started
+[DEBUG] plain cache miss
+[ERROR] plain cache miss
+[DEBUG] has retry here
+[CRITICAL] plain request handled
+[WARN] plain worker spawned
+[DEBUG] has retry here
+[ERROR] plain heartbeat
+[INFO] plain user login
+[WARN] has retry here
+[CRITICAL] plain probe failed
+[DEBUG] has retry here
+[ERROR] has retry here
+[ERROR] plain gc pause
+[INFO] plain write complete
+[WARN] plain heartbeat
+[CRITICAL] plain write complete
+[CRITICAL] plain cache miss
+[ERROR] plain request handled
+[WARN] plain request handled
+[WARN] plain disk check ok
+[INFO] plain connection opened
+[DEBUG] has retry here
+[CRITICAL] plain job started
+[WARN] plain disk check ok
+[ERROR] has retry here
+[INFO] plain probe failed
+[INFO] plain probe failed
+[WARN] plain request handled
+[ERROR] has retry here
+[DEBUG] plain user login
+[INFO] has retry here
+[CRITICAL] has retry here
+[ERROR] has retry here
+[WARN] plain request handled
+[ERROR] plain write complete
+[INFO] plain probe failed
+[CRITICAL] plain worker spawned
+[CRITICAL] plain write complete
+[WARN] plain gc pause
+[WARN] plain disk check ok
+[WARN] plain gc pause
+[CRITICAL] has retry here
+[ERROR] plain request handled
+[DEBUG] plain request handled
+[ERROR] plain write complete
+[CRITICAL] plain disk check ok
+[ERROR] plain cache miss
+[ERROR] plain write complete
+[INFO] plain disk check ok
+[ERROR] has retry here
+[DEBUG] plain disk check ok
+[CRITICAL] plain request handled
+[ERROR] plain probe failed
+[WARN] plain disk check ok
+[DEBUG] has retry here
+[INFO] has retry here
+[DEBUG] has retry here
+[INFO] plain write complete
+[DEBUG] plain cache miss
+[WARN] plain heartbeat
+[DEBUG] has retry here

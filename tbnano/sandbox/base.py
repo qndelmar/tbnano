@@ -1,13 +1,13 @@
 """Sandbox interface.
 
 Lifecycle per task:
-    sb.start(setup_dir, tests_dir, task_id)  # fresh /task from the task's setup
-    sb.run(cmd, timeout)                     # bash -lc in /task
+    sb.start(setup_dir, task_id)  # fresh /task; tests are NOT in the sandbox
+    sb.run(cmd, timeout)          # bash -lc in /task
     sb.read_file(path, start, lines)
     sb.write_file(path, content)
-    sb.write_submission(answer)              # -> /task/.submission/answer.txt
-    sb.run_tests(timeout)                    # pytest on the injected tests
-    sb.close()                               # destroy the environment
+    sb.write_submission(answer)   # -> /task/.submission/answer.txt
+    sb.run_tests(tests_dir, timeout)  # pytest, staged only after the episode
+    sb.close()                    # destroy the environment
 """
 
 from __future__ import annotations
@@ -41,6 +41,11 @@ class TestResult:
     total: int = 0
     output: str = ""
     error: Optional[str] = None
+    # Zero-weight ("presence") tests exist so `resolved` still requires a
+    # submitted answer / produced file, but they must not inflate the
+    # `partial` metric (a junk answer would otherwise score 50%).
+    presence_passed: int = 0
+    presence_total: int = 0
 
     @property
     def resolved(self) -> bool:
@@ -48,10 +53,22 @@ class TestResult:
 
     @property
     def partial(self) -> float:
-        return self.passed / self.total if self.total else 0.0
+        scored = self.total - self.presence_total
+        if scored <= 0:
+            return 0.0
+        return (self.passed - self.presence_passed) / scored
 
 
 _SUMMARY_RE = re.compile(r"(\d+)\s+(passed|failed|error|skipped|xfailed|xpassed)")
+_LINE_RE = re.compile(
+    r"\b([\w./-]*test[\w.-]*)::(test_\w+)\s+(PASSED|FAILED|ERROR|SKIPPED|XFAIL|XPASS)\b"
+)
+
+
+def is_presence_test(name: str) -> bool:
+    """Convention: `test_*_present*` / `test_presence_*` checks only assert
+    an artifact exists; they carry zero weight in `partial`."""
+    return name.startswith("test_presence") or "_present" in name
 
 
 def parse_pytest_summary(output: str) -> TestResult:
@@ -61,14 +78,25 @@ def parse_pytest_summary(output: str) -> TestResult:
     passed = counts.get("passed", 0) + counts.get("xpassed", 0)
     failed = counts.get("failed", 0) + counts.get("error", 0) + counts.get("xfailed", 0)
     total = passed + failed + counts.get("skipped", 0)
-    return TestResult(passed=passed, total=total, output=output)
+    tr = TestResult(passed=passed, total=total, output=output)
+    # Prefer per-test lines (pytest -v): they let us weigh presence tests
+    # at zero. If they are absent the summary counts stand.
+    per_test = _LINE_RE.findall(output)
+    if per_test:
+        tr.presence_total = sum(1 for _, name, _ in per_test if is_presence_test(name))
+        tr.presence_passed = sum(
+            1
+            for _, name, st in per_test
+            if is_presence_test(name) and st in ("PASSED", "XPASS")
+        )
+    return tr
 
 
 class Sandbox(Protocol):
-    def start(self, setup_dir: Path, tests_dir: Optional[Path], task_id: str) -> None: ...
+    def start(self, setup_dir: Path, task_id: str) -> None: ...
     def run(self, cmd: str, timeout: float) -> ExecResult: ...
     def read_file(self, path: str, start: int = 1, lines: int = 60) -> dict: ...
     def write_file(self, path: str, content: str) -> dict: ...
     def write_submission(self, answer: str) -> None: ...
-    def run_tests(self, timeout: float) -> TestResult: ...
+    def run_tests(self, tests_dir: Path, timeout: float) -> TestResult: ...
     def close(self) -> None: ...

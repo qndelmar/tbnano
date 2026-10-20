@@ -1,0 +1,12 @@
+id: course-test-001
+level: 3
+category: physics
+instruction: gps.txt has 'lat1=41.5916', 'lon1=5.461', 'lat2=41.5916', 'lon2=6.2065'.
+  Compute the haversine distance (km, R=6371). Answer with just the number.
+answer_mode: answer
+max_turns: 8
+tags:
+- gps
+seed: 887217
+split: test
+template: course_dist

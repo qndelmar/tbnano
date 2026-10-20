@@ -1,0 +1,11 @@
+id: trpm_r-train-004
+level: 1
+category: physics
+instruction: Convert 3000 rpm to rad/s. Number only.
+answer_mode: answer
+max_turns: 4
+tags:
+- convert
+seed: 105545
+split: train
+template: t_rpm_rads

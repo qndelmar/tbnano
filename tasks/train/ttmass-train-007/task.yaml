@@ -1,0 +1,12 @@
+id: ttmass-train-007
+level: 1
+category: physics
+instruction: masses.txt has component masses in kg, one per line. Total mass? Number
+  only.
+answer_mode: answer
+max_turns: 4
+tags:
+- sum
+seed: 473133
+split: train
+template: t_total_mass

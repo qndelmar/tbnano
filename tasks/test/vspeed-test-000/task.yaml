@@ -1,0 +1,12 @@
+id: vspeed-test-000
+level: 2
+category: physics
+instruction: telem.csv has columns t,alt,v,t_p. What is the maximum altitude (m)?
+  Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- telemetry
+seed: 533134
+split: test
+template: vert_speed

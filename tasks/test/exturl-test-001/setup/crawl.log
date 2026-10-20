@@ -1,0 +1,28 @@
+GET /api/228 HTTP/1.1 200
+GET /api/116 HTTP/1.1 200
+GET /v2/415 HTTP/1.1 200
+GET /doc/365 HTTP/1.1 404
+GET /api/228 HTTP/1.1 200
+noise line
+noise line
+GET /api/350 HTTP/1.1 200
+noise line
+noise line
+GET /api/215 HTTP/1.1 404
+noise line
+noise line
+GET /api/232 HTTP/1.1 200
+GET /doc/210 HTTP/1.1 200
+noise line
+GET /api/73 HTTP/1.1 404
+GET /api/232 HTTP/1.1 404
+GET /v2/415 HTTP/1.1 200
+noise line
+GET /v2/71 HTTP/1.1 404
+GET /api/215 HTTP/1.1 404
+GET /api/228 HTTP/1.1 404
+GET /v2/75 HTTP/1.1 404
+GET /v2/415 HTTP/1.1 200
+GET /api/215 HTTP/1.1 200
+GET /doc/494 HTTP/1.1 404
+GET /doc/365 HTTP/1.1 404

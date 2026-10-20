@@ -1,0 +1,13 @@
+id: jsonlf-test-001
+level: 2
+category: files_text
+instruction: in.jsonl has JSON objects per line with a 'kind' field. Keep only lines
+  with kind=="alarm" verbatim, write to out.jsonl in original order.
+answer_mode: files
+max_turns: 6
+tags:
+- json
+- filter
+seed: 76481
+split: test
+template: jsonl_filter

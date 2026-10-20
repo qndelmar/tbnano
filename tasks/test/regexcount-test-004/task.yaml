@@ -1,0 +1,12 @@
+id: regexcount-test-004
+level: 2
+category: files_text
+instruction: How many lines in system.log contain the word 'null'? Answer with just
+  the number.
+answer_mode: answer
+max_turns: 5
+tags:
+- grep
+seed: 148312
+split: test
+template: count_regex

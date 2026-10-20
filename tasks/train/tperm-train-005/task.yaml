@@ -1,0 +1,12 @@
+id: tperm-train-005
+level: 2
+category: env
+instruction: secret.txt is not readable (mode 000). Make it readable and copy its
+  content to out.txt.
+answer_mode: files
+max_turns: 5
+tags:
+- chmod
+seed: 879595
+split: train
+template: t_perm_read

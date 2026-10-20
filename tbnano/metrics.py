@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import math
+import random
 from collections import defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -22,6 +23,7 @@ class RunRecord:
     exec_seconds: float
     level: int = 0
     category: str = ""
+    template: str = ""
     sample: int = 0
 
 
@@ -44,6 +46,33 @@ def pass_at_k(num_samples: int, num_correct: int, k: int) -> float:
     return 1.0 - math.comb(n - c, k) / math.comb(n, k)
 
 
+def cluster_bootstrap_ci(
+    records: list[RunRecord],
+    key: str = "template",
+    iters: int = 2000,
+    seed: int = 0,
+) -> tuple[float, float]:
+    """Cluster bootstrap 95% CI for pass@1, resampling *templates* not
+    tasks: variants inside one template are correlated, so treating 300+
+    tasks as independent understates the interval."""
+    clusters: dict[str, list[RunRecord]] = defaultdict(list)
+    for r in records:
+        clusters[getattr(r, key, "") or r.task_id].append(r)
+    names = sorted(clusters)
+    if len(names) < 2:
+        n = len(records)
+        k = sum(1 for r in records if r.resolved)
+        return wilson_ci(k, n)
+    rng = random.Random(seed)
+    stats = []
+    for _ in range(iters):
+        draw = [clusters[rng.choice(names)] for _ in range(len(names))]
+        flat = [r for cl in draw for r in cl]
+        stats.append(sum(1 for r in flat if r.resolved) / len(flat))
+    stats.sort()
+    return (stats[int(0.025 * iters)], stats[min(iters - 1, int(0.975 * iters))])
+
+
 def _group_stats(records: list[RunRecord]) -> dict[str, Any]:
     n = len(records)
     k = sum(1 for r in records if r.resolved)
@@ -51,10 +80,13 @@ def _group_stats(records: list[RunRecord]) -> dict[str, Any]:
     end_counts: dict[str, int] = defaultdict(int)
     for r in records:
         end_counts[r.end_reason] += 1
+    blo, bhi = cluster_bootstrap_ci(records)
     return {
         "n": n,
         "pass@1": k / n if n else 0.0,
         "pass@1_ci95": [round(lo, 4), round(hi, 4)],
+        "pass@1_ci95_cluster": [round(blo, 4), round(bhi, 4)],
+        "n_templates": len({r.template or r.task_id for r in records}),
         "partial": sum(r.partial for r in records) / n if n else 0.0,
         "invalid_call_rate": (
             sum(r.invalid_calls for r in records)
@@ -82,6 +114,16 @@ def aggregate(records: list[RunRecord]) -> dict[str, Any]:
     report["by_category"] = {
         cat: _group_stats(rs) for cat, rs in sorted(by_cat.items())
     }
+    by_tpl: dict[str, list[RunRecord]] = defaultdict(list)
+    for r in records:
+        by_tpl[r.template or r.task_id].append(r)
+    report["by_template"] = {
+        t: {"n": len(rs), "pass@1": sum(1 for r in rs if r.resolved) / len(rs)}
+        for t, rs in sorted(by_tpl.items())
+    }
+    report["harness_errors"] = sum(
+        1 for r in records if r.end_reason == "harness_error"
+    )
 
     # pass@k: group samples per task.
     by_task: dict[str, list[RunRecord]] = defaultdict(list)
@@ -111,12 +153,12 @@ def write_report(records: list[RunRecord], out_dir: Path, model: str) -> Path:
 def format_table(reports: dict[str, dict]) -> str:
     """Short stdout table (and --compare across models)."""
     lines = [
-        f"{'model':<28} {'n':>5} {'pass@1':>7} {'ci95':>15} {'partial':>7} "
-        f"{'inv%':>6} {'turns':>5} {'tok':>6}"
+        f"{'model':<28} {'n':>5} {'pass@1':>7} {'ci95(cluster)':>15} "
+        f"{'partial':>7} {'inv%':>6} {'turns':>5} {'tok':>6}"
     ]
     for name, rep in reports.items():
         o = rep.get("overall", {})
-        ci = o.get("pass@1_ci95", [0, 0])
+        ci = o.get("pass@1_ci95_cluster") or o.get("pass@1_ci95", [0, 0])
         lines.append(
             f"{name:<28} {rep.get('n_tasks', o.get('n', 0)):>5} "
             f"{o.get('pass@1', 0) * 100:>6.1f}% "

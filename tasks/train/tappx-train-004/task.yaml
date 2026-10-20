@@ -1,0 +1,11 @@
+id: tappx-train-004
+level: 1
+category: code
+instruction: Append a line 'END' to doc.txt.
+answer_mode: files
+max_turns: 4
+tags:
+- append
+seed: 480991
+split: train
+template: t_append_text

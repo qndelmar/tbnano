@@ -1,0 +1,13 @@
+id: fixc-test-000
+level: 3
+category: code
+instruction: prog.c does not compile (missing semicolon). Fix it, compile with cc
+  to ./prog, run it, write its output to out.txt.
+answer_mode: files
+max_turns: 8
+tags:
+- c
+- debug
+seed: 471094
+split: test
+template: fix_c

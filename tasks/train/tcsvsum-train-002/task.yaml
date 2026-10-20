@@ -1,0 +1,12 @@
+id: tcsvsum-train-002
+level: 1
+category: data
+instruction: data.csv has header 'v' then numbers. Sum them. Answer with just the
+  number.
+answer_mode: answer
+max_turns: 4
+tags:
+- csv
+seed: 686825
+split: train
+template: t_csv_sum

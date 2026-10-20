@@ -1,0 +1,12 @@
+id: tfreq-train-001
+level: 1
+category: files_text
+instruction: text.txt has words separated by spaces. How many times does 'fox' appear?
+  Answer with just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- count
+seed: 233212
+split: train
+template: t_word_freq

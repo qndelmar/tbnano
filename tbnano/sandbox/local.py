@@ -12,6 +12,7 @@ import os
 import resource
 import shutil
 import subprocess
+import sys
 import tempfile
 import time
 from pathlib import Path
@@ -24,10 +25,8 @@ def _limits() -> None:
     # Runs in the child right before exec.
     resource.setrlimit(resource.RLIMIT_CPU, (120, 120))
     resource.setrlimit(resource.RLIMIT_FSIZE, (256 << 20, 256 << 20))
-    try:
-        resource.setrlimit(resource.RLIMIT_NPROC, (512, 512))
-    except (ValueError, OSError):
-        pass
+    # NOTE: no RLIMIT_NPROC — it counts the uid's processes system-wide,
+    # which would make parallel local runs fork-fail.
 
 
 class LocalSandbox:
@@ -39,15 +38,13 @@ class LocalSandbox:
         self._tests_dir: Optional[Path] = None
 
     # -- lifecycle ------------------------------------------------------
-    def start(self, setup_dir: Path, tests_dir: Optional[Path], task_id: str) -> None:
+    def start(self, setup_dir: Path, task_id: str) -> None:
+        # Tests are NOT placed in the sandbox during the episode: the agent
+        # must not see them (correct answers live in test.py). They are
+        # staged only inside run_tests(), after the episode ends.
         if self.task_dir.exists():
             shutil.rmtree(self.task_dir)
-        shutil.copytree(setup_dir, self.task_dir)
-        if tests_dir is not None:
-            self._tests_dir = self._root / ".tests"
-            if self._tests_dir.exists():
-                shutil.rmtree(self._tests_dir)
-            shutil.copytree(tests_dir, self._tests_dir)
+        shutil.copytree(setup_dir, self.task_dir, symlinks=True)
 
     def close(self) -> None:
         if not self._keep and self._root.exists():
@@ -69,10 +66,17 @@ class LocalSandbox:
     def run(self, cmd: str, timeout: float) -> ExecResult:
         # Keep the real HOME so user-site packages (e.g. pytest) resolve;
         # local mode is a debug sandbox, not a security boundary.
+        # HOME is the task dir itself: the agent cannot read or damage the
+        # real home directory. PYTHONPATH carries user-site packages
+        # (pytest) that a real HOME would have resolved.
+        user_site = os.path.expanduser(
+            f"~/.local/lib/python{sys.version_info.major}.{sys.version_info.minor}/site-packages"
+        )
         env = {
             "PATH": os.path.expanduser("~/.local/bin")
             + ":/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin",
-            "HOME": os.path.expanduser("~"),
+            "HOME": str(self.task_dir),
+            "PYTHONPATH": user_site,
             "LANG": "C.UTF-8",
             "LC_ALL": "C.UTF-8",
             "TERM": "dumb",
@@ -130,12 +134,16 @@ class LocalSandbox:
         sub.mkdir(parents=True, exist_ok=True)
         (sub / "answer.txt").write_text(answer)
 
-    def run_tests(self, timeout: float) -> TestResult:
-        if self._tests_dir is None:
-            return TestResult(error="no tests injected")
+    def run_tests(self, tests_dir: Path, timeout: float) -> TestResult:
+        # Stage tests only now — after the episode — so they never sat in
+        # the agent's filesystem while it acted.
+        self._tests_dir = self._root / ".tests"
+        if self._tests_dir.exists():
+            shutil.rmtree(self._tests_dir)
+        shutil.copytree(tests_dir, self._tests_dir)
         res = self.run(
-            f"python3 -m pytest {self._tests_dir} -q --no-header "
-            "-o 'python_files=test.py test_*.py' --tb=short 2>&1 | tail -c 4000",
+            f"python3 -m pytest {self._tests_dir} -v --no-header "
+            "-o 'python_files=test.py test_*.py' --tb=line 2>&1 | tail -c 8000",
             timeout=timeout,
         )
         out = res.stdout + res.stderr

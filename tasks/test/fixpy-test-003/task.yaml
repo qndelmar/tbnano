@@ -1,13 +1,13 @@
 id: fixpy-test-003
 level: 3
 category: code
-instruction: '`python3 check.py` prints wrong results — clamp() in ops.py is buggy.
-  Fix ops.py so the outputs match the ''expect'' values.'
+instruction: offbyone.py is buggy (drop the -1 so the whole list is summed). Fix it
+  so it prints the correct value, then write its output to out.txt.
 answer_mode: files
 max_turns: 8
 tags:
+- debug
 - python
-- bugfix
-seed: 264479
+seed: 973813
 split: test
-origin: tb1/broken-python
+template: fix_python

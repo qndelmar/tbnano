@@ -1,9 +1,12 @@
-import os, sys
-sys.path.insert(0, os.environ.get('TBNANO_TASK_DIR', '/task'))
-from utils import area_circle
+import os
+from pathlib import Path
 
-def test_area_circle():
-    assert abs(area_circle(2) - 12.56636) < 1e-4, f'{ area_circle(2) } != 12.56636'
-    assert abs(area_circle(5) - 78.53975) < 1e-4, f'{ area_circle(5) } != 78.53975'
-    assert abs(area_circle(1) - 3.14159) < 1e-4, f'{ area_circle(1) } != 3.14159'
-    assert abs(area_circle(3.5) - 38.484477) < 1e-4, f'{ area_circle(3.5) } != 38.484477'
+BASE = Path(os.environ.get("TBNANO_TASK_DIR", "/task"))
+EXPECTED = '13.0\n'
+OUT = 'out.txt'
+
+def test_file_present():
+    assert (BASE / OUT).exists(), f"{OUT} missing"
+
+def test_content():
+    assert (BASE / OUT).read_text() == EXPECTED

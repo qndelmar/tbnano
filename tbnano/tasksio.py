@@ -40,6 +40,7 @@ class TaskSpec:
     tags: list[str] = field(default_factory=list)
     seed: int = 0
     origin: Optional[str] = None          # e.g. "tb1/<task-id>" for adapted tasks
+    template: str = ""                    # generator archetype; test∩train = ∅
     rel_tol: float = 1e-3
     split: str = "test"
 
@@ -74,6 +75,7 @@ def load_task(task_dir: Path, split: str = "test") -> TaskSpec:
         tags=list(meta.get("tags", [])),
         seed=int(meta.get("seed", 0)),
         origin=meta.get("origin"),
+        template=str(meta.get("template", "")),
         rel_tol=float(meta.get("rel_tol", 1e-3)),
         split=meta.get("split", split),
     )
@@ -102,6 +104,8 @@ def validate_task(spec: TaskSpec, tok: Tokenizer) -> list[str]:
         problems.append("missing solution.sh")
     if spec.level == 1 and spec.max_turns > 6:
         problems.append("level-1 task has max_turns > 6")
+    if not spec.template:
+        problems.append("missing template field")
     return problems
 
 

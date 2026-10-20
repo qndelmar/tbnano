@@ -1,0 +1,13 @@
+id: csvcol-test-001
+level: 1
+category: files_text
+instruction: data.csv has header 'id,city,temp'. Write just the values of column 'id'
+  (skip the header) to extract.txt, one per line, in original order.
+answer_mode: files
+max_turns: 5
+tags:
+- csv
+- cut
+seed: 523532
+split: test
+template: csv_col

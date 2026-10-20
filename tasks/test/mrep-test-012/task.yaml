@@ -1,0 +1,14 @@
+id: mrep-test-012
+level: 4
+category: physics
+instruction: 'telem.csv has t,alt,v,t_p. Inspect the columns, then write report.txt
+  with exactly three lines: ''apogee_m=<max alt>'', ''t_apogee_s=<t at max alt>'',
+  ''vmax_ms=<max v>''. Verify the file has 3 lines.'
+answer_mode: files
+max_turns: 12
+tags:
+- telemetry
+- report
+seed: 20855
+split: test
+template: multi_report

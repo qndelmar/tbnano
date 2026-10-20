@@ -2,8 +2,11 @@ import os
 from pathlib import Path
 
 BASE = Path(os.environ.get("TBNANO_TASK_DIR", "/task"))
+EXPECTED = '35\n'
+OUT = 'out.txt'
 
-def test_restored():
-    p = BASE / "manifest.txt"
-    assert p.exists(), "manifest.txt not restored"
-    assert "hyperdrive-403" in p.read_text()
+def test_file_present():
+    assert (BASE / OUT).exists(), f"{OUT} missing"
+
+def test_content():
+    assert (BASE / OUT).read_text() == EXPECTED

@@ -1,0 +1,12 @@
+id: symfix-test-002
+level: 2
+category: env
+instruction: link.txt is a dangling symlink (points to missing.txt). Real data is
+  in data.txt. Repoint link.txt at data.txt, then copy the resolved content to out.txt.
+answer_mode: files
+max_turns: 6
+tags:
+- ln
+seed: 848393
+split: test
+template: symlink_fix

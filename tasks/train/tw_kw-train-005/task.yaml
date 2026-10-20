@@ -1,0 +1,11 @@
+id: tw_kw-train-005
+level: 1
+category: physics
+instruction: Convert 2300 W to kW. Number only.
+answer_mode: answer
+max_turns: 4
+tags:
+- convert
+seed: 829334
+split: train
+template: t_w_kw

@@ -1,12 +1,12 @@
 id: gitrest-test-001
 level: 3
 category: env
-instruction: config.ini was deleted in the latest commit. Restore its previous version
-  from git history into the working tree.
+instruction: cfg.txt was overwritten with 'x=BROKEN'. Restore the committed version
+  (git), then write the value of x to out.txt.
 answer_mode: files
 max_turns: 8
 tags:
 - git
-- restore
-seed: 625041
+seed: 654943
 split: test
+template: git_restore

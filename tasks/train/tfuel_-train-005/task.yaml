@@ -1,0 +1,11 @@
+id: tfuel_-train-005
+level: 1
+category: physics
+instruction: Rocket mass 2.0 kg has 0.32 kg fuel. Fuel percent? Number only.
+answer_mode: answer
+max_turns: 4
+tags:
+- percent
+seed: 300383
+split: train
+template: t_fuel_pct

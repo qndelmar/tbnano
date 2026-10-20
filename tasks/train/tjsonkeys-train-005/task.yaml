@@ -1,0 +1,12 @@
+id: tjsonkeys-train-005
+level: 1
+category: data
+instruction: conf.json is a flat JSON object. Write its keys sorted, one per line,
+  to keys.txt.
+answer_mode: files
+max_turns: 4
+tags:
+- json
+seed: 754596
+split: train
+template: t_json_keys

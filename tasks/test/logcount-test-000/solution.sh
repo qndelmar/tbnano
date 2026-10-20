@@ -1,1 +1,1 @@
-grep -c '\[CRITICAL\]' server.log > answer.txt
+grep -c '\[WARN\]' daemon.log > answer.txt

@@ -1,0 +1,11 @@
+id: tkmh_m-train-002
+level: 1
+category: physics
+instruction: Convert 80 km/h to mph (x0.621371). Number only.
+answer_mode: answer
+max_turns: 4
+tags:
+- convert
+seed: 304277
+split: train
+template: t_kmh_mph

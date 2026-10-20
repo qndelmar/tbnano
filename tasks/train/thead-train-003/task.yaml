@@ -1,0 +1,11 @@
+id: thead-train-003
+level: 1
+category: files_text
+instruction: Write the first 5 lines of big.txt to top.txt.
+answer_mode: files
+max_turns: 4
+tags:
+- head
+seed: 556198
+split: train
+template: t_head_n

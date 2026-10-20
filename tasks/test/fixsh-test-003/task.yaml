@@ -1,0 +1,13 @@
+id: fixsh-test-003
+level: 2
+category: code
+instruction: run.sh fails (unbalanced arithmetic parens). Fix it and write its stdout
+  to out.txt.
+answer_mode: files
+max_turns: 6
+tags:
+- debug
+- bash
+seed: 322413
+split: test
+template: fix_bash

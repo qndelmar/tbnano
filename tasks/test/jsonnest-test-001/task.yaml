@@ -1,0 +1,13 @@
+id: jsonnest-test-001
+level: 3
+category: data
+instruction: nest.json is a JSON array of objects {id, meta:{score}}. Sum meta.score
+  over objects with even id. Answer with just the number.
+answer_mode: answer
+max_turns: 8
+tags:
+- json
+- nested
+seed: 118995
+split: test
+template: json_nested

@@ -1,0 +1,13 @@
+id: addflag-test-000
+level: 3
+category: code
+instruction: 'echo.py prints its args. Add a ''-u'' flag that uppercases the output
+  (run: python3 echo.py -u hello). Run it with ''-u hi there'' and write output to
+  out.txt.'
+answer_mode: files
+max_turns: 8
+tags:
+- edit
+seed: 885440
+split: test
+template: add_flag

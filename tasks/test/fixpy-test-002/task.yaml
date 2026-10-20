@@ -1,13 +1,13 @@
 id: fixpy-test-002
 level: 3
 category: code
-instruction: '`python3 check.py` prints wrong results — moving_average() in ops.py
-  is buggy. Fix ops.py so the outputs match the ''expect'' values.'
+instruction: fact.py is buggy (range(n) starts at 0; iterate 1..n). Fix it so it prints
+  the correct value, then write its output to out.txt.
 answer_mode: files
 max_turns: 8
 tags:
+- debug
 - python
-- bugfix
-seed: 525693
+seed: 111748
 split: test
-origin: tb1/broken-python
+template: fix_python

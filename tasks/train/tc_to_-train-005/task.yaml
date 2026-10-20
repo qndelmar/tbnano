@@ -1,0 +1,11 @@
+id: tc_to_-train-005
+level: 1
+category: physics
+instruction: Convert 20 C to Kelvin. Number only.
+answer_mode: answer
+max_turns: 4
+tags:
+- convert
+seed: 164345
+split: train
+template: t_c_to_k

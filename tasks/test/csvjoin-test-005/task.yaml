@@ -1,0 +1,13 @@
+id: csvjoin-test-005
+level: 3
+category: data
+instruction: users.csv (id,name) and orders.csv (id,amount) share the id column. Join
+  them into joined.csv with lines 'id,name,amount' sorted by id.
+answer_mode: files
+max_turns: 8
+tags:
+- csv
+- join
+seed: 298442
+split: test
+template: csv_join

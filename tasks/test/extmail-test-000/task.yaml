@@ -1,0 +1,13 @@
+id: extmail-test-000
+level: 2
+category: files_text
+instruction: maillog.txt is a mail log with from=<address> fields. Extract unique
+  addresses, sort lexicographically, write one per line to emails.txt.
+answer_mode: files
+max_turns: 6
+tags:
+- grep
+- sort
+seed: 808481
+split: test
+template: extract_emails

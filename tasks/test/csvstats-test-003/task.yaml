@@ -1,0 +1,13 @@
+id: csvstats-test-003
+level: 3
+category: data
+instruction: data.csv has one number per line. Write stats.txt with lines 'min=<v>',
+  'max=<v>', 'sum=<v>' in that order.
+answer_mode: files
+max_turns: 8
+tags:
+- csv
+- stats
+seed: 25575
+split: test
+template: csv_stats

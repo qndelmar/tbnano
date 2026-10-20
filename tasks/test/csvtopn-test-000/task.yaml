@@ -1,0 +1,13 @@
+id: csvtopn-test-000
+level: 2
+category: data
+instruction: items.csv has rows 'name,value'. What is the sum of the top 4 values?
+  Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- csv
+- topn
+seed: 248798
+split: test
+template: csv_topn

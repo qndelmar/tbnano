@@ -1,0 +1,12 @@
+id: twecho-train-006
+level: 1
+category: code
+instruction: Create run.sh that prints 'hello' when run with bash. Run it, save output
+  to out.txt.
+answer_mode: files
+max_turns: 5
+tags:
+- script
+seed: 297853
+split: train
+template: t_write_echo

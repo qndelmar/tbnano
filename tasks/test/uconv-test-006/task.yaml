@@ -1,0 +1,11 @@
+id: uconv-test-006
+level: 1
+category: physics
+instruction: Convert 100 pounds to kg. Answer with just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- convert
+seed: 948662
+split: test
+template: unit_conv

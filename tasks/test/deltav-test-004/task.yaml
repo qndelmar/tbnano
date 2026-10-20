@@ -1,0 +1,12 @@
+id: deltav-test-004
+level: 3
+category: physics
+instruction: 'Tsiolkovsky: Isp=200 s, m0=3.81 kg, mf=3.17 kg, g0=9.81. Delta-v (m/s)?
+  Answer with just the number.'
+answer_mode: answer
+max_turns: 6
+tags:
+- rocket
+seed: 684222
+split: test
+template: delta_v

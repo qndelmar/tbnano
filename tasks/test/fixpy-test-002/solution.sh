@@ -1,5 +1,10 @@
-cat > ops.py <<'EOF'
-def moving_average(xs, k):
-    return [sum(xs[i:i+k]) / k for i in range(len(xs) - k + 1)]
+cat > fact.py <<'EOF'
+def f(n):
+    r = 1
+    for i in range(1, n + 1):
+        r *= i
+    return r
+print(f(4))
 EOF
-python3 check.py
+python3 fact.py > out.txt
+cat out.txt

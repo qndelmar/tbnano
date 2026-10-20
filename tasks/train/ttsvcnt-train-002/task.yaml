@@ -1,0 +1,12 @@
+id: ttsvcnt-train-002
+level: 1
+category: data
+instruction: in.tsv has tab-separated rows (no header). How many rows? Answer with
+  just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- tsv
+seed: 196797
+split: train
+template: t_tsv_count

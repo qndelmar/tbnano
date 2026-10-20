@@ -1,0 +1,12 @@
+id: sqlcount-test-003
+level: 2
+category: data
+instruction: data.db has table t(id, v, g). How many rows have g='a'? Answer with
+  just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- sqlite
+seed: 364429
+split: test
+template: sqlite_count

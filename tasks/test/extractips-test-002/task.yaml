@@ -9,7 +9,7 @@ max_turns: 6
 tags:
 - grep
 - sort
-- logs
-seed: 727780
+seed: 986182
 split: test
+template: extract_ips
 origin: tb1/analyze-access-logs

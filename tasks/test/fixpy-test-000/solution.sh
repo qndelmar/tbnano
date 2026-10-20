@@ -1,5 +1,6 @@
-cat > utils.py <<'EOF'
-def moving_average(xs, k):
-    return [sum(xs[i:i+k]) / k for i in range(len(xs) - k + 1)]
+cat > offbyone.py <<'EOF'
+xs = [int(x) for x in open('nums.txt')]
+print(sum(xs))
 EOF
-python3 check.py
+python3 offbyone.py > out.txt
+cat out.txt

@@ -1,0 +1,11 @@
+id: uconv-test-004
+level: 1
+category: physics
+instruction: Convert 500 grams to kg. Answer with just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- convert
+seed: 415801
+split: test
+template: unit_conv
