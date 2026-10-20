@@ -1,0 +1,13 @@
+id: csvagg-train-001
+level: 2
+category: data
+instruction: In logbook.csv, compute the maximum of column 'duration_s' for rows where
+  'fleet' is 'gamma'. Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- csv
+- aggregate
+seed: 450588
+split: train
+origin: tb1/bank-trans-filter

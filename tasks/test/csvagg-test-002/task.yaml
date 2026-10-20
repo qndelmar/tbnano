@@ -1,0 +1,13 @@
+id: csvagg-test-002
+level: 2
+category: data
+instruction: In flights.csv, compute the total of column 'reading' for rows where
+  'sensor' is 'west'. Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- csv
+- aggregate
+seed: 356859
+split: test
+origin: tb1/bank-trans-filter

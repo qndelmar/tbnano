@@ -1,0 +1,19 @@
+id: multirep-test-004
+level: 4
+category: physics
+instruction: 'From flight.csv (t_s, alt_ft) and meta.json (fuel_start_lbs, fuel_end_lbs),
+  produce report.txt with exactly three lines:
+
+  duration_s=<last minus first t_s>
+
+  max_alt_m=<max altitude converted ft->m>
+
+  fuel_kg=<fuel burned converted lbs->kg>'
+answer_mode: files
+max_turns: 10
+tags:
+- report
+- telemetry
+- units
+seed: 345596
+split: test

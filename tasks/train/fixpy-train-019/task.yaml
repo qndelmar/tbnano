@@ -1,0 +1,13 @@
+id: fixpy-train-019
+level: 3
+category: code
+instruction: '`python3 check.py` prints wrong results — km_to_miles() in mathx.py
+  is buggy. Fix mathx.py so the outputs match the ''expect'' values.'
+answer_mode: files
+max_turns: 8
+tags:
+- python
+- bugfix
+seed: 581939
+split: train
+origin: tb1/broken-python

@@ -1,0 +1,13 @@
+id: csvagg-test-000
+level: 2
+category: data
+instruction: In flights.csv, compute the maximum of column 'duration_s' for rows where
+  'fleet' is 'beta'. Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- csv
+- aggregate
+seed: 506513
+split: test
+origin: tb1/bank-trans-filter

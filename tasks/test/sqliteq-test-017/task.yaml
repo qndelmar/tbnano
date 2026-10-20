@@ -1,0 +1,12 @@
+id: sqliteq-test-017
+level: 2
+category: data
+instruction: 'db.sqlite contains table ''events'' (columns: id, pressure). How many
+  rows have pressure greater than 150? Answer with just the number.'
+answer_mode: answer
+max_turns: 6
+tags:
+- sqlite
+- query
+seed: 550718
+split: test

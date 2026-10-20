@@ -1,0 +1,13 @@
+id: energy-test-001
+level: 3
+category: physics
+instruction: 'battery.csv logs bus power: columns t_s (seconds, uneven spacing) and
+  power_w (watts). Integrate power over time (trapezoid) and report the total energy
+  in Wh. Answer with just the number.'
+answer_mode: answer
+max_turns: 8
+tags:
+- integration
+- energy
+seed: 33176
+split: test

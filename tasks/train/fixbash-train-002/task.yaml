@@ -1,0 +1,12 @@
+id: fixbash-train-002
+level: 3
+category: code
+instruction: scan.sh should write every ERROR line of nodes.log into found.txt, but
+  running it produces the wrong result. Fix scan.sh and run it so found.txt is correct.
+answer_mode: files
+max_turns: 8
+tags:
+- bash
+- bugfix
+seed: 983095
+split: train

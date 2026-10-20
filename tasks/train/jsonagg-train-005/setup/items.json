@@ -1,0 +1,292 @@
+[
+ {
+  "id": 1,
+  "kind": "queued",
+  "value": 78.99
+ },
+ {
+  "id": 2,
+  "kind": "idle",
+  "value": 85.01
+ },
+ {
+  "id": 3,
+  "kind": "failed",
+  "value": 2.73
+ },
+ {
+  "id": 4,
+  "kind": "idle",
+  "value": 8.14
+ },
+ {
+  "id": 5,
+  "kind": "queued",
+  "value": 94.88
+ },
+ {
+  "id": 6,
+  "kind": "idle",
+  "value": 6.63
+ },
+ {
+  "id": 7,
+  "kind": "queued",
+  "value": 71.18
+ },
+ {
+  "id": 8,
+  "kind": "failed",
+  "value": 36.1
+ },
+ {
+  "id": 9,
+  "kind": "failed",
+  "value": 11.24
+ },
+ {
+  "id": 10,
+  "kind": "queued",
+  "value": 78.2
+ },
+ {
+  "id": 11,
+  "kind": "queued",
+  "value": 66.36
+ },
+ {
+  "id": 12,
+  "kind": "queued",
+  "value": 56.39
+ },
+ {
+  "id": 13,
+  "kind": "failed",
+  "value": 99.0
+ },
+ {
+  "id": 14,
+  "kind": "queued",
+  "value": 48.09
+ },
+ {
+  "id": 15,
+  "kind": "idle",
+  "value": 48.12
+ },
+ {
+  "id": 16,
+  "kind": "idle",
+  "value": 64.7
+ },
+ {
+  "id": 17,
+  "kind": "failed",
+  "value": 74.71
+ },
+ {
+  "id": 18,
+  "kind": "failed",
+  "value": 64.81
+ },
+ {
+  "id": 19,
+  "kind": "failed",
+  "value": 27.79
+ },
+ {
+  "id": 20,
+  "kind": "failed",
+  "value": 8.09
+ },
+ {
+  "id": 21,
+  "kind": "queued",
+  "value": 83.81
+ },
+ {
+  "id": 22,
+  "kind": "failed",
+  "value": 58.47
+ },
+ {
+  "id": 23,
+  "kind": "idle",
+  "value": 93.76
+ },
+ {
+  "id": 24,
+  "kind": "idle",
+  "value": 61.42
+ },
+ {
+  "id": 25,
+  "kind": "failed",
+  "value": 92.81
+ },
+ {
+  "id": 26,
+  "kind": "idle",
+  "value": 66.09
+ },
+ {
+  "id": 27,
+  "kind": "idle",
+  "value": 99.29
+ },
+ {
+  "id": 28,
+  "kind": "queued",
+  "value": 96.55
+ },
+ {
+  "id": 29,
+  "kind": "idle",
+  "value": 73.89
+ },
+ {
+  "id": 30,
+  "kind": "failed",
+  "value": 93.82
+ },
+ {
+  "id": 31,
+  "kind": "queued",
+  "value": 77.37
+ },
+ {
+  "id": 32,
+  "kind": "idle",
+  "value": 58.38
+ },
+ {
+  "id": 33,
+  "kind": "idle",
+  "value": 45.92
+ },
+ {
+  "id": 34,
+  "kind": "idle",
+  "value": 83.82
+ },
+ {
+  "id": 35,
+  "kind": "queued",
+  "value": 63.57
+ },
+ {
+  "id": 36,
+  "kind": "failed",
+  "value": 20.75
+ },
+ {
+  "id": 37,
+  "kind": "queued",
+  "value": 35.64
+ },
+ {
+  "id": 38,
+  "kind": "failed",
+  "value": 91.9
+ },
+ {
+  "id": 39,
+  "kind": "queued",
+  "value": 20.79
+ },
+ {
+  "id": 40,
+  "kind": "queued",
+  "value": 79.8
+ },
+ {
+  "id": 41,
+  "kind": "queued",
+  "value": 80.23
+ },
+ {
+  "id": 42,
+  "kind": "queued",
+  "value": 47.7
+ },
+ {
+  "id": 43,
+  "kind": "idle",
+  "value": 70.14
+ },
+ {
+  "id": 44,
+  "kind": "queued",
+  "value": 83.83
+ },
+ {
+  "id": 45,
+  "kind": "failed",
+  "value": 17.91
+ },
+ {
+  "id": 46,
+  "kind": "queued",
+  "value": 45.15
+ },
+ {
+  "id": 47,
+  "kind": "queued",
+  "value": 89.84
+ },
+ {
+  "id": 48,
+  "kind": "failed",
+  "value": 55.75
+ },
+ {
+  "id": 49,
+  "kind": "queued",
+  "value": 2.05
+ },
+ {
+  "id": 50,
+  "kind": "idle",
+  "value": 88.86
+ },
+ {
+  "id": 51,
+  "kind": "queued",
+  "value": 9.17
+ },
+ {
+  "id": 52,
+  "kind": "queued",
+  "value": 87.28
+ },
+ {
+  "id": 53,
+  "kind": "idle",
+  "value": 21.4
+ },
+ {
+  "id": 54,
+  "kind": "idle",
+  "value": 57.08
+ },
+ {
+  "id": 55,
+  "kind": "failed",
+  "value": 46.63
+ },
+ {
+  "id": 56,
+  "kind": "idle",
+  "value": 18.85
+ },
+ {
+  "id": 57,
+  "kind": "idle",
+  "value": 73.63
+ },
+ {
+  "id": 58,
+  "kind": "idle",
+  "value": 57.05
+ }
+]

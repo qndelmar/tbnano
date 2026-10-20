@@ -1,0 +1,12 @@
+id: paths-train-012
+level: 2
+category: env
+instruction: ./launch.sh exists but `./launch.sh` fails with 'permission denied'.
+  Make it work and run it so that res.txt is created.
+answer_mode: files
+max_turns: 6
+tags:
+- perms
+- paths
+seed: 289012
+split: train

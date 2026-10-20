@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tbnano"
+version = "0.1.0"
+description = "TerminalBench Nano: a tool-calling-in-terminal benchmark for small models (50M-1B) with <=8k token context."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "PyYAML>=5.4",
+]
+
+[project.optional-dependencies]
+hf = ["transformers>=4.44", "torch"]
+api = ["openai>=1.0", "tiktoken"]
+test = ["pytest>=7.0"]
+
+[project.scripts]
+tbnano = "tbnano.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["tbnano*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

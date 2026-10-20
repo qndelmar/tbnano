@@ -1,0 +1,12 @@
+id: unitconv-test-035
+level: 1
+category: physics
+instruction: flight.csv has a 'alt_ft' column in ft. Report the maximum altitude in
+  m. Answer with just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- units
+- telemetry
+seed: 756916
+split: test

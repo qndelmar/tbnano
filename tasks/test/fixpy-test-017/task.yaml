@@ -1,0 +1,13 @@
+id: fixpy-test-017
+level: 3
+category: code
+instruction: '`python3 check.py` prints wrong results — area_circle() in utils.py
+  is buggy. Fix utils.py so the outputs match the ''expect'' values.'
+answer_mode: files
+max_turns: 8
+tags:
+- python
+- bugfix
+seed: 274334
+split: test
+origin: tb1/broken-python

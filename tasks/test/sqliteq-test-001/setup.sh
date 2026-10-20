@@ -1,0 +1,39 @@
+python3 - <<'PY'
+import sqlite3
+db = sqlite3.connect('db.sqlite')
+db.execute('CREATE TABLE readings (id INTEGER PRIMARY KEY, pressure REAL)')
+db.executescript('''
+INSERT INTO readings (id, pressure) VALUES (1, 92.2);
+INSERT INTO readings (id, pressure) VALUES (2, 38.7);
+INSERT INTO readings (id, pressure) VALUES (3, 9.4);
+INSERT INTO readings (id, pressure) VALUES (4, 189.3);
+INSERT INTO readings (id, pressure) VALUES (5, 111.4);
+INSERT INTO readings (id, pressure) VALUES (6, 174.1);
+INSERT INTO readings (id, pressure) VALUES (7, 119.8);
+INSERT INTO readings (id, pressure) VALUES (8, 129.1);
+INSERT INTO readings (id, pressure) VALUES (9, 26.7);
+INSERT INTO readings (id, pressure) VALUES (10, 15.1);
+INSERT INTO readings (id, pressure) VALUES (11, 106.7);
+INSERT INTO readings (id, pressure) VALUES (12, 12.7);
+INSERT INTO readings (id, pressure) VALUES (13, 169.6);
+INSERT INTO readings (id, pressure) VALUES (14, 133.7);
+INSERT INTO readings (id, pressure) VALUES (15, 130.9);
+INSERT INTO readings (id, pressure) VALUES (16, 141.6);
+INSERT INTO readings (id, pressure) VALUES (17, 43.8);
+INSERT INTO readings (id, pressure) VALUES (18, 180.7);
+INSERT INTO readings (id, pressure) VALUES (19, 21.5);
+INSERT INTO readings (id, pressure) VALUES (20, 85.9);
+INSERT INTO readings (id, pressure) VALUES (21, 13.6);
+INSERT INTO readings (id, pressure) VALUES (22, 21.0);
+INSERT INTO readings (id, pressure) VALUES (23, 156.8);
+INSERT INTO readings (id, pressure) VALUES (24, 81.8);
+INSERT INTO readings (id, pressure) VALUES (25, 92.2);
+INSERT INTO readings (id, pressure) VALUES (26, 153.8);
+INSERT INTO readings (id, pressure) VALUES (27, 196.1);
+INSERT INTO readings (id, pressure) VALUES (28, 188.7);
+INSERT INTO readings (id, pressure) VALUES (29, 91.9);
+INSERT INTO readings (id, pressure) VALUES (30, 166.1);
+INSERT INTO readings (id, pressure) VALUES (31, 43.2);
+''')
+db.commit(); db.close()
+PY

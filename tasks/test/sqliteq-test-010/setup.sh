@@ -1,0 +1,86 @@
+python3 - <<'PY'
+import sqlite3
+db = sqlite3.connect('db.sqlite')
+db.execute('CREATE TABLE events (id INTEGER PRIMARY KEY, pressure REAL)')
+db.executescript('''
+INSERT INTO events (id, pressure) VALUES (1, 78.9);
+INSERT INTO events (id, pressure) VALUES (2, 26.6);
+INSERT INTO events (id, pressure) VALUES (3, 170.3);
+INSERT INTO events (id, pressure) VALUES (4, 178.1);
+INSERT INTO events (id, pressure) VALUES (5, 44.7);
+INSERT INTO events (id, pressure) VALUES (6, 180.5);
+INSERT INTO events (id, pressure) VALUES (7, 53.7);
+INSERT INTO events (id, pressure) VALUES (8, 152.4);
+INSERT INTO events (id, pressure) VALUES (9, 139.7);
+INSERT INTO events (id, pressure) VALUES (10, 12.7);
+INSERT INTO events (id, pressure) VALUES (11, 189.7);
+INSERT INTO events (id, pressure) VALUES (12, 39.0);
+INSERT INTO events (id, pressure) VALUES (13, 139.0);
+INSERT INTO events (id, pressure) VALUES (14, 56.8);
+INSERT INTO events (id, pressure) VALUES (15, 97.5);
+INSERT INTO events (id, pressure) VALUES (16, 60.6);
+INSERT INTO events (id, pressure) VALUES (17, 171.6);
+INSERT INTO events (id, pressure) VALUES (18, 53.4);
+INSERT INTO events (id, pressure) VALUES (19, 60.8);
+INSERT INTO events (id, pressure) VALUES (20, 137.8);
+INSERT INTO events (id, pressure) VALUES (21, 55.8);
+INSERT INTO events (id, pressure) VALUES (22, 44.6);
+INSERT INTO events (id, pressure) VALUES (23, 136.0);
+INSERT INTO events (id, pressure) VALUES (24, 60.1);
+INSERT INTO events (id, pressure) VALUES (25, 122.5);
+INSERT INTO events (id, pressure) VALUES (26, 50.4);
+INSERT INTO events (id, pressure) VALUES (27, 146.6);
+INSERT INTO events (id, pressure) VALUES (28, 164.3);
+INSERT INTO events (id, pressure) VALUES (29, 1.6);
+INSERT INTO events (id, pressure) VALUES (30, 76.0);
+INSERT INTO events (id, pressure) VALUES (31, 7.4);
+INSERT INTO events (id, pressure) VALUES (32, 72.1);
+INSERT INTO events (id, pressure) VALUES (33, 185.6);
+INSERT INTO events (id, pressure) VALUES (34, 193.3);
+INSERT INTO events (id, pressure) VALUES (35, 100.7);
+INSERT INTO events (id, pressure) VALUES (36, 198.7);
+INSERT INTO events (id, pressure) VALUES (37, 26.8);
+INSERT INTO events (id, pressure) VALUES (38, 153.5);
+INSERT INTO events (id, pressure) VALUES (39, 134.2);
+INSERT INTO events (id, pressure) VALUES (40, 180.6);
+INSERT INTO events (id, pressure) VALUES (41, 181.9);
+INSERT INTO events (id, pressure) VALUES (42, 184.6);
+INSERT INTO events (id, pressure) VALUES (43, 42.3);
+INSERT INTO events (id, pressure) VALUES (44, 153.0);
+INSERT INTO events (id, pressure) VALUES (45, 170.1);
+INSERT INTO events (id, pressure) VALUES (46, 102.1);
+INSERT INTO events (id, pressure) VALUES (47, 13.1);
+INSERT INTO events (id, pressure) VALUES (48, 134.9);
+INSERT INTO events (id, pressure) VALUES (49, 183.5);
+INSERT INTO events (id, pressure) VALUES (50, 197.9);
+INSERT INTO events (id, pressure) VALUES (51, 87.5);
+INSERT INTO events (id, pressure) VALUES (52, 32.6);
+INSERT INTO events (id, pressure) VALUES (53, 97.3);
+INSERT INTO events (id, pressure) VALUES (54, 114.3);
+INSERT INTO events (id, pressure) VALUES (55, 125.1);
+INSERT INTO events (id, pressure) VALUES (56, 53.7);
+INSERT INTO events (id, pressure) VALUES (57, 157.0);
+INSERT INTO events (id, pressure) VALUES (58, 176.8);
+INSERT INTO events (id, pressure) VALUES (59, 95.2);
+INSERT INTO events (id, pressure) VALUES (60, 193.6);
+INSERT INTO events (id, pressure) VALUES (61, 114.2);
+INSERT INTO events (id, pressure) VALUES (62, 17.8);
+INSERT INTO events (id, pressure) VALUES (63, 35.0);
+INSERT INTO events (id, pressure) VALUES (64, 21.0);
+INSERT INTO events (id, pressure) VALUES (65, 196.3);
+INSERT INTO events (id, pressure) VALUES (66, 138.0);
+INSERT INTO events (id, pressure) VALUES (67, 117.6);
+INSERT INTO events (id, pressure) VALUES (68, 91.0);
+INSERT INTO events (id, pressure) VALUES (69, 31.3);
+INSERT INTO events (id, pressure) VALUES (70, 77.0);
+INSERT INTO events (id, pressure) VALUES (71, 170.9);
+INSERT INTO events (id, pressure) VALUES (72, 144.2);
+INSERT INTO events (id, pressure) VALUES (73, 185.9);
+INSERT INTO events (id, pressure) VALUES (74, 69.6);
+INSERT INTO events (id, pressure) VALUES (75, 97.3);
+INSERT INTO events (id, pressure) VALUES (76, 11.0);
+INSERT INTO events (id, pressure) VALUES (77, 175.3);
+INSERT INTO events (id, pressure) VALUES (78, 111.1);
+''')
+db.commit(); db.close()
+PY

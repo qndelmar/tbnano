@@ -1,0 +1,352 @@
+[
+ {
+  "id": 1,
+  "mode": "active",
+  "value": 92.75
+ },
+ {
+  "id": 2,
+  "mode": "queued",
+  "value": 43.9
+ },
+ {
+  "id": 3,
+  "mode": "active",
+  "value": 11.09
+ },
+ {
+  "id": 4,
+  "mode": "queued",
+  "value": 22.77
+ },
+ {
+  "id": 5,
+  "mode": "active",
+  "value": 50.1
+ },
+ {
+  "id": 6,
+  "mode": "retired",
+  "value": 15.15
+ },
+ {
+  "id": 7,
+  "mode": "retired",
+  "value": 15.19
+ },
+ {
+  "id": 8,
+  "mode": "queued",
+  "value": 67.7
+ },
+ {
+  "id": 9,
+  "mode": "retired",
+  "value": 10.62
+ },
+ {
+  "id": 10,
+  "mode": "active",
+  "value": 26.46
+ },
+ {
+  "id": 11,
+  "mode": "queued",
+  "value": 86.44
+ },
+ {
+  "id": 12,
+  "mode": "active",
+  "value": 7.69
+ },
+ {
+  "id": 13,
+  "mode": "retired",
+  "value": 68.52
+ },
+ {
+  "id": 14,
+  "mode": "active",
+  "value": 47.8
+ },
+ {
+  "id": 15,
+  "mode": "queued",
+  "value": 64.52
+ },
+ {
+  "id": 16,
+  "mode": "queued",
+  "value": 34.28
+ },
+ {
+  "id": 17,
+  "mode": "retired",
+  "value": 70.6
+ },
+ {
+  "id": 18,
+  "mode": "active",
+  "value": 24.71
+ },
+ {
+  "id": 19,
+  "mode": "retired",
+  "value": 15.91
+ },
+ {
+  "id": 20,
+  "mode": "active",
+  "value": 71.72
+ },
+ {
+  "id": 21,
+  "mode": "active",
+  "value": 67.14
+ },
+ {
+  "id": 22,
+  "mode": "active",
+  "value": 9.74
+ },
+ {
+  "id": 23,
+  "mode": "queued",
+  "value": 32.51
+ },
+ {
+  "id": 24,
+  "mode": "queued",
+  "value": 2.03
+ },
+ {
+  "id": 25,
+  "mode": "active",
+  "value": 96.78
+ },
+ {
+  "id": 26,
+  "mode": "queued",
+  "value": 95.58
+ },
+ {
+  "id": 27,
+  "mode": "active",
+  "value": 70.94
+ },
+ {
+  "id": 28,
+  "mode": "active",
+  "value": 26.22
+ },
+ {
+  "id": 29,
+  "mode": "queued",
+  "value": 70.0
+ },
+ {
+  "id": 30,
+  "mode": "active",
+  "value": 15.59
+ },
+ {
+  "id": 31,
+  "mode": "active",
+  "value": 39.67
+ },
+ {
+  "id": 32,
+  "mode": "queued",
+  "value": 73.66
+ },
+ {
+  "id": 33,
+  "mode": "queued",
+  "value": 67.57
+ },
+ {
+  "id": 34,
+  "mode": "queued",
+  "value": 64.11
+ },
+ {
+  "id": 35,
+  "mode": "queued",
+  "value": 44.79
+ },
+ {
+  "id": 36,
+  "mode": "retired",
+  "value": 58.22
+ },
+ {
+  "id": 37,
+  "mode": "retired",
+  "value": 60.69
+ },
+ {
+  "id": 38,
+  "mode": "active",
+  "value": 85.31
+ },
+ {
+  "id": 39,
+  "mode": "retired",
+  "value": 18.72
+ },
+ {
+  "id": 40,
+  "mode": "active",
+  "value": 85.84
+ },
+ {
+  "id": 41,
+  "mode": "retired",
+  "value": 41.47
+ },
+ {
+  "id": 42,
+  "mode": "queued",
+  "value": 21.83
+ },
+ {
+  "id": 43,
+  "mode": "queued",
+  "value": 88.11
+ },
+ {
+  "id": 44,
+  "mode": "active",
+  "value": 1.17
+ },
+ {
+  "id": 45,
+  "mode": "active",
+  "value": 21.4
+ },
+ {
+  "id": 46,
+  "mode": "queued",
+  "value": 41.98
+ },
+ {
+  "id": 47,
+  "mode": "queued",
+  "value": 23.59
+ },
+ {
+  "id": 48,
+  "mode": "retired",
+  "value": 26.82
+ },
+ {
+  "id": 49,
+  "mode": "queued",
+  "value": 39.6
+ },
+ {
+  "id": 50,
+  "mode": "active",
+  "value": 1.06
+ },
+ {
+  "id": 51,
+  "mode": "queued",
+  "value": 79.55
+ },
+ {
+  "id": 52,
+  "mode": "queued",
+  "value": 30.05
+ },
+ {
+  "id": 53,
+  "mode": "active",
+  "value": 45.95
+ },
+ {
+  "id": 54,
+  "mode": "active",
+  "value": 54.87
+ },
+ {
+  "id": 55,
+  "mode": "queued",
+  "value": 86.26
+ },
+ {
+  "id": 56,
+  "mode": "active",
+  "value": 18.43
+ },
+ {
+  "id": 57,
+  "mode": "queued",
+  "value": 39.31
+ },
+ {
+  "id": 58,
+  "mode": "retired",
+  "value": 51.0
+ },
+ {
+  "id": 59,
+  "mode": "active",
+  "value": 69.85
+ },
+ {
+  "id": 60,
+  "mode": "retired",
+  "value": 15.75
+ },
+ {
+  "id": 61,
+  "mode": "active",
+  "value": 59.64
+ },
+ {
+  "id": 62,
+  "mode": "retired",
+  "value": 63.88
+ },
+ {
+  "id": 63,
+  "mode": "active",
+  "value": 72.5
+ },
+ {
+  "id": 64,
+  "mode": "queued",
+  "value": 81.71
+ },
+ {
+  "id": 65,
+  "mode": "active",
+  "value": 17.9
+ },
+ {
+  "id": 66,
+  "mode": "retired",
+  "value": 75.04
+ },
+ {
+  "id": 67,
+  "mode": "active",
+  "value": 24.28
+ },
+ {
+  "id": 68,
+  "mode": "active",
+  "value": 31.28
+ },
+ {
+  "id": 69,
+  "mode": "retired",
+  "value": 49.65
+ },
+ {
+  "id": 70,
+  "mode": "active",
+  "value": 97.17
+ }
+]

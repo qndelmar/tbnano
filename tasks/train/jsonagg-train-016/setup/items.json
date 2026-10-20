@@ -1,0 +1,307 @@
+[
+ {
+  "id": 1,
+  "phase": "failed",
+  "value": 21.34
+ },
+ {
+  "id": 2,
+  "phase": "active",
+  "value": 97.84
+ },
+ {
+  "id": 3,
+  "phase": "active",
+  "value": 64.44
+ },
+ {
+  "id": 4,
+  "phase": "active",
+  "value": 56.2
+ },
+ {
+  "id": 5,
+  "phase": "active",
+  "value": 21.25
+ },
+ {
+  "id": 6,
+  "phase": "active",
+  "value": 90.23
+ },
+ {
+  "id": 7,
+  "phase": "failed",
+  "value": 67.36
+ },
+ {
+  "id": 8,
+  "phase": "failed",
+  "value": 97.18
+ },
+ {
+  "id": 9,
+  "phase": "queued",
+  "value": 34.53
+ },
+ {
+  "id": 10,
+  "phase": "queued",
+  "value": 63.46
+ },
+ {
+  "id": 11,
+  "phase": "queued",
+  "value": 79.9
+ },
+ {
+  "id": 12,
+  "phase": "queued",
+  "value": 3.79
+ },
+ {
+  "id": 13,
+  "phase": "queued",
+  "value": 36.85
+ },
+ {
+  "id": 14,
+  "phase": "queued",
+  "value": 36.52
+ },
+ {
+  "id": 15,
+  "phase": "active",
+  "value": 85.58
+ },
+ {
+  "id": 16,
+  "phase": "active",
+  "value": 82.13
+ },
+ {
+  "id": 17,
+  "phase": "queued",
+  "value": 48.53
+ },
+ {
+  "id": 18,
+  "phase": "failed",
+  "value": 99.22
+ },
+ {
+  "id": 19,
+  "phase": "failed",
+  "value": 21.25
+ },
+ {
+  "id": 20,
+  "phase": "active",
+  "value": 43.17
+ },
+ {
+  "id": 21,
+  "phase": "queued",
+  "value": 89.87
+ },
+ {
+  "id": 22,
+  "phase": "failed",
+  "value": 25.39
+ },
+ {
+  "id": 23,
+  "phase": "queued",
+  "value": 16.55
+ },
+ {
+  "id": 24,
+  "phase": "failed",
+  "value": 89.27
+ },
+ {
+  "id": 25,
+  "phase": "failed",
+  "value": 39.63
+ },
+ {
+  "id": 26,
+  "phase": "active",
+  "value": 39.11
+ },
+ {
+  "id": 27,
+  "phase": "active",
+  "value": 80.07
+ },
+ {
+  "id": 28,
+  "phase": "failed",
+  "value": 37.69
+ },
+ {
+  "id": 29,
+  "phase": "queued",
+  "value": 46.97
+ },
+ {
+  "id": 30,
+  "phase": "failed",
+  "value": 79.81
+ },
+ {
+  "id": 31,
+  "phase": "failed",
+  "value": 12.22
+ },
+ {
+  "id": 32,
+  "phase": "failed",
+  "value": 33.82
+ },
+ {
+  "id": 33,
+  "phase": "failed",
+  "value": 10.55
+ },
+ {
+  "id": 34,
+  "phase": "failed",
+  "value": 89.41
+ },
+ {
+  "id": 35,
+  "phase": "queued",
+  "value": 32.56
+ },
+ {
+  "id": 36,
+  "phase": "queued",
+  "value": 67.95
+ },
+ {
+  "id": 37,
+  "phase": "active",
+  "value": 13.02
+ },
+ {
+  "id": 38,
+  "phase": "queued",
+  "value": 13.82
+ },
+ {
+  "id": 39,
+  "phase": "active",
+  "value": 66.93
+ },
+ {
+  "id": 40,
+  "phase": "active",
+  "value": 10.12
+ },
+ {
+  "id": 41,
+  "phase": "active",
+  "value": 94.54
+ },
+ {
+  "id": 42,
+  "phase": "queued",
+  "value": 41.48
+ },
+ {
+  "id": 43,
+  "phase": "queued",
+  "value": 40.58
+ },
+ {
+  "id": 44,
+  "phase": "queued",
+  "value": 64.65
+ },
+ {
+  "id": 45,
+  "phase": "failed",
+  "value": 3.14
+ },
+ {
+  "id": 46,
+  "phase": "failed",
+  "value": 18.57
+ },
+ {
+  "id": 47,
+  "phase": "active",
+  "value": 73.35
+ },
+ {
+  "id": 48,
+  "phase": "active",
+  "value": 98.35
+ },
+ {
+  "id": 49,
+  "phase": "active",
+  "value": 21.38
+ },
+ {
+  "id": 50,
+  "phase": "failed",
+  "value": 44.64
+ },
+ {
+  "id": 51,
+  "phase": "active",
+  "value": 60.95
+ },
+ {
+  "id": 52,
+  "phase": "queued",
+  "value": 5.4
+ },
+ {
+  "id": 53,
+  "phase": "failed",
+  "value": 82.12
+ },
+ {
+  "id": 54,
+  "phase": "queued",
+  "value": 5.75
+ },
+ {
+  "id": 55,
+  "phase": "failed",
+  "value": 63.88
+ },
+ {
+  "id": 56,
+  "phase": "active",
+  "value": 97.99
+ },
+ {
+  "id": 57,
+  "phase": "active",
+  "value": 7.01
+ },
+ {
+  "id": 58,
+  "phase": "failed",
+  "value": 40.84
+ },
+ {
+  "id": 59,
+  "phase": "queued",
+  "value": 5.94
+ },
+ {
+  "id": 60,
+  "phase": "queued",
+  "value": 62.63
+ },
+ {
+  "id": 61,
+  "phase": "failed",
+  "value": 15.73
+ }
+]

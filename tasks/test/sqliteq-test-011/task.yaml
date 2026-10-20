@@ -1,0 +1,12 @@
+id: sqliteq-test-011
+level: 2
+category: data
+instruction: 'db.sqlite contains table ''readings'' (columns: id, temp). How many
+  rows have temp greater than 20? Answer with just the number.'
+answer_mode: answer
+max_turns: 6
+tags:
+- sqlite
+- query
+seed: 480285
+split: test

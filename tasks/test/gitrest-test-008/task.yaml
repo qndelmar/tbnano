@@ -1,0 +1,12 @@
+id: gitrest-test-008
+level: 3
+category: env
+instruction: notes.txt was deleted in the latest commit. Restore its previous version
+  from git history into the working tree.
+answer_mode: files
+max_turns: 8
+tags:
+- git
+- restore
+seed: 445592
+split: test

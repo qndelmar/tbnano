@@ -1,0 +1,12 @@
+id: jsonagg-train-002
+level: 2
+category: data
+instruction: fleet.json is a JSON array of objects with keys 'id', 'phase', 'value'.
+  How many objects have phase 'active'? Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- json
+- aggregate
+seed: 390929
+split: train

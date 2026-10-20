@@ -1,0 +1,12 @@
+id: jsonagg-test-004
+level: 2
+category: data
+instruction: events.json is a JSON array of objects with keys 'id', 'state', 'value'.
+  How many objects have state 'idle'? Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- json
+- aggregate
+seed: 179154
+split: test

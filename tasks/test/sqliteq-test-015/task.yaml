@@ -1,0 +1,12 @@
+id: sqliteq-test-015
+level: 2
+category: data
+instruction: 'db.sqlite contains table ''events'' (columns: id, voltage). How many
+  rows have voltage greater than 50? Answer with just the number.'
+answer_mode: answer
+max_turns: 6
+tags:
+- sqlite
+- query
+seed: 175412
+split: test

@@ -1,0 +1,137 @@
+[
+ {
+  "id": 1,
+  "status": "idle",
+  "value": 51.16
+ },
+ {
+  "id": 2,
+  "status": "failed",
+  "value": 33.46
+ },
+ {
+  "id": 3,
+  "status": "failed",
+  "value": 96.26
+ },
+ {
+  "id": 4,
+  "status": "queued",
+  "value": 88.95
+ },
+ {
+  "id": 5,
+  "status": "failed",
+  "value": 3.84
+ },
+ {
+  "id": 6,
+  "status": "failed",
+  "value": 92.19
+ },
+ {
+  "id": 7,
+  "status": "idle",
+  "value": 10.17
+ },
+ {
+  "id": 8,
+  "status": "failed",
+  "value": 52.46
+ },
+ {
+  "id": 9,
+  "status": "idle",
+  "value": 38.26
+ },
+ {
+  "id": 10,
+  "status": "failed",
+  "value": 41.22
+ },
+ {
+  "id": 11,
+  "status": "idle",
+  "value": 26.89
+ },
+ {
+  "id": 12,
+  "status": "queued",
+  "value": 98.8
+ },
+ {
+  "id": 13,
+  "status": "queued",
+  "value": 81.7
+ },
+ {
+  "id": 14,
+  "status": "failed",
+  "value": 84.69
+ },
+ {
+  "id": 15,
+  "status": "idle",
+  "value": 43.75
+ },
+ {
+  "id": 16,
+  "status": "queued",
+  "value": 28.3
+ },
+ {
+  "id": 17,
+  "status": "queued",
+  "value": 30.33
+ },
+ {
+  "id": 18,
+  "status": "failed",
+  "value": 10.0
+ },
+ {
+  "id": 19,
+  "status": "idle",
+  "value": 95.54
+ },
+ {
+  "id": 20,
+  "status": "failed",
+  "value": 22.3
+ },
+ {
+  "id": 21,
+  "status": "queued",
+  "value": 78.87
+ },
+ {
+  "id": 22,
+  "status": "failed",
+  "value": 48.5
+ },
+ {
+  "id": 23,
+  "status": "queued",
+  "value": 44.98
+ },
+ {
+  "id": 24,
+  "status": "idle",
+  "value": 39.77
+ },
+ {
+  "id": 25,
+  "status": "queued",
+  "value": 83.12
+ },
+ {
+  "id": 26,
+  "status": "queued",
+  "value": 51.48
+ },
+ {
+  "id": 27,
+  "status": "failed",
+  "value": 7.75
+ }
+]

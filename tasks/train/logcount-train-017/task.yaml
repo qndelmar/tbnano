@@ -1,0 +1,13 @@
+id: logcount-train-017
+level: 1
+category: files_text
+instruction: How many lines in prod.log have level CRITICAL (shown as [CRITICAL] at
+  the start)? Answer with just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- grep
+- count
+- logs
+seed: 954536
+split: train

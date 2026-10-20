@@ -1,0 +1,13 @@
+id: csvagg-train-004
+level: 2
+category: data
+instruction: In records.csv, compute the mean of column 'revenue' for rows where 'region'
+  is 'east'. Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- csv
+- aggregate
+seed: 790915
+split: train
+origin: tb1/bank-trans-filter

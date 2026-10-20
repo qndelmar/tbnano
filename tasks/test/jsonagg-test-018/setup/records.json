@@ -1,0 +1,257 @@
+[
+ {
+  "id": 1,
+  "state": "queued",
+  "value": 50.05
+ },
+ {
+  "id": 2,
+  "state": "failed",
+  "value": 85.23
+ },
+ {
+  "id": 3,
+  "state": "queued",
+  "value": 66.84
+ },
+ {
+  "id": 4,
+  "state": "retired",
+  "value": 27.89
+ },
+ {
+  "id": 5,
+  "state": "failed",
+  "value": 64.11
+ },
+ {
+  "id": 6,
+  "state": "queued",
+  "value": 30.08
+ },
+ {
+  "id": 7,
+  "state": "retired",
+  "value": 66.84
+ },
+ {
+  "id": 8,
+  "state": "failed",
+  "value": 83.73
+ },
+ {
+  "id": 9,
+  "state": "queued",
+  "value": 73.7
+ },
+ {
+  "id": 10,
+  "state": "failed",
+  "value": 22.94
+ },
+ {
+  "id": 11,
+  "state": "failed",
+  "value": 14.52
+ },
+ {
+  "id": 12,
+  "state": "retired",
+  "value": 91.97
+ },
+ {
+  "id": 13,
+  "state": "failed",
+  "value": 26.89
+ },
+ {
+  "id": 14,
+  "state": "retired",
+  "value": 17.47
+ },
+ {
+  "id": 15,
+  "state": "queued",
+  "value": 69.29
+ },
+ {
+  "id": 16,
+  "state": "queued",
+  "value": 14.01
+ },
+ {
+  "id": 17,
+  "state": "queued",
+  "value": 73.23
+ },
+ {
+  "id": 18,
+  "state": "failed",
+  "value": 62.74
+ },
+ {
+  "id": 19,
+  "state": "failed",
+  "value": 8.05
+ },
+ {
+  "id": 20,
+  "state": "failed",
+  "value": 6.1
+ },
+ {
+  "id": 21,
+  "state": "failed",
+  "value": 18.05
+ },
+ {
+  "id": 22,
+  "state": "failed",
+  "value": 12.41
+ },
+ {
+  "id": 23,
+  "state": "queued",
+  "value": 79.52
+ },
+ {
+  "id": 24,
+  "state": "queued",
+  "value": 70.42
+ },
+ {
+  "id": 25,
+  "state": "retired",
+  "value": 61.07
+ },
+ {
+  "id": 26,
+  "state": "queued",
+  "value": 3.18
+ },
+ {
+  "id": 27,
+  "state": "retired",
+  "value": 28.18
+ },
+ {
+  "id": 28,
+  "state": "failed",
+  "value": 86.53
+ },
+ {
+  "id": 29,
+  "state": "failed",
+  "value": 71.32
+ },
+ {
+  "id": 30,
+  "state": "failed",
+  "value": 64.13
+ },
+ {
+  "id": 31,
+  "state": "retired",
+  "value": 38.45
+ },
+ {
+  "id": 32,
+  "state": "failed",
+  "value": 53.33
+ },
+ {
+  "id": 33,
+  "state": "queued",
+  "value": 22.83
+ },
+ {
+  "id": 34,
+  "state": "queued",
+  "value": 51.82
+ },
+ {
+  "id": 35,
+  "state": "failed",
+  "value": 16.28
+ },
+ {
+  "id": 36,
+  "state": "queued",
+  "value": 58.82
+ },
+ {
+  "id": 37,
+  "state": "queued",
+  "value": 43.93
+ },
+ {
+  "id": 38,
+  "state": "retired",
+  "value": 97.54
+ },
+ {
+  "id": 39,
+  "state": "queued",
+  "value": 86.11
+ },
+ {
+  "id": 40,
+  "state": "failed",
+  "value": 8.34
+ },
+ {
+  "id": 41,
+  "state": "retired",
+  "value": 80.98
+ },
+ {
+  "id": 42,
+  "state": "retired",
+  "value": 71.62
+ },
+ {
+  "id": 43,
+  "state": "failed",
+  "value": 62.72
+ },
+ {
+  "id": 44,
+  "state": "retired",
+  "value": 72.1
+ },
+ {
+  "id": 45,
+  "state": "failed",
+  "value": 48.44
+ },
+ {
+  "id": 46,
+  "state": "queued",
+  "value": 70.32
+ },
+ {
+  "id": 47,
+  "state": "failed",
+  "value": 80.47
+ },
+ {
+  "id": 48,
+  "state": "failed",
+  "value": 80.43
+ },
+ {
+  "id": 49,
+  "state": "queued",
+  "value": 25.22
+ },
+ {
+  "id": 50,
+  "state": "queued",
+  "value": 20.41
+ },
+ {
+  "id": 51,
+  "state": "failed",
+  "value": 7.21
+ }
+]

@@ -1,0 +1,13 @@
+id: csvagg-train-010
+level: 2
+category: data
+instruction: In logbook.csv, compute the total of column 'reading' for rows where
+  'sensor' is 'alpha'. Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- csv
+- aggregate
+seed: 679592
+split: train
+origin: tb1/bank-trans-filter

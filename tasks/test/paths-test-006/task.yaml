@@ -1,0 +1,12 @@
+id: paths-test-006
+level: 2
+category: env
+instruction: ./deploy.sh fails because the target directory does not exist and the
+  script cannot create it. Make the run succeed so that deployed/marker.txt exists.
+answer_mode: files
+max_turns: 6
+tags:
+- perms
+- paths
+seed: 751932
+split: test

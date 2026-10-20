@@ -1,0 +1,14 @@
+id: writesh-train-018
+level: 4
+category: code
+instruction: 'Write a script bundle.sh that merges all CSV files in data/ into merged.csv:
+  keep the shared header once, then all data rows sorted numerically by the first
+  column. Run it so merged.csv exists.'
+answer_mode: files
+max_turns: 10
+tags:
+- bash
+- script
+- csv
+seed: 974778
+split: train

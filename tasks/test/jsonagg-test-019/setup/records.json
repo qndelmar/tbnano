@@ -1,0 +1,227 @@
+[
+ {
+  "id": 1,
+  "state": "retired",
+  "value": 26.45
+ },
+ {
+  "id": 2,
+  "state": "idle",
+  "value": 19.98
+ },
+ {
+  "id": 3,
+  "state": "idle",
+  "value": 13.48
+ },
+ {
+  "id": 4,
+  "state": "queued",
+  "value": 53.02
+ },
+ {
+  "id": 5,
+  "state": "idle",
+  "value": 73.23
+ },
+ {
+  "id": 6,
+  "state": "queued",
+  "value": 47.62
+ },
+ {
+  "id": 7,
+  "state": "queued",
+  "value": 84.08
+ },
+ {
+  "id": 8,
+  "state": "retired",
+  "value": 38.75
+ },
+ {
+  "id": 9,
+  "state": "idle",
+  "value": 55.39
+ },
+ {
+  "id": 10,
+  "state": "queued",
+  "value": 1.92
+ },
+ {
+  "id": 11,
+  "state": "retired",
+  "value": 44.28
+ },
+ {
+  "id": 12,
+  "state": "queued",
+  "value": 14.28
+ },
+ {
+  "id": 13,
+  "state": "retired",
+  "value": 61.22
+ },
+ {
+  "id": 14,
+  "state": "idle",
+  "value": 46.86
+ },
+ {
+  "id": 15,
+  "state": "idle",
+  "value": 23.78
+ },
+ {
+  "id": 16,
+  "state": "queued",
+  "value": 68.09
+ },
+ {
+  "id": 17,
+  "state": "queued",
+  "value": 60.97
+ },
+ {
+  "id": 18,
+  "state": "retired",
+  "value": 1.56
+ },
+ {
+  "id": 19,
+  "state": "retired",
+  "value": 33.28
+ },
+ {
+  "id": 20,
+  "state": "queued",
+  "value": 36.23
+ },
+ {
+  "id": 21,
+  "state": "idle",
+  "value": 27.6
+ },
+ {
+  "id": 22,
+  "state": "retired",
+  "value": 63.71
+ },
+ {
+  "id": 23,
+  "state": "queued",
+  "value": 17.6
+ },
+ {
+  "id": 24,
+  "state": "queued",
+  "value": 30.71
+ },
+ {
+  "id": 25,
+  "state": "queued",
+  "value": 8.01
+ },
+ {
+  "id": 26,
+  "state": "queued",
+  "value": 42.73
+ },
+ {
+  "id": 27,
+  "state": "idle",
+  "value": 61.87
+ },
+ {
+  "id": 28,
+  "state": "queued",
+  "value": 82.93
+ },
+ {
+  "id": 29,
+  "state": "retired",
+  "value": 81.53
+ },
+ {
+  "id": 30,
+  "state": "queued",
+  "value": 53.72
+ },
+ {
+  "id": 31,
+  "state": "queued",
+  "value": 7.11
+ },
+ {
+  "id": 32,
+  "state": "idle",
+  "value": 78.45
+ },
+ {
+  "id": 33,
+  "state": "idle",
+  "value": 75.34
+ },
+ {
+  "id": 34,
+  "state": "retired",
+  "value": 58.5
+ },
+ {
+  "id": 35,
+  "state": "retired",
+  "value": 28.33
+ },
+ {
+  "id": 36,
+  "state": "idle",
+  "value": 72.92
+ },
+ {
+  "id": 37,
+  "state": "queued",
+  "value": 37.63
+ },
+ {
+  "id": 38,
+  "state": "queued",
+  "value": 35.36
+ },
+ {
+  "id": 39,
+  "state": "idle",
+  "value": 48.59
+ },
+ {
+  "id": 40,
+  "state": "queued",
+  "value": 16.19
+ },
+ {
+  "id": 41,
+  "state": "queued",
+  "value": 22.27
+ },
+ {
+  "id": 42,
+  "state": "retired",
+  "value": 67.98
+ },
+ {
+  "id": 43,
+  "state": "queued",
+  "value": 91.42
+ },
+ {
+  "id": 44,
+  "state": "retired",
+  "value": 75.45
+ },
+ {
+  "id": 45,
+  "state": "queued",
+  "value": 71.81
+ }
+]

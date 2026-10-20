@@ -1,0 +1,12 @@
+id: paths-test-004
+level: 2
+category: env
+instruction: ./run.sh exists but `./run.sh` fails with 'permission denied'. Make it
+  work and run it so that done.txt is created.
+answer_mode: files
+max_turns: 6
+tags:
+- perms
+- paths
+seed: 450153
+split: test

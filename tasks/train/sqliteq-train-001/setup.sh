@@ -1,0 +1,67 @@
+python3 - <<'PY'
+import sqlite3
+db = sqlite3.connect('db.sqlite')
+db.execute('CREATE TABLE samples (id INTEGER PRIMARY KEY, torque REAL)')
+db.executescript('''
+INSERT INTO samples (id, torque) VALUES (1, 101.1);
+INSERT INTO samples (id, torque) VALUES (2, 105.0);
+INSERT INTO samples (id, torque) VALUES (3, 156.4);
+INSERT INTO samples (id, torque) VALUES (4, 125.8);
+INSERT INTO samples (id, torque) VALUES (5, 165.0);
+INSERT INTO samples (id, torque) VALUES (6, 22.5);
+INSERT INTO samples (id, torque) VALUES (7, 163.9);
+INSERT INTO samples (id, torque) VALUES (8, 93.6);
+INSERT INTO samples (id, torque) VALUES (9, 52.0);
+INSERT INTO samples (id, torque) VALUES (10, 87.4);
+INSERT INTO samples (id, torque) VALUES (11, 94.8);
+INSERT INTO samples (id, torque) VALUES (12, 190.6);
+INSERT INTO samples (id, torque) VALUES (13, 46.5);
+INSERT INTO samples (id, torque) VALUES (14, 122.9);
+INSERT INTO samples (id, torque) VALUES (15, 32.3);
+INSERT INTO samples (id, torque) VALUES (16, 4.8);
+INSERT INTO samples (id, torque) VALUES (17, 104.3);
+INSERT INTO samples (id, torque) VALUES (18, 8.5);
+INSERT INTO samples (id, torque) VALUES (19, 178.9);
+INSERT INTO samples (id, torque) VALUES (20, 53.8);
+INSERT INTO samples (id, torque) VALUES (21, 162.8);
+INSERT INTO samples (id, torque) VALUES (22, 175.2);
+INSERT INTO samples (id, torque) VALUES (23, 57.0);
+INSERT INTO samples (id, torque) VALUES (24, 188.6);
+INSERT INTO samples (id, torque) VALUES (25, 81.0);
+INSERT INTO samples (id, torque) VALUES (26, 11.1);
+INSERT INTO samples (id, torque) VALUES (27, 19.0);
+INSERT INTO samples (id, torque) VALUES (28, 124.9);
+INSERT INTO samples (id, torque) VALUES (29, 60.4);
+INSERT INTO samples (id, torque) VALUES (30, 117.5);
+INSERT INTO samples (id, torque) VALUES (31, 38.3);
+INSERT INTO samples (id, torque) VALUES (32, 82.3);
+INSERT INTO samples (id, torque) VALUES (33, 67.5);
+INSERT INTO samples (id, torque) VALUES (34, 187.7);
+INSERT INTO samples (id, torque) VALUES (35, 37.8);
+INSERT INTO samples (id, torque) VALUES (36, 55.4);
+INSERT INTO samples (id, torque) VALUES (37, 188.5);
+INSERT INTO samples (id, torque) VALUES (38, 163.9);
+INSERT INTO samples (id, torque) VALUES (39, 80.4);
+INSERT INTO samples (id, torque) VALUES (40, 161.9);
+INSERT INTO samples (id, torque) VALUES (41, 85.9);
+INSERT INTO samples (id, torque) VALUES (42, 32.9);
+INSERT INTO samples (id, torque) VALUES (43, 199.5);
+INSERT INTO samples (id, torque) VALUES (44, 150.1);
+INSERT INTO samples (id, torque) VALUES (45, 6.2);
+INSERT INTO samples (id, torque) VALUES (46, 36.2);
+INSERT INTO samples (id, torque) VALUES (47, 159.4);
+INSERT INTO samples (id, torque) VALUES (48, 175.2);
+INSERT INTO samples (id, torque) VALUES (49, 192.1);
+INSERT INTO samples (id, torque) VALUES (50, 192.6);
+INSERT INTO samples (id, torque) VALUES (51, 93.6);
+INSERT INTO samples (id, torque) VALUES (52, 7.1);
+INSERT INTO samples (id, torque) VALUES (53, 32.7);
+INSERT INTO samples (id, torque) VALUES (54, 36.2);
+INSERT INTO samples (id, torque) VALUES (55, 71.5);
+INSERT INTO samples (id, torque) VALUES (56, 78.6);
+INSERT INTO samples (id, torque) VALUES (57, 101.1);
+INSERT INTO samples (id, torque) VALUES (58, 72.6);
+INSERT INTO samples (id, torque) VALUES (59, 148.9);
+''')
+db.commit(); db.close()
+PY

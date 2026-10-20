@@ -1,0 +1,13 @@
+id: logcount-train-008
+level: 1
+category: files_text
+instruction: How many lines in core.log have level ERROR (shown as [ERROR] at the
+  start)? Answer with just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- grep
+- count
+- logs
+seed: 157128
+split: train

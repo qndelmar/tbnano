@@ -1,0 +1,12 @@
+id: sqliteq-train-009
+level: 2
+category: data
+instruction: 'db.sqlite contains table ''channels'' (columns: id, current). How many
+  rows have current greater than 75? Answer with just the number.'
+answer_mode: answer
+max_turns: 6
+tags:
+- sqlite
+- query
+seed: 991331
+split: train

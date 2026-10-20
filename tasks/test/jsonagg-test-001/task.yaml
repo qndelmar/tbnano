@@ -1,0 +1,12 @@
+id: jsonagg-test-001
+level: 2
+category: data
+instruction: inventory.json is a JSON array of objects with keys 'id', 'mode', 'value'.
+  How many objects have mode 'failed'? Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- json
+- aggregate
+seed: 198893
+split: test

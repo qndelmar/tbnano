@@ -1,0 +1,13 @@
+id: csvagg-test-015
+level: 2
+category: data
+instruction: In flights.csv, compute the total of column 'duration_s' for rows where
+  'fleet' is 'south'. Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- csv
+- aggregate
+seed: 505605
+split: test
+origin: tb1/bank-trans-filter

@@ -1,0 +1,12 @@
+id: jsonagg-test-012
+level: 2
+category: data
+instruction: events.json is a JSON array of objects with keys 'id', 'status', 'value'.
+  How many objects have status 'active'? Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- json
+- aggregate
+seed: 800911
+split: test

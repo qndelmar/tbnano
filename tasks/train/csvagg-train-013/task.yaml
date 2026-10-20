@@ -1,0 +1,13 @@
+id: csvagg-train-013
+level: 2
+category: data
+instruction: In ledger.csv, compute the total of column 'revenue' for rows where 'region'
+  is 'gamma'. Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- csv
+- aggregate
+seed: 394713
+split: train
+origin: tb1/bank-trans-filter

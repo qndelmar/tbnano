@@ -1,0 +1,13 @@
+id: csvagg-train-005
+level: 2
+category: data
+instruction: In records.csv, compute the number of rows of column 'duration_s' for
+  rows where 'fleet' is 'north'. Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- csv
+- aggregate
+seed: 358135
+split: train
+origin: tb1/bank-trans-filter

@@ -1,0 +1,13 @@
+id: fixpy-test-001
+level: 3
+category: code
+instruction: '`python3 check.py` prints wrong results — clamp() in utils.py is buggy.
+  Fix utils.py so the outputs match the ''expect'' values.'
+answer_mode: files
+max_turns: 8
+tags:
+- python
+- bugfix
+seed: 649183
+split: test
+origin: tb1/broken-python

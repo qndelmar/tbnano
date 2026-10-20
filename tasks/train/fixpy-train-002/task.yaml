@@ -1,0 +1,13 @@
+id: fixpy-train-002
+level: 3
+category: code
+instruction: '`python3 check.py` prints wrong results — clamp() in helpers.py is buggy.
+  Fix helpers.py so the outputs match the ''expect'' values.'
+answer_mode: files
+max_turns: 8
+tags:
+- python
+- bugfix
+seed: 947530
+split: train
+origin: tb1/broken-python

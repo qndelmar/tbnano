@@ -1,0 +1,13 @@
+id: logcount-test-018
+level: 1
+category: files_text
+instruction: How many lines in system.log have level CRITICAL (shown as [CRITICAL]
+  at the start)? Answer with just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- grep
+- count
+- logs
+seed: 276690
+split: test

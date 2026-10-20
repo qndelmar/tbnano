@@ -1,0 +1,12 @@
+id: jsonagg-train-008
+level: 2
+category: data
+instruction: fleet.json is a JSON array of objects with keys 'id', 'phase', 'value'.
+  How many objects have phase 'idle'? Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- json
+- aggregate
+seed: 259281
+split: train

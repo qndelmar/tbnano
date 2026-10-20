@@ -1,0 +1,157 @@
+[
+ {
+  "id": 1,
+  "state": "active",
+  "value": 6.4
+ },
+ {
+  "id": 2,
+  "state": "active",
+  "value": 85.01
+ },
+ {
+  "id": 3,
+  "state": "idle",
+  "value": 58.82
+ },
+ {
+  "id": 4,
+  "state": "active",
+  "value": 53.69
+ },
+ {
+  "id": 5,
+  "state": "idle",
+  "value": 59.44
+ },
+ {
+  "id": 6,
+  "state": "idle",
+  "value": 18.15
+ },
+ {
+  "id": 7,
+  "state": "retired",
+  "value": 55.11
+ },
+ {
+  "id": 8,
+  "state": "idle",
+  "value": 3.78
+ },
+ {
+  "id": 9,
+  "state": "active",
+  "value": 24.63
+ },
+ {
+  "id": 10,
+  "state": "retired",
+  "value": 38.53
+ },
+ {
+  "id": 11,
+  "state": "idle",
+  "value": 43.5
+ },
+ {
+  "id": 12,
+  "state": "active",
+  "value": 50.12
+ },
+ {
+  "id": 13,
+  "state": "idle",
+  "value": 20.97
+ },
+ {
+  "id": 14,
+  "state": "retired",
+  "value": 79.7
+ },
+ {
+  "id": 15,
+  "state": "retired",
+  "value": 49.19
+ },
+ {
+  "id": 16,
+  "state": "active",
+  "value": 58.04
+ },
+ {
+  "id": 17,
+  "state": "retired",
+  "value": 89.98
+ },
+ {
+  "id": 18,
+  "state": "retired",
+  "value": 13.67
+ },
+ {
+  "id": 19,
+  "state": "active",
+  "value": 20.47
+ },
+ {
+  "id": 20,
+  "state": "active",
+  "value": 87.5
+ },
+ {
+  "id": 21,
+  "state": "active",
+  "value": 19.66
+ },
+ {
+  "id": 22,
+  "state": "active",
+  "value": 88.6
+ },
+ {
+  "id": 23,
+  "state": "active",
+  "value": 50.22
+ },
+ {
+  "id": 24,
+  "state": "active",
+  "value": 90.71
+ },
+ {
+  "id": 25,
+  "state": "active",
+  "value": 6.7
+ },
+ {
+  "id": 26,
+  "state": "retired",
+  "value": 33.15
+ },
+ {
+  "id": 27,
+  "state": "retired",
+  "value": 17.2
+ },
+ {
+  "id": 28,
+  "state": "active",
+  "value": 5.4
+ },
+ {
+  "id": 29,
+  "state": "retired",
+  "value": 93.39
+ },
+ {
+  "id": 30,
+  "state": "active",
+  "value": 98.99
+ },
+ {
+  "id": 31,
+  "state": "active",
+  "value": 27.24
+ }
+]

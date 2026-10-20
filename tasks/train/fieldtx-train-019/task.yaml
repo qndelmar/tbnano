@@ -1,0 +1,12 @@
+id: fieldtx-train-019
+level: 2
+category: files_text
+instruction: table.csv is a CSV with header. Write the values of column 'c4' (one
+  per line, in order, no header) to col.txt.
+answer_mode: files
+max_turns: 6
+tags:
+- text
+- transform
+seed: 764093
+split: train

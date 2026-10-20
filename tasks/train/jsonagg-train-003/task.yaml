@@ -1,0 +1,12 @@
+id: jsonagg-train-003
+level: 2
+category: data
+instruction: items.json is a JSON array of objects with keys 'id', 'kind', 'value'.
+  Sum 'value' over objects with kind 'failed'. Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- json
+- aggregate
+seed: 539506
+split: train

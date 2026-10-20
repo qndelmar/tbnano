@@ -1,0 +1,12 @@
+id: jsonagg-train-010
+level: 2
+category: data
+instruction: jobs.json is a JSON array of objects with keys 'id', 'kind', 'value'.
+  How many objects have kind 'queued'? Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- json
+- aggregate
+seed: 273189
+split: train

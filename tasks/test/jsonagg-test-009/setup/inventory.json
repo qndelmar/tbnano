@@ -1,0 +1,202 @@
+[
+ {
+  "id": 1,
+  "mode": "active",
+  "value": 13.58
+ },
+ {
+  "id": 2,
+  "mode": "active",
+  "value": 3.31
+ },
+ {
+  "id": 3,
+  "mode": "queued",
+  "value": 63.39
+ },
+ {
+  "id": 4,
+  "mode": "active",
+  "value": 72.2
+ },
+ {
+  "id": 5,
+  "mode": "active",
+  "value": 54.7
+ },
+ {
+  "id": 6,
+  "mode": "failed",
+  "value": 76.5
+ },
+ {
+  "id": 7,
+  "mode": "active",
+  "value": 53.01
+ },
+ {
+  "id": 8,
+  "mode": "active",
+  "value": 66.93
+ },
+ {
+  "id": 9,
+  "mode": "failed",
+  "value": 78.26
+ },
+ {
+  "id": 10,
+  "mode": "active",
+  "value": 97.6
+ },
+ {
+  "id": 11,
+  "mode": "active",
+  "value": 55.79
+ },
+ {
+  "id": 12,
+  "mode": "active",
+  "value": 96.89
+ },
+ {
+  "id": 13,
+  "mode": "failed",
+  "value": 96.65
+ },
+ {
+  "id": 14,
+  "mode": "queued",
+  "value": 34.86
+ },
+ {
+  "id": 15,
+  "mode": "queued",
+  "value": 11.8
+ },
+ {
+  "id": 16,
+  "mode": "queued",
+  "value": 56.22
+ },
+ {
+  "id": 17,
+  "mode": "failed",
+  "value": 96.99
+ },
+ {
+  "id": 18,
+  "mode": "active",
+  "value": 56.75
+ },
+ {
+  "id": 19,
+  "mode": "failed",
+  "value": 16.69
+ },
+ {
+  "id": 20,
+  "mode": "queued",
+  "value": 58.59
+ },
+ {
+  "id": 21,
+  "mode": "queued",
+  "value": 58.59
+ },
+ {
+  "id": 22,
+  "mode": "queued",
+  "value": 92.26
+ },
+ {
+  "id": 23,
+  "mode": "active",
+  "value": 63.57
+ },
+ {
+  "id": 24,
+  "mode": "failed",
+  "value": 43.27
+ },
+ {
+  "id": 25,
+  "mode": "active",
+  "value": 95.3
+ },
+ {
+  "id": 26,
+  "mode": "failed",
+  "value": 77.25
+ },
+ {
+  "id": 27,
+  "mode": "active",
+  "value": 56.68
+ },
+ {
+  "id": 28,
+  "mode": "queued",
+  "value": 72.08
+ },
+ {
+  "id": 29,
+  "mode": "active",
+  "value": 92.56
+ },
+ {
+  "id": 30,
+  "mode": "queued",
+  "value": 35.26
+ },
+ {
+  "id": 31,
+  "mode": "active",
+  "value": 31.4
+ },
+ {
+  "id": 32,
+  "mode": "failed",
+  "value": 77.37
+ },
+ {
+  "id": 33,
+  "mode": "active",
+  "value": 81.49
+ },
+ {
+  "id": 34,
+  "mode": "failed",
+  "value": 59.46
+ },
+ {
+  "id": 35,
+  "mode": "active",
+  "value": 69.25
+ },
+ {
+  "id": 36,
+  "mode": "active",
+  "value": 81.8
+ },
+ {
+  "id": 37,
+  "mode": "active",
+  "value": 58.24
+ },
+ {
+  "id": 38,
+  "mode": "queued",
+  "value": 23.47
+ },
+ {
+  "id": 39,
+  "mode": "queued",
+  "value": 91.22
+ },
+ {
+  "id": 40,
+  "mode": "failed",
+  "value": 97.52
+ }
+]

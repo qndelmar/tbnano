@@ -1,0 +1,12 @@
+id: jsonagg-test-015
+level: 2
+category: data
+instruction: inventory.json is a JSON array of objects with keys 'id', 'state', 'value'.
+  How many objects have state 'retired'? Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- json
+- aggregate
+seed: 364394
+split: test

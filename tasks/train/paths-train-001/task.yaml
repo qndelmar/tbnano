@@ -1,0 +1,12 @@
+id: paths-train-001
+level: 2
+category: env
+instruction: ./stage.sh fails because the target directory does not exist and the
+  script cannot create it. Make the run succeed so that drop/ok.txt exists.
+answer_mode: files
+max_turns: 6
+tags:
+- perms
+- paths
+seed: 453073
+split: train

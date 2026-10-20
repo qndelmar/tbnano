@@ -1,0 +1,76 @@
+python3 - <<'PY'
+import sqlite3
+db = sqlite3.connect('db.sqlite')
+db.execute('CREATE TABLE samples (id INTEGER PRIMARY KEY, current REAL)')
+db.executescript('''
+INSERT INTO samples (id, current) VALUES (1, 28.8);
+INSERT INTO samples (id, current) VALUES (2, 105.3);
+INSERT INTO samples (id, current) VALUES (3, 116.5);
+INSERT INTO samples (id, current) VALUES (4, 67.6);
+INSERT INTO samples (id, current) VALUES (5, 38.6);
+INSERT INTO samples (id, current) VALUES (6, 42.8);
+INSERT INTO samples (id, current) VALUES (7, 126.3);
+INSERT INTO samples (id, current) VALUES (8, 18.8);
+INSERT INTO samples (id, current) VALUES (9, 139.0);
+INSERT INTO samples (id, current) VALUES (10, 33.4);
+INSERT INTO samples (id, current) VALUES (11, 120.2);
+INSERT INTO samples (id, current) VALUES (12, 31.5);
+INSERT INTO samples (id, current) VALUES (13, 176.6);
+INSERT INTO samples (id, current) VALUES (14, 89.5);
+INSERT INTO samples (id, current) VALUES (15, 25.8);
+INSERT INTO samples (id, current) VALUES (16, 28.8);
+INSERT INTO samples (id, current) VALUES (17, 11.9);
+INSERT INTO samples (id, current) VALUES (18, 75.4);
+INSERT INTO samples (id, current) VALUES (19, 165.7);
+INSERT INTO samples (id, current) VALUES (20, 66.8);
+INSERT INTO samples (id, current) VALUES (21, 177.0);
+INSERT INTO samples (id, current) VALUES (22, 51.2);
+INSERT INTO samples (id, current) VALUES (23, 98.3);
+INSERT INTO samples (id, current) VALUES (24, 121.7);
+INSERT INTO samples (id, current) VALUES (25, 193.5);
+INSERT INTO samples (id, current) VALUES (26, 185.0);
+INSERT INTO samples (id, current) VALUES (27, 111.8);
+INSERT INTO samples (id, current) VALUES (28, 184.8);
+INSERT INTO samples (id, current) VALUES (29, 167.7);
+INSERT INTO samples (id, current) VALUES (30, 2.7);
+INSERT INTO samples (id, current) VALUES (31, 107.0);
+INSERT INTO samples (id, current) VALUES (32, 66.4);
+INSERT INTO samples (id, current) VALUES (33, 173.2);
+INSERT INTO samples (id, current) VALUES (34, 135.3);
+INSERT INTO samples (id, current) VALUES (35, 21.4);
+INSERT INTO samples (id, current) VALUES (36, 77.0);
+INSERT INTO samples (id, current) VALUES (37, 173.0);
+INSERT INTO samples (id, current) VALUES (38, 116.8);
+INSERT INTO samples (id, current) VALUES (39, 161.8);
+INSERT INTO samples (id, current) VALUES (40, 118.4);
+INSERT INTO samples (id, current) VALUES (41, 105.3);
+INSERT INTO samples (id, current) VALUES (42, 69.3);
+INSERT INTO samples (id, current) VALUES (43, 9.9);
+INSERT INTO samples (id, current) VALUES (44, 60.2);
+INSERT INTO samples (id, current) VALUES (45, 149.3);
+INSERT INTO samples (id, current) VALUES (46, 175.5);
+INSERT INTO samples (id, current) VALUES (47, 100.6);
+INSERT INTO samples (id, current) VALUES (48, 34.8);
+INSERT INTO samples (id, current) VALUES (49, 197.9);
+INSERT INTO samples (id, current) VALUES (50, 87.9);
+INSERT INTO samples (id, current) VALUES (51, 197.1);
+INSERT INTO samples (id, current) VALUES (52, 83.1);
+INSERT INTO samples (id, current) VALUES (53, 180.1);
+INSERT INTO samples (id, current) VALUES (54, 170.4);
+INSERT INTO samples (id, current) VALUES (55, 141.5);
+INSERT INTO samples (id, current) VALUES (56, 155.2);
+INSERT INTO samples (id, current) VALUES (57, 147.8);
+INSERT INTO samples (id, current) VALUES (58, 35.8);
+INSERT INTO samples (id, current) VALUES (59, 159.8);
+INSERT INTO samples (id, current) VALUES (60, 5.2);
+INSERT INTO samples (id, current) VALUES (61, 83.2);
+INSERT INTO samples (id, current) VALUES (62, 37.2);
+INSERT INTO samples (id, current) VALUES (63, 12.3);
+INSERT INTO samples (id, current) VALUES (64, 161.6);
+INSERT INTO samples (id, current) VALUES (65, 80.1);
+INSERT INTO samples (id, current) VALUES (66, 48.1);
+INSERT INTO samples (id, current) VALUES (67, 137.5);
+INSERT INTO samples (id, current) VALUES (68, 45.5);
+''')
+db.commit(); db.close()
+PY

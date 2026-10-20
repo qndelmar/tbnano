@@ -1,0 +1,12 @@
+id: gitrest-test-014
+level: 3
+category: env
+instruction: manifest.txt was deleted in the latest commit. Restore its previous version
+  from git history into the working tree.
+answer_mode: files
+max_turns: 8
+tags:
+- git
+- restore
+seed: 711752
+split: test

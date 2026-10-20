@@ -1,0 +1,12 @@
+id: unitconv-test-002
+level: 1
+category: physics
+instruction: telemetry.csv has a 'vspeed_fpm' column in ft/min. Report the mean vertical
+  speed in m/s. Answer with just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- units
+- telemetry
+seed: 305527
+split: test

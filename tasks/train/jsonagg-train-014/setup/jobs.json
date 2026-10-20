@@ -1,0 +1,177 @@
+[
+ {
+  "id": 1,
+  "flag": "idle",
+  "value": 26.91
+ },
+ {
+  "id": 2,
+  "flag": "failed",
+  "value": 56.01
+ },
+ {
+  "id": 3,
+  "flag": "queued",
+  "value": 40.62
+ },
+ {
+  "id": 4,
+  "flag": "failed",
+  "value": 97.62
+ },
+ {
+  "id": 5,
+  "flag": "queued",
+  "value": 24.97
+ },
+ {
+  "id": 6,
+  "flag": "idle",
+  "value": 40.0
+ },
+ {
+  "id": 7,
+  "flag": "failed",
+  "value": 89.9
+ },
+ {
+  "id": 8,
+  "flag": "failed",
+  "value": 30.15
+ },
+ {
+  "id": 9,
+  "flag": "failed",
+  "value": 56.74
+ },
+ {
+  "id": 10,
+  "flag": "idle",
+  "value": 98.9
+ },
+ {
+  "id": 11,
+  "flag": "queued",
+  "value": 48.09
+ },
+ {
+  "id": 12,
+  "flag": "failed",
+  "value": 48.97
+ },
+ {
+  "id": 13,
+  "flag": "failed",
+  "value": 28.92
+ },
+ {
+  "id": 14,
+  "flag": "queued",
+  "value": 23.85
+ },
+ {
+  "id": 15,
+  "flag": "idle",
+  "value": 59.85
+ },
+ {
+  "id": 16,
+  "flag": "idle",
+  "value": 10.57
+ },
+ {
+  "id": 17,
+  "flag": "failed",
+  "value": 92.25
+ },
+ {
+  "id": 18,
+  "flag": "idle",
+  "value": 33.08
+ },
+ {
+  "id": 19,
+  "flag": "failed",
+  "value": 56.89
+ },
+ {
+  "id": 20,
+  "flag": "idle",
+  "value": 47.07
+ },
+ {
+  "id": 21,
+  "flag": "failed",
+  "value": 92.9
+ },
+ {
+  "id": 22,
+  "flag": "failed",
+  "value": 61.94
+ },
+ {
+  "id": 23,
+  "flag": "failed",
+  "value": 93.99
+ },
+ {
+  "id": 24,
+  "flag": "queued",
+  "value": 76.3
+ },
+ {
+  "id": 25,
+  "flag": "queued",
+  "value": 56.98
+ },
+ {
+  "id": 26,
+  "flag": "queued",
+  "value": 78.94
+ },
+ {
+  "id": 27,
+  "flag": "idle",
+  "value": 79.04
+ },
+ {
+  "id": 28,
+  "flag": "failed",
+  "value": 7.68
+ },
+ {
+  "id": 29,
+  "flag": "queued",
+  "value": 60.68
+ },
+ {
+  "id": 30,
+  "flag": "queued",
+  "value": 63.04
+ },
+ {
+  "id": 31,
+  "flag": "failed",
+  "value": 25.93
+ },
+ {
+  "id": 32,
+  "flag": "failed",
+  "value": 87.7
+ },
+ {
+  "id": 33,
+  "flag": "idle",
+  "value": 37.95
+ },
+ {
+  "id": 34,
+  "flag": "idle",
+  "value": 21.58
+ },
+ {
+  "id": 35,
+  "flag": "queued",
+  "value": 44.3
+ }
+]

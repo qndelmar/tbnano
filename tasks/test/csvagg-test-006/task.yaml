@@ -1,0 +1,13 @@
+id: csvagg-test-006
+level: 2
+category: data
+instruction: In metrics.csv, compute the maximum of column 'reading' for rows where
+  'sensor' is 'beta'. Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- csv
+- aggregate
+seed: 190375
+split: test
+origin: tb1/bank-trans-filter

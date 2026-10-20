@@ -1,0 +1,12 @@
+id: unitconv-test-031
+level: 1
+category: physics
+instruction: flight.csv has a 'alt_ft' column in ft. Report the mean altitude in m.
+  Answer with just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- units
+- telemetry
+seed: 84352
+split: test

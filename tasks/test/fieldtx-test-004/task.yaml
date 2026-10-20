@@ -1,0 +1,12 @@
+id: fieldtx-test-004
+level: 2
+category: files_text
+instruction: Sort the numbers in nums.txt in descending numeric order and write the
+  result to sorted.txt (one number per line).
+answer_mode: files
+max_turns: 6
+tags:
+- text
+- transform
+seed: 515753
+split: test

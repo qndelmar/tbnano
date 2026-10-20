@@ -1,0 +1,167 @@
+[
+ {
+  "id": 1,
+  "mode": "failed",
+  "value": 45.68
+ },
+ {
+  "id": 2,
+  "mode": "active",
+  "value": 30.09
+ },
+ {
+  "id": 3,
+  "mode": "idle",
+  "value": 89.05
+ },
+ {
+  "id": 4,
+  "mode": "active",
+  "value": 32.83
+ },
+ {
+  "id": 5,
+  "mode": "active",
+  "value": 75.19
+ },
+ {
+  "id": 6,
+  "mode": "active",
+  "value": 69.05
+ },
+ {
+  "id": 7,
+  "mode": "active",
+  "value": 30.4
+ },
+ {
+  "id": 8,
+  "mode": "idle",
+  "value": 55.29
+ },
+ {
+  "id": 9,
+  "mode": "idle",
+  "value": 16.75
+ },
+ {
+  "id": 10,
+  "mode": "idle",
+  "value": 70.7
+ },
+ {
+  "id": 11,
+  "mode": "idle",
+  "value": 24.31
+ },
+ {
+  "id": 12,
+  "mode": "idle",
+  "value": 85.85
+ },
+ {
+  "id": 13,
+  "mode": "failed",
+  "value": 62.43
+ },
+ {
+  "id": 14,
+  "mode": "idle",
+  "value": 98.15
+ },
+ {
+  "id": 15,
+  "mode": "idle",
+  "value": 29.88
+ },
+ {
+  "id": 16,
+  "mode": "active",
+  "value": 18.69
+ },
+ {
+  "id": 17,
+  "mode": "active",
+  "value": 3.43
+ },
+ {
+  "id": 18,
+  "mode": "idle",
+  "value": 72.43
+ },
+ {
+  "id": 19,
+  "mode": "idle",
+  "value": 28.66
+ },
+ {
+  "id": 20,
+  "mode": "active",
+  "value": 29.06
+ },
+ {
+  "id": 21,
+  "mode": "active",
+  "value": 34.79
+ },
+ {
+  "id": 22,
+  "mode": "active",
+  "value": 74.12
+ },
+ {
+  "id": 23,
+  "mode": "idle",
+  "value": 83.34
+ },
+ {
+  "id": 24,
+  "mode": "idle",
+  "value": 28.86
+ },
+ {
+  "id": 25,
+  "mode": "idle",
+  "value": 8.11
+ },
+ {
+  "id": 26,
+  "mode": "active",
+  "value": 3.69
+ },
+ {
+  "id": 27,
+  "mode": "failed",
+  "value": 71.29
+ },
+ {
+  "id": 28,
+  "mode": "idle",
+  "value": 9.73
+ },
+ {
+  "id": 29,
+  "mode": "idle",
+  "value": 30.79
+ },
+ {
+  "id": 30,
+  "mode": "idle",
+  "value": 84.85
+ },
+ {
+  "id": 31,
+  "mode": "failed",
+  "value": 85.03
+ },
+ {
+  "id": 32,
+  "mode": "active",
+  "value": 16.62
+ },
+ {
+  "id": 33,
+  "mode": "failed",
+  "value": 15.92
+ }
+]

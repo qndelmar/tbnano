@@ -1,0 +1,12 @@
+id: paths-test-014
+level: 2
+category: env
+instruction: ./ship.sh fails because the target directory does not exist and the script
+  cannot create it. Make the run succeed so that out_dir/marker.txt exists.
+answer_mode: files
+max_turns: 6
+tags:
+- perms
+- paths
+seed: 342016
+split: test

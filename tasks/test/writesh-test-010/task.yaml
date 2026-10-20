@@ -1,0 +1,14 @@
+id: writesh-test-010
+level: 4
+category: code
+instruction: 'Write a script merge.sh that merges all CSV files in data/ into merged.csv:
+  keep the shared header once, then all data rows sorted numerically by the first
+  column. Run it so merged.csv exists.'
+answer_mode: files
+max_turns: 10
+tags:
+- bash
+- script
+- csv
+seed: 53419
+split: test

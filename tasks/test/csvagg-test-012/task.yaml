@@ -1,0 +1,13 @@
+id: csvagg-test-012
+level: 2
+category: data
+instruction: In metrics.csv, compute the mean of column 'reading' for rows where 'sensor'
+  is 'south'. Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- csv
+- aggregate
+seed: 544425
+split: test
+origin: tb1/bank-trans-filter

@@ -1,0 +1,13 @@
+id: csvagg-test-005
+level: 2
+category: data
+instruction: In sales.csv, compute the total of column 'duration_s' for rows where
+  'fleet' is 'beta'. Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- csv
+- aggregate
+seed: 964592
+split: test
+origin: tb1/bank-trans-filter

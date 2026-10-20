@@ -1,0 +1,17 @@
+alpha0
+charlie1
+golf2
+charlie3
+charlie4
+foxtrot5
+golf6
+echo7
+foxtrot8
+alpha9
+charlie10
+alpha11
+foxtrot12
+bravo13
+alpha14
+echo15
+delta16

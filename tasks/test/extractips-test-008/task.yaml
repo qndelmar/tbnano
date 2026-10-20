@@ -1,0 +1,15 @@
+id: extractips-test-008
+level: 2
+category: files_text
+instruction: requests.log is a web access log. Extract every client IPv4 address (the
+  first token of each request line), deduplicate, sort lexicographically, and write
+  them one per line to clients.txt.
+answer_mode: files
+max_turns: 6
+tags:
+- grep
+- sort
+- logs
+seed: 675996
+split: test
+origin: tb1/analyze-access-logs

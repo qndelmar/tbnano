@@ -1,0 +1,12 @@
+id: fixbash-train-012
+level: 3
+category: code
+instruction: filter.sh should write every ERROR line of jobs.log into hits.txt, but
+  running it produces the wrong result. Fix filter.sh and run it so hits.txt is correct.
+answer_mode: files
+max_turns: 8
+tags:
+- bash
+- bugfix
+seed: 884193
+split: train

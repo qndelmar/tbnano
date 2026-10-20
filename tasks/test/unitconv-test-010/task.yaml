@@ -1,0 +1,12 @@
+id: unitconv-test-010
+level: 1
+category: physics
+instruction: log.csv has a 'pressure_psi' column in psi. Report the maximum pressure
+  in kPa. Answer with just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- units
+- telemetry
+seed: 637529
+split: test

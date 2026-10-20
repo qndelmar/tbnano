@@ -1,0 +1,12 @@
+id: paths-test-013
+level: 2
+category: env
+instruction: ./loader.sh expects its config at conf/svc.conf, but svc.conf sits in
+  the wrong place. Fix the layout and run loader.sh so out.txt is produced.
+answer_mode: files
+max_turns: 6
+tags:
+- perms
+- paths
+seed: 691591
+split: test

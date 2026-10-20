@@ -1,0 +1,14 @@
+id: fixform-train-000
+level: 3
+category: physics
+instruction: thrust.py computes rocket thrust in N (flow meter reads 49.02 g/s), but
+  the result is orders of magnitude too large — there is a units bug. Fix it and run
+  `python3 thrust.py` so thrust_n.txt holds the correct thrust in newtons.
+answer_mode: files
+max_turns: 8
+tags:
+- units
+- bugfix
+- physics
+seed: 701262
+split: train

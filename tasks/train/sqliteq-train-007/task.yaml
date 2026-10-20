@@ -1,0 +1,12 @@
+id: sqliteq-train-007
+level: 2
+category: data
+instruction: 'db.sqlite contains table ''channels'' (columns: id, flow). How many
+  rows have flow greater than 20? Answer with just the number.'
+answer_mode: answer
+max_turns: 6
+tags:
+- sqlite
+- query
+seed: 852387
+split: train

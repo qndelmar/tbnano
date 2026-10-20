@@ -1,0 +1,12 @@
+id: unitconv-test-004
+level: 1
+category: physics
+instruction: log.csv has a 'pressure_psi' column in psi. Report the mean pressure
+  in kPa. Answer with just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- units
+- telemetry
+seed: 721389
+split: test

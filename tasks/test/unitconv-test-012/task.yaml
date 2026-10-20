@@ -1,0 +1,12 @@
+id: unitconv-test-012
+level: 1
+category: physics
+instruction: flight.csv has a 'mass_lbs' column in lbs. Report the total payload mass
+  in kg. Answer with just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- units
+- telemetry
+seed: 330625
+split: test

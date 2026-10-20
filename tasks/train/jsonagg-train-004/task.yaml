@@ -1,0 +1,12 @@
+id: jsonagg-train-004
+level: 2
+category: data
+instruction: items.json is a JSON array of objects with keys 'id', 'phase', 'value'.
+  How many objects have phase 'queued'? Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- json
+- aggregate
+seed: 614284
+split: train

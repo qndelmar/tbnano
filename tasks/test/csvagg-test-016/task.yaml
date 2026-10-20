@@ -1,0 +1,13 @@
+id: csvagg-test-016
+level: 2
+category: data
+instruction: In sales.csv, compute the number of rows of column 'revenue' for rows
+  where 'region' is 'north'. Answer with just the number.
+answer_mode: answer
+max_turns: 6
+tags:
+- csv
+- aggregate
+seed: 101150
+split: test
+origin: tb1/bank-trans-filter
