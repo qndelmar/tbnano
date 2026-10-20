@@ -7,6 +7,6 @@ answer_mode: answer
 max_turns: 4
 tags:
 - count
-seed: 456329
+seed: 531715
 split: train
 template: t_word_freq

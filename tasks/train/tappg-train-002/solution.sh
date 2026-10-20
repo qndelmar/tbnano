@@ -1,0 +1,1 @@
+echo quebec >> log.txt

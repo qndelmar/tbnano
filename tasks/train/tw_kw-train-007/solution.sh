@@ -1,1 +1,1 @@
-python3 -c 'print(4500/1000)' > answer.txt
+python3 -c 'print(2300/1000)' > answer.txt

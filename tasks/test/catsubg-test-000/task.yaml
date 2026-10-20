@@ -1,0 +1,14 @@
+id: catsubg-test-000
+level: 0
+category: files_text
+instruction: Run `ls` then `cat docs/readme.txt`; answer with the file's contents.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- find
+- l0_guided
+seed: 771528
+split: test
+template: l0_cat_sub
+track: guided

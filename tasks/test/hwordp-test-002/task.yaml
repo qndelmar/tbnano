@@ -1,0 +1,14 @@
+id: hwordp-test-002
+level: 0
+category: files_text
+instruction: Does data.txt contain the word 'plugh'? Answer yes or no.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- grep
+- l0_plain
+seed: 608542
+split: test
+template: l0_has_word
+track: plain

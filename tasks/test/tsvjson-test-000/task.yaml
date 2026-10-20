@@ -8,6 +8,6 @@ max_turns: 5
 tags:
 - tsv
 - json
-seed: 395169
+seed: 317171
 split: test
 template: tsv_to_json

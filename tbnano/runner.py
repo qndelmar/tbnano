@@ -19,6 +19,7 @@ from .adapters import Adapter
 from .backends.base import Backend
 from .episode import EpisodeResult, run_episode
 from .metrics import RunRecord, aggregate, format_table, write_report
+from .procmetrics import episode_metrics
 from .sandbox import make_sandbox
 from .tasksio import TaskSpec, build_setup_tempdir
 from .tokens import ApproxTokenizer, Tokenizer
@@ -90,6 +91,7 @@ def run_one(
     seed: Optional[int] = None,
     sandbox_kwargs: Optional[dict] = None,
     text_final: bool = False,
+    loop_stop: bool = True,
 ) -> tuple[RunRecord, EpisodeResult, str]:
     """Run one episode + verification. Returns (record, episode, test_output)."""
     setup_dir = build_setup_tempdir(spec)
@@ -98,17 +100,18 @@ def run_one(
         sb.start(setup_dir, spec.id)  # tests stay outside the sandbox
         ep = run_episode(
             spec, backend, adapter, sb, tok, temperature=temperature, seed=seed,
-            text_final=text_final,
+            text_final=text_final, loop_stop=loop_stop,
         )
         sb.write_submission(ep.answer)
         tests = sb.run_tests(spec.tests_dir, timeout=60.0)
+        end_reason = "harness_error" if tests.error else ep.end_reason
         rec = RunRecord(
             task_id=spec.id,
             resolved=tests.resolved,
             partial=tests.partial,
             # broken test infra (no tests ran, pytest missing) is the harness's
             # fault, not the model's: report it apart from model failures
-            end_reason="harness_error" if tests.error else ep.end_reason,
+            end_reason=end_reason,
             turns_used=ep.turns_used,
             tokens_used=ep.tokens_used,
             invalid_calls=ep.invalid_calls,
@@ -116,7 +119,13 @@ def run_one(
             level=spec.level,
             category=spec.category,
             template=spec.template,
+            track=spec.track,
+            proc_excluded=end_reason == "harness_error",
         )
+        if not rec.proc_excluded:
+            pm = episode_metrics(ep.trajectory, spec.instruction, ep.end_reason)
+            for k, v in pm.items():
+                setattr(rec, k, v)
         return rec, ep, tests.output
     finally:
         sb.close()
@@ -138,6 +147,8 @@ def run_benchmark(
     progress: bool = True,
     resume: bool = False,
     text_final: bool = False,
+    loop_stop: bool = True,
+    protocol: Optional[dict] = None,
 ) -> Path:
     """Run all tasks x samples; write trajectories + report.json.
 
@@ -170,6 +181,16 @@ def run_benchmark(
             tokens_used=s["tokens_used"], invalid_calls=s["invalid_calls"],
             exec_seconds=s["exec_seconds"], level=spec.level,
             category=spec.category, template=spec.template, sample=sample,
+            track=spec.track,
+            valid_calls=s.get("valid_calls", 0),
+            call_attempts=s.get("call_attempts", 0),
+            grounded_first=s.get("grounded_first"),
+            looped=s.get("looped", False),
+            err_calls=s.get("err_calls", 0),
+            err_recovered=s.get("err_recovered", 0),
+            proper_end=s.get("proper_end", False),
+            refused=s.get("refused", False),
+            proc_excluded=s.get("proc_excluded", s["end_reason"] == "harness_error"),
         )
 
     def worker(spec: TaskSpec, sample: int):
@@ -186,6 +207,7 @@ def run_benchmark(
             seed=None if seed is None else seed + sample,
             sandbox_kwargs=sandbox_kwargs,
             text_final=text_final,
+            loop_stop=loop_stop,
         )
         rec.sample = sample
         traj_path = traj_path_for(spec, sample)
@@ -202,6 +224,15 @@ def run_benchmark(
                             "resolved": rec.resolved,
                             "partial": rec.partial,
                             "sample": sample,
+                            "valid_calls": rec.valid_calls,
+                            "call_attempts": rec.call_attempts,
+                            "grounded_first": rec.grounded_first,
+                            "looped": rec.looped,
+                            "err_calls": rec.err_calls,
+                            "err_recovered": rec.err_recovered,
+                            "proper_end": rec.proper_end,
+                            "refused": rec.refused,
+                            "proc_excluded": rec.proc_excluded,
                         }
                     }
                 )
@@ -229,7 +260,6 @@ def run_benchmark(
         for f in as_completed(futs):
             f.result()  # propagate exceptions
 
-    report_path = write_report(records, out_dir, model_name)
-    rep = aggregate(records)
-    print(format_table({model_name: {"overall": rep["overall"], "n_tasks": len(tasks)}}))
+    report_path = write_report(records, out_dir, model_name, protocol=protocol)
+    print(format_table({model_name: json.loads(report_path.read_text())}))
     return report_path

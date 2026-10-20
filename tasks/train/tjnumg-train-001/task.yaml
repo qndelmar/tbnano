@@ -1,0 +1,15 @@
+id: tjnumg-train-001
+level: 0
+category: data
+instruction: Run `python3 -c "import json;print(json.load(open('cfg.json'))['depth'])"`
+  and answer with just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- json
+- l0_guided
+seed: 486668
+split: train
+template: t_l0_json_num
+track: guided

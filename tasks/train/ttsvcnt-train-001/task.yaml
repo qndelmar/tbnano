@@ -7,6 +7,6 @@ answer_mode: answer
 max_turns: 4
 tags:
 - tsv
-seed: 151653
+seed: 355525
 split: train
 template: t_tsv_count

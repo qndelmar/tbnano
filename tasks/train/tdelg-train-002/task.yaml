@@ -1,0 +1,14 @@
+id: tdelg-train-002
+level: 0
+category: env
+instruction: Run `rm junk.tmp`.
+answer_mode: files
+max_turns: 4
+tags:
+- l0
+- rm
+- l0_guided
+seed: 555939
+split: train
+template: t_l0_delete
+track: guided

@@ -1,1 +1,5 @@
-python3 -c 'print(60*1.60934)' > answer.txt
+python3 - <<'PY' > answer.txt
+import json, math
+p = json.load(open('params.json'))
+print(p['value']*p['factor'])
+PY

@@ -8,6 +8,6 @@ max_turns: 8
 tags:
 - sort
 - merge
-seed: 993073
+seed: 740845
 split: test
 template: merge_logs

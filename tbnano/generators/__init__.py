@@ -10,7 +10,7 @@ from __future__ import annotations
 import random
 from pathlib import Path
 
-from . import ct, dt, et, ft, pt
+from . import ct, dt, et, ft, l0, pt
 
 # template name -> function(rng, idx, out_root, split) -> Path
 TEST_TEMPLATES = {
@@ -83,6 +83,12 @@ TEST_TEMPLATES = {
     "mach_speed": pt.mach_speed,
     "impulse_int": pt.impulse_int,
     "glide_ratio": pt.glide_ratio,
+    # L0 track (v2 spec 2): each emits a guided+plain pair
+    "l0_line_count": l0.l0_line_count, "l0_first_line": l0.l0_first_line,
+    "l0_last_line": l0.l0_last_line, "l0_has_word": l0.l0_has_word,
+    "l0_run_script": l0.l0_run_script, "l0_cat_sub": l0.l0_cat_sub,
+    "l0_json_key": l0.l0_json_key, "l0_csv_sum": l0.l0_csv_sum,
+    "l0_rename": l0.l0_rename, "l0_write_line": l0.l0_write_line,
 }
 
 # variants per template for the default test split (~338 tasks).
@@ -105,6 +111,10 @@ TEST_COUNTS = {
     "peak_telem": 5, "fix_formula": 5, "multi_report": 16, "orbital_v": 5,
     "drag_force": 5, "delta_v": 5, "fuel_time": 5, "pressure_alt": 5,
     "mach_speed": 5, "impulse_int": 5, "glide_ratio": 6,
+    # L0: variants -> 2 tasks each (guided+plain): 10*3*2 = 60
+    "l0_line_count": 3, "l0_first_line": 3, "l0_last_line": 3,
+    "l0_has_word": 3, "l0_run_script": 3, "l0_cat_sub": 3,
+    "l0_json_key": 3, "l0_csv_sum": 3, "l0_rename": 3, "l0_write_line": 3,
 }
 
 TRAIN_TEMPLATES = {
@@ -128,6 +138,11 @@ TRAIN_TEMPLATES = {
     "t_rpm_rads": pt.t_rpm_rads, "t_m_km": pt.t_m_km, "t_w_kw": pt.t_w_kw,
     "t_avg_speed": pt.t_avg_speed, "t_total_mass": pt.t_total_mass,
     "t_fuel_pct": pt.t_fuel_pct, "t_n_lbf": pt.t_n_lbf, "t_pa_psi": pt.t_pa_psi,
+    # L0 train variants (disjoint names, same skills)
+    "t_l0_grep_line": l0.t_l0_grep_line, "t_l0_word_count": l0.t_l0_word_count,
+    "t_l0_mkdir": l0.t_l0_mkdir, "t_l0_delete": l0.t_l0_delete,
+    "t_l0_json_num": l0.t_l0_json_num, "t_l0_tsv_sum": l0.t_l0_tsv_sum,
+    "t_l0_nth_line": l0.t_l0_nth_line, "t_l0_append": l0.t_l0_append,
 }
 
 TRAIN_COUNTS = {
@@ -144,6 +159,10 @@ TRAIN_COUNTS = {
     "t_kmh_mph": 8, "t_c_to_k": 8, "t_rpm_rads": 8, "t_m_km": 8,
     "t_w_kw": 8, "t_avg_speed": 8, "t_total_mass": 8, "t_fuel_pct": 8,
     "t_n_lbf": 8, "t_pa_psi": 8,
+    # L0 train: 8 templates x 3 variants x 2 (guided+plain) = 48
+    "t_l0_grep_line": 3, "t_l0_word_count": 3, "t_l0_mkdir": 3,
+    "t_l0_delete": 3, "t_l0_json_num": 3, "t_l0_tsv_sum": 3,
+    "t_l0_nth_line": 3, "t_l0_append": 3,
 }
 
 REGISTRY = {"test": TEST_TEMPLATES, "train": TRAIN_TEMPLATES}
@@ -166,5 +185,7 @@ def generate_split(
     for ti, (name, fn) in enumerate(sorted(templates.items())):
         for i in range(counts.get(name, 0)):
             rng = random.Random(seed + ti * 7919 + i * 131)
-            written.append(fn(rng, i, out_root, split))
+            res = fn(rng, i, out_root, split)
+            # L0 generators return a guided+plain pair of paths
+            written.extend(res if isinstance(res, list) else [res])
     return written

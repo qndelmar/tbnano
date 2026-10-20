@@ -7,6 +7,6 @@ answer_mode: answer
 max_turns: 4
 tags:
 - wc
-seed: 255347
+seed: 731376
 split: test
 template: longest_line

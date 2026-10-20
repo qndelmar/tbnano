@@ -1,11 +1,11 @@
 id: tw_kw-train-007
 level: 1
 category: physics
-instruction: Convert 4500 W to kW. Number only.
+instruction: Convert 2300 W to kW. Number only.
 answer_mode: answer
 max_turns: 4
 tags:
 - convert
-seed: 307800
+seed: 567147
 split: train
 template: t_w_kw

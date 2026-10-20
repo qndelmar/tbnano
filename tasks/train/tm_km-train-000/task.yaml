@@ -6,6 +6,6 @@ answer_mode: answer
 max_turns: 4
 tags:
 - convert
-seed: 553498
+seed: 389797
 split: train
 template: t_m_km

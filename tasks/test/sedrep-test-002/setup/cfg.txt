@@ -1,14 +1,8 @@
-MODE=old
+MODE=x
 k1=v1
 k2=v2
-MODE=x
+MODE=dev
 k4=v4
 k5=v5
 MODE=old
 k7=v7
-k8=v8
-MODE=old
-k10=v10
-k11=v11
-MODE=old
-k13=v13

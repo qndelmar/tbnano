@@ -1,11 +1,11 @@
 id: tmkp-train-001
 level: 1
 category: env
-instruction: Create nested directory 'logs/2024' and an empty file 'logs/2024/f.txt'.
+instruction: Create nested directory 'x/y' and an empty file 'x/y/f.txt'.
 answer_mode: files
 max_turns: 4
 tags:
 - mkdir
-seed: 619408
+seed: 66121
 split: train
 template: t_mkpath

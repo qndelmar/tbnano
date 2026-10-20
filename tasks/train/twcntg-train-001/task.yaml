@@ -1,0 +1,14 @@
+id: twcntg-train-001
+level: 0
+category: files_text
+instruction: Run `wc -w words.txt` and answer with just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- wc
+- l0_guided
+seed: 633678
+split: train
+template: t_l0_word_count
+track: guided

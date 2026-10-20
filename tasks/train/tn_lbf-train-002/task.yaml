@@ -1,11 +1,11 @@
 id: tn_lbf-train-002
 level: 1
 category: physics
-instruction: Convert 50 N to lbf (x0.224809). Number only.
+instruction: Convert 10 N to lbf (x0.224809). Number only.
 answer_mode: answer
 max_turns: 4
 tags:
 - convert
-seed: 719927
+seed: 110125
 split: train
 template: t_n_lbf

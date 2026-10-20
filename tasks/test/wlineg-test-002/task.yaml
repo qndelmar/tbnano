@@ -1,0 +1,14 @@
+id: wlineg-test-002
+level: 0
+category: env
+instruction: Use write_file to create done.txt containing exactly the line 'JULIET-845'.
+answer_mode: files
+max_turns: 4
+tags:
+- l0
+- write
+- l0_guided
+seed: 776140
+split: test
+template: l0_write_line
+track: guided

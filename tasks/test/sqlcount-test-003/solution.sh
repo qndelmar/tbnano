@@ -1,1 +1,1 @@
-sqlite3 data.db "SELECT count(*) FROM t WHERE g='a'" > answer.txt || python3 -c "import sqlite3;print(sqlite3.connect('data.db').execute(\"SELECT count(*) FROM t WHERE g='a'\").fetchone()[0])" > answer.txt
+sqlite3 data.db "SELECT count(*) FROM t WHERE g='b'" > answer.txt || python3 -c "import sqlite3;print(sqlite3.connect('data.db').execute(\"SELECT count(*) FROM t WHERE g='b'\").fetchone()[0])" > answer.txt

@@ -1,0 +1,15 @@
+id: csump-test-002
+level: 0
+category: data
+instruction: vals.csv has rows 'x,y' (header first). Sum the y column. Answer with
+  just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- csv
+- l0_plain
+seed: 50193
+split: test
+template: l0_csv_sum
+track: plain

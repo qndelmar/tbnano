@@ -6,6 +6,6 @@ answer_mode: answer
 max_turns: 5
 tags:
 - sqlite
-seed: 88542
+seed: 257014
 split: train
 template: t_sql_minmax

@@ -1,2 +1,2 @@
-mkdir -p a/b/c
-touch a/b/c/f.txt
+mkdir -p x/y
+touch x/y/f.txt

@@ -1,1 +1,5 @@
-python3 -c 'print(0.62/0.07)' > answer.txt
+python3 - <<'PY' > answer.txt
+import json, math
+p = json.load(open('params.json'))
+print(p['fuel_kg']/p['burn_rate_kgs'])
+PY

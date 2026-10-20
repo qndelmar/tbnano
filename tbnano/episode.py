@@ -32,6 +32,7 @@ END_CONTEXT_OVERFLOW = "context_overflow"
 END_TIMEOUT = "timeout"
 END_NO_CALL = "no_call"
 END_HARNESS_ERROR = "harness_error"
+END_LOOP = "loop"   # 3 identical consecutive calls (spec v2 3)
 
 _NO_CALL_NUDGE = (
     "No tool call was detected in your reply. Respond with exactly one "
@@ -76,9 +77,10 @@ def run_episode(
     temperature: float = 0.0,
     seed: Optional[int] = None,
     text_final: bool = False,
+    loop_stop: bool = True,
 ) -> EpisodeResult:
     try:
-        return _run_episode(spec, backend, adapter, sandbox, tok, temperature, seed, text_final)
+        return _run_episode(spec, backend, adapter, sandbox, tok, temperature, seed, text_final, loop_stop)
     except Exception as e:  # one bad task/model quirk must not kill the run
         import traceback
 
@@ -98,9 +100,11 @@ def _run_episode(
     temperature: float = 0.0,
     seed: Optional[int] = None,
     text_final: bool = False,
+    loop_stop: bool = True,
 ) -> EpisodeResult:
     """text_final: a plain-text reply ends the episode with that text as the
-    answer (the model's native protocol, e.g. LFM2.5), instead of a nudge."""
+    answer (the model's native protocol, e.g. LFM2.5), instead of a nudge.
+    loop_stop: 3 identical consecutive calls end the episode (tests still run)."""
     res = EpisodeResult(task_id=spec.id, end_reason=END_MAX_TURNS)
     messages: list[dict[str, Any]] = [
         {"role": "system", "content": adapter.system_prompt(
@@ -120,6 +124,7 @@ def _run_episode(
         return res
 
     text_streak = 0
+    last_calls: list[str] = []
     tools_arg = adapter.schemas() if adapter.native_tools else None
 
     def _overflow(ctx: int) -> bool:
@@ -209,6 +214,18 @@ def _run_episode(
                 res.turns_used = turn + 1
                 return res
             continue
+
+        # Early loop stop: 3 identical consecutive VALID calls (same name
+        # and args) end the episode; tests still run (spec v2 3).
+        if loop_stop:
+            last_calls.append(call.to_json())
+            if len(last_calls) >= 3 and len(set(last_calls[-3:])) == 1:
+                res.end_reason = END_LOOP
+                res.turns_used = turn + 1
+                _update_tokens(res, backend, messages)
+                return res
+            if len(last_calls) > 8:
+                last_calls.pop(0)
 
         if call.name == "finish":
             res.answer = str(call.arguments.get("answer", "") or "")

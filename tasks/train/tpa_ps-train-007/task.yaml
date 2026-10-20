@@ -6,6 +6,6 @@ answer_mode: answer
 max_turns: 4
 tags:
 - convert
-seed: 527383
+seed: 278708
 split: train
 template: t_pa_psi

@@ -7,6 +7,6 @@ answer_mode: files
 max_turns: 6
 tags:
 - ln
-seed: 429609
+seed: 401956
 split: test
 template: symlink_fix

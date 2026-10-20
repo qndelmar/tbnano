@@ -1,12 +1,12 @@
 id: isp-test-002
 level: 3
 category: physics
-instruction: A motor gives 40 N for 1.5 s using 0.0306 kg of propellant. What is its
-  specific impulse (s)? g=9.81. Answer with just the number.
+instruction: params.json has thrust_n, burn_s, prop_kg for a motor. What is its specific
+  impulse (s)? g=9.81. Answer with just the number.
 answer_mode: answer
 max_turns: 7
 tags:
 - rocket
-seed: 763876
+seed: 772875
 split: test
 template: thrust_isp

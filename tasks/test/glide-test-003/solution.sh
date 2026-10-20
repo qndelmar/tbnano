@@ -1,1 +1,5 @@
-python3 -c 'print(1.09/0.061)' > answer.txt
+python3 - <<'PY' > answer.txt
+import json, math
+p = json.load(open('params.json'))
+print(p['cl']/p['cd'])
+PY

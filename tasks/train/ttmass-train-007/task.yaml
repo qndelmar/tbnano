@@ -7,6 +7,6 @@ answer_mode: answer
 max_turns: 4
 tags:
 - sum
-seed: 473133
+seed: 715502
 split: train
 template: t_total_mass

@@ -1,1 +1,1 @@
-grep -c '\[CRITICAL\]' app.log > answer.txt
+grep -c '\[ERROR\]' server.log > answer.txt

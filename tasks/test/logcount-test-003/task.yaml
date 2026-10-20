@@ -1,13 +1,13 @@
 id: logcount-test-003
 level: 1
 category: files_text
-instruction: How many lines in server.log have level CRITICAL (shown as [CRITICAL]
-  at the start)? Answer with just the number.
+instruction: How many lines in svc.log have level WARN (shown as [WARN] at the start)?
+  Answer with just the number.
 answer_mode: answer
 max_turns: 4
 tags:
 - grep
 - count
-seed: 157405
+seed: 195063
 split: test
 template: log_count

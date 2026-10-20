@@ -68,8 +68,14 @@ def csv_join(rng, idx, out_root, split):
         setup_files={"users.csv": "\n".join(f"{i},{a[i]}" for i in sorted(ids)) + "\n",
                      "orders.csv": "\n".join(f"{i},{b[i]}" for i in sorted(ids)) + "\n"},
         test_py=files_test("joined.csv", exp),
-        solution_sh=("sort -t, -k1,1 users.csv > /tmp/u; sort -t, -k1,1 orders.csv > /tmp/o; "
-                     "join -t, /tmp/u /tmp/o > joined.csv\nhead joined.csv\n"))
+        # no sort/join: BSD and GNU sort differ; keep temp files out of /tmp
+        # (shared across tasks on a host)
+        solution_sh=("python3 - <<'PY'\n"
+                     "u={l.split(',')[0]:l.split(',',1)[1] for l in open('users.csv').read().split()}\n"
+                     "o={l.split(',')[0]:l.split(',',1)[1].strip() for l in open('orders.csv').read().split()}\n"
+                     "open('joined.csv','w').write(\n"
+                     " ''.join(f'{i},{u[i]},{o[i]}\\n' for i in sorted(u,key=int)))\n"
+                     "PY\nhead joined.csv\n"))
 
 
 def sqlite_count(rng, idx, out_root, split):

@@ -9,8 +9,16 @@ so that a 1B model can realistically attempt it:
   instead of an interactive terminal session;
 * hard **token budgets** everywhere (system prompt, instruction, tool output, reply);
 * **one shared Docker image** for all tasks (TB1 builds an image per task);
-* deterministic task generators producing a **test** split (64 templates) and a
-  **train** split (40 disjoint templates) — the template sets never intersect.
+* deterministic task generators producing a **test** split (74 templates) and a
+  **train** split (48 disjoint templates) — the template sets never intersect;
+* an **L0 track** (spec v2): level-0 tasks in two instruction variants —
+  `guided` (names the action) vs `plain` (states only the goal) — 1–2 turns,
+  `max_turns: 4`, same setup+tests per pair. The guided/plain gap is its own
+  column (`L0g`/`L0p`) in the report;
+* **process metrics** on every trajectory (valid-call rate, grounded first
+  call, loop rate, error recovery, proper end, refusal) and an early
+  **loop stop** (3 identical consecutive calls → `end_reason: "loop"`),
+  so the benchmark discriminates 100–300M models, not just 1B.
 
 ## Install
 
@@ -25,7 +33,7 @@ backends), `openai` + `tiktoken` (API backend), `tokenizers` (`ours` backend).
 ## Quick start
 
 ```bash
-# the shipped set: 351 test tasks (64 templates) + 305 train tasks (40 templates)
+# the shipped set: 411 test tasks (74 templates) + 353 train tasks (48 templates)
 tbnano gen --split test --out tasks/test
 tbnano gen --split train --out tasks/train
 
@@ -34,8 +42,12 @@ tbnano validate --tasks tasks/test --sandbox docker --jobs 8 \
     --check-leak --train tasks/train
 
 # pilot agents
-tbnano run --agent oracle  --sandbox docker --jobs 8 --name oracle
-tbnano run --agent quitter --sandbox docker --jobs 8 --name quitter
+#   oracle  -> must pass ~100%
+#   quitter -> 0% everywhere (no accidentally-correct empty answers)
+#   ls_then_quit -> 0% but grounded_first_call=100% (sanity for process metrics)
+tbnano run --agent oracle        --sandbox docker --jobs 8 --name oracle
+tbnano run --agent quitter       --sandbox docker --jobs 8 --name quitter
+tbnano run --agent ls_then_quit  --sandbox docker --jobs 8 --name lsq
 
 # real models (as named in the ТЗ)
 tbnano run --model hf:LiquidAI/LFM2.5-230M --format lfm_pythonic \
@@ -52,8 +64,19 @@ tbnano run --model hf:Qwen3.5-0.8B        --format hermes \
 #              --backend ours --format json_tags
 
 # results
-tbnano report --runs runs/
+tbnano report runs/
+
+# recompute process metrics on saved trajectories (e.g. a run from an older build)
+tbnano metrics runs/<name> --tasks tasks/test
 ```
+
+Run protocol flags (all recorded in `report.json` under `protocol`):
+`--format <adapter>`, `--final-answer tool|text` (tool = `finish()` only,
+text = a plain-text reply also ends the episode — the model's native
+protocol), `--sampling greedy|model` (model = the checkpoint's own
+`generation_config.json` values), `--flat-tools` (bare `[run, read_file, ...]`
+function list in the chat template), `--no-loop-stop` (disable the
+3-identical-call early stop for comparability with pilot runs).
 
 > **WARNING — `--sandbox local`**: it executes model-generated commands directly
 > on this host with only `HOME` pointed at the task dir — there is no
@@ -75,8 +98,10 @@ Per task, the harness builds a fresh sandbox (new container, task dir at
    tokenizer.
 5. End reasons: `finish(answer)`, `max_turns`, `context_overflow` (always a
    failure), `timeout` (60 s cumulative exec, 10 s per call), `no_call` (two
-   consecutive text-only replies end as `finish("")`), and `harness_error`
-   (any internal harness exception — counted separately, target 0).
+   consecutive text-only replies end as `finish("")`), `loop` (3 identical
+   consecutive valid calls — tests still run normally; `--no-loop-stop`
+   disables it), and `harness_error` (any internal harness exception —
+   counted separately, target 0; excluded from process metrics).
 6. **Tests are never present in the sandbox during the episode.** The agent
    cannot `cat` the checker. After the episode ends, `run_tests` spins up a
    separate one-shot container with `/task` mounted **read-only** and the
@@ -123,13 +148,14 @@ raw text).
 | `mlx` | `mlx_lm.load` / `mlx_lm.generate` (Apple silicon) |
 | `openai` | OpenAI-compatible API (`--base-url`, `OPENAI_API_KEY`, `TBNANO_API_BASE`) |
 | `ours` | `TBNANO_OURS_REPO` repo providing `agent.py` (`load()->(model,tok,device)`, `generate(model,tok,ids,device,max_new,temp)` on token ids), `chat_format.py` (`render(messages, tools=)` + we append `<|im_start|>assistant\n`), `tokenizer/tokenizer.json` (`tokenizers.Tokenizer`). Trained ctx 1024 → `context_overflow` at 1024. |
-| `scripted` | fake replies for tests and `--agent oracle/quitter` |
+| `scripted` | fake replies for tests and `--agent oracle/quitter/ls_then_quit` |
 
 ## Task format
 
 ```
 tasks/<id>/
-  task.yaml        # id, level 1-4, category, instruction, answer_mode,
+  task.yaml        # id, level 0-4, category, instruction, answer_mode,
+                   # track (guided|plain, L0 only),
                    # max_turns, tags, seed, split, template, origin?, rel_tol?
   setup/           # files copied into /task
   setup.sh         # optional, runs after copying setup/
@@ -141,13 +167,21 @@ tasks/<id>/
 `both`. For `answer` tasks the reference `solution.sh` writes `answer.txt`;
 the agent's `finish` answer lands in `/task/.submission/answer.txt`.
 
-Set composition (351 test tasks): L1 25% / L2 37% / L3 28% / L4 9%;
-files_text 24%, data 18%, code 17%, env 9%, physics 32%. Each task carries a
-`template` field — its generator archetype; the test split uses **64
-templates** (3–16 seeded variants each), the train split **40 distinct
+Set composition (411 test tasks): L0 15% / L1 21% / L2 32% / L3 24% / L4 8%;
+files_text 27%, data 18%, code 14%, env 12%, physics 27%. Each task carries a
+`template` field — its generator archetype; the test split uses **74
+templates** (3–16 seeded variants each), the train split **48 distinct
 templates**, and `validate --check-leak` verifies both that no
 instruction/setup-file hash collides and that the template sets are disjoint.
 A few archetypes were adapted from TerminalBench 1.0 (`origin: tb1/<id>`).
+
+**L0 tasks** come in pairs: `<slug>g-<split>-NNN` (`track: guided`, names the
+action — e.g. "Run `wc -l log.txt` and answer with the number.") and
+`<slug>p-<split>-NNN` (`track: plain`, only the goal — e.g. "How many lines
+are in log.txt?"). Same files and tests; `max_turns: 4`; the answer is
+seeded and unguessable without a tool call. Physics tasks deliver inputs via
+`params.json`/CSV in the task dir — a file read is always required
+(spec v2 6.1).
 
 **Presence tests**: checks named `test_*_present*` only assert an artifact
 exists. They count for `resolved` but carry zero weight in `partial` — so a
@@ -161,6 +195,23 @@ template are not independent — plain per-task CI underestimates), partial,
 invalid_call_rate, harness_error count, mean turns/tokens, end_reasons,
 per-level / per-category / per-template breakdowns. `pass@k` (unbiased) with
 `--samples k`.
+
+**Process metrics** (per trajectory; `harness_error` episodes excluded):
+`valid_call_rate` = valid calls / call attempts; `grounded_first_call` =
+first valid call names an instruction file or is an inspect command
+(`ls|find|cat|head|tail|wc|file|stat|du|tree`); `loop_rate` = share of
+episodes with 3 identical consecutive calls; `error_recovery` = errored
+calls followed by a *different* valid call; `proper_end` = share ending on
+`finish` (a text final also counts); `refusal_rate` = reply matching the
+refusal list (one place: `procmetrics.REFUSAL_PATTERNS`).
+
+Report row: `model protocol pass@1[L0g L0p L1 L2 L3 L4] partial valid
+grounded loop recover end refusal turns tok`. `report.json` records the
+run `protocol` (adapter format, `final_answer`, `sampling` + actual values,
+`flat_tools`, `max_context`, tbnano version + git hash) and `tasks_hash` —
+`tbnano report` warns when runs differ in protocol or task set, since those
+numbers are not directly comparable. `tbnano metrics <run_dir>` recomputes
+the process metrics on saved trajectories and updates `report.json`.
 
 ## Adding tasks / backends
 

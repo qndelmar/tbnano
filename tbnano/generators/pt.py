@@ -9,7 +9,15 @@ import math
 import random
 from pathlib import Path
 
-from .base import answer_test, files_test, kv_test, write_task
+from .base import answer_test, files_test, json_dumps, kv_test, write_task
+
+
+def _params_sol(expr: str) -> str:
+    """solution.sh that reads params.json and evaluates `expr` with p[...] lookups."""
+    return ("python3 - <<'PY' > answer.txt\n"
+            "import json, math\n"
+            "p = json.load(open('params.json'))\n"
+            f"print({expr})\nPY\n")
 
 
 def _telem(rng, n=200):
@@ -34,11 +42,14 @@ def unit_conv(rng, idx, out_root, split):
     tid = f"uconv-{split}-{idx:03d}"
     return write_task(
         out_root, tid, 1, "physics",
-        f"Convert {val} {a} to {b}. Answer with just the number.",
-        answer_mode="answer", max_turns=4, tags=["convert"], template="unit_conv",
+        "params.json has {value, factor, from_unit, to_unit}. Convert value "
+        "to to_unit (value * factor). Answer with just the number.",
+        answer_mode="answer", max_turns=5, tags=["convert"], template="unit_conv",
         seed=rng.randint(0, 10**6), split=split,
+        setup_files={"params.json": json_dumps(
+            {"value": val, "factor": k, "from_unit": a, "to_unit": b})},
         test_py=answer_test(exp, 1e-4),
-        solution_sh=f"python3 -c 'print({val}*{k})' > answer.txt\n")
+        solution_sh=_params_sol("p['value']*p['factor']"))
 
 
 def vert_speed(rng, idx, out_root, split):
@@ -69,14 +80,17 @@ def energy_int(rng, idx, out_root, split):
     tid = f"energy-{split}-{idx:03d}"
     return write_task(
         out_root, tid, 3, "physics",
-        f"A {m} kg rocket has constant thrust {thrust} N upward for "
-        f"{burn} s from rest (g=9.81, ignore drag/mass loss). Compute the "
-        f"kinetic energy at burnout (J). Answer with just the number.",
+        "params.json has mass_kg, thrust_n, burn_s: a rocket with constant "
+        "thrust upward for burn_s from rest (g=9.81, ignore drag/mass loss). "
+        "Compute the kinetic energy at burnout (J). Answer with just the "
+        "number.",
         answer_mode="answer", max_turns=8, tags=["dynamics"], template="energy_int",
         seed=rng.randint(0, 10**6), split=split,
+        setup_files={"params.json": json_dumps(
+            {"mass_kg": m, "thrust_n": thrust, "burn_s": burn})},
         test_py=answer_test(exp, 1e-4),
-        solution_sh=(f"python3 -c \"m={m};T={thrust};t={burn};"
-                     "a=(T-m*9.81)/m;v=a*t;print(0.5*m*v*v)\" > answer.txt\n"))
+        solution_sh=_params_sol(
+            "0.5*p['mass_kg']*((p['thrust_n']-p['mass_kg']*9.81)/p['mass_kg']*p['burn_s'])**2"))
 
 
 def thrust_isp(rng, idx, out_root, split):
@@ -87,13 +101,15 @@ def thrust_isp(rng, idx, out_root, split):
     tid = f"isp-{split}-{idx:03d}"
     return write_task(
         out_root, tid, 3, "physics",
-        f"A motor gives {thrust} N for {burn} s using {prop} kg of "
-        f"propellant. What is its specific impulse (s)? g=9.81. Answer with "
-        f"just the number.",
+        "params.json has thrust_n, burn_s, prop_kg for a motor. What is its "
+        "specific impulse (s)? g=9.81. Answer with just the number.",
         answer_mode="answer", max_turns=7, tags=["rocket"], template="thrust_isp",
         seed=rng.randint(0, 10**6), split=split,
+        setup_files={"params.json": json_dumps(
+            {"thrust_n": thrust, "burn_s": burn, "prop_kg": prop})},
         test_py=answer_test(isp, 1e-4),
-        solution_sh=f"python3 -c 'print({thrust}*{burn}/({prop}*9.81))' > answer.txt\n")
+        solution_sh=_params_sol(
+            "p['thrust_n']*p['burn_s']/(p['prop_kg']*9.81)"))
 
 
 def center_mass(rng, idx, out_root, split):
@@ -125,12 +141,13 @@ def battery_c(rng, idx, out_root, split):
     tid = f"batt-{split}-{idx:03d}"
     return write_task(
         out_root, tid, 1, "physics",
-        f"A battery is {mah} mAh rated {crate}C. What is the max continuous "
-        f"current (A)? Answer with just the number.",
+        "params.json has mah and c_rating for a battery. What is the max "
+        "continuous current (A)? Answer with just the number.",
         answer_mode="answer", max_turns=5, tags=["battery"], template="battery_c",
         seed=rng.randint(0, 10**6), split=split,
+        setup_files={"params.json": json_dumps({"mah": mah, "c_rating": crate})},
         test_py=answer_test(exp, 1e-4),
-        solution_sh=f"python3 -c 'print({mah}/1000*{crate})' > answer.txt\n")
+        solution_sh=_params_sol("p['mah']/1000*p['c_rating']"))
 
 
 def course_dist(rng, idx, out_root, split):
@@ -171,12 +188,14 @@ def lift_force(rng, idx, out_root, split):
     tid = f"lift-{split}-{idx:03d}"
     return write_task(
         out_root, tid, 1, "physics",
-        f"Wing: area {s} m^2, CL {cl}, speed {v} m/s, rho=1.225 kg/m^3. "
-        f"Lift force (N)? Answer with just the number.",
+        "params.json has wing area_m2, cl, v_ms (rho=1.225 kg/m^3). Lift "
+        "force (N)? Answer with just the number.",
         answer_mode="answer", max_turns=5, tags=["aero"], template="lift_force",
         seed=rng.randint(0, 10**6), split=split,
+        setup_files={"params.json": json_dumps(
+            {"area_m2": s, "cl": cl, "v_ms": v})},
         test_py=answer_test(exp, 1e-4),
-        solution_sh=f"python3 -c 'print(0.5*1.225*{v}**2*{s}*{cl})' > answer.txt\n")
+        solution_sh=_params_sol("0.5*1.225*p['v_ms']**2*p['area_m2']*p['cl']"))
 
 
 def peak_telem(rng, idx, out_root, split):
@@ -259,12 +278,14 @@ def orbital_v(rng, idx, out_root, split):
     tid = f"orbv-{split}-{idx:03d}"
     return write_task(
         out_root, tid, 1, "physics",
-        f"Circular orbit speed at {alt} km altitude (mu=3.986e14 m^3/s^2, "
-        f"R_earth=6371 km), in m/s. Answer with just the number.",
+        "params.json has alt_km. Circular orbit speed at that altitude "
+        "(mu=3.986e14 m^3/s^2, R_earth=6371 km), in m/s. Answer with just "
+        "the number.",
         answer_mode="answer", max_turns=5, tags=["orbit"], template="orbital_v",
         seed=rng.randint(0, 10**6), split=split,
+        setup_files={"params.json": json_dumps({"alt_km": alt})},
         test_py=answer_test(exp, 1e-4),
-        solution_sh=f"python3 -c 'import math;print(math.sqrt(3.986e14/(6371e3+{alt}e3)))' > answer.txt\n")
+        solution_sh=_params_sol("math.sqrt(3.986e14/(6371e3+p['alt_km']*1e3))"))
 
 
 def drag_force(rng, idx, out_root, split):
@@ -275,12 +296,14 @@ def drag_force(rng, idx, out_root, split):
     tid = f"drag-{split}-{idx:03d}"
     return write_task(
         out_root, tid, 1, "physics",
-        f"Drag force at v={v} m/s, Cd={cd}, area={a} m^2, rho=1.225. "
-        f"(N). Answer with just the number.",
+        "params.json has v_ms, cd, area_m2 (rho=1.225). Drag force (N)? "
+        "Answer with just the number.",
         answer_mode="answer", max_turns=5, tags=["aero"], template="drag_force",
         seed=rng.randint(0, 10**6), split=split,
+        setup_files={"params.json": json_dumps(
+            {"v_ms": v, "cd": cd, "area_m2": a})},
         test_py=answer_test(exp, 1e-4),
-        solution_sh=f"python3 -c 'print(0.5*1.225*{v}**2*{cd}*{a})' > answer.txt\n")
+        solution_sh=_params_sol("0.5*1.225*p['v_ms']**2*p['cd']*p['area_m2']"))
 
 
 def delta_v(rng, idx, out_root, split):
@@ -291,12 +314,15 @@ def delta_v(rng, idx, out_root, split):
     tid = f"deltav-{split}-{idx:03d}"
     return write_task(
         out_root, tid, 3, "physics",
-        f"Tsiolkovsky: Isp={isp} s, m0={m0} kg, mf={mf} kg, g0=9.81. "
-        f"Delta-v (m/s)? Answer with just the number.",
+        "params.json has isp_s, m0_kg, mf_kg (g0=9.81). Tsiolkovsky "
+        "delta-v (m/s)? Answer with just the number.",
         answer_mode="answer", max_turns=6, tags=["rocket"], template="delta_v",
         seed=rng.randint(0, 10**6), split=split,
+        setup_files={"params.json": json_dumps(
+            {"isp_s": isp, "m0_kg": m0, "mf_kg": mf})},
         test_py=answer_test(exp, 1e-4),
-        solution_sh=f"python3 -c 'import math;print({isp}*9.81*math.log({m0}/{mf}))' > answer.txt\n")
+        solution_sh=_params_sol(
+            "p['isp_s']*9.81*math.log(p['m0_kg']/p['mf_kg'])"))
 
 
 def fuel_time(rng, idx, out_root, split):
@@ -306,12 +332,14 @@ def fuel_time(rng, idx, out_root, split):
     tid = f"fuel-{split}-{idx:03d}"
     return write_task(
         out_root, tid, 1, "physics",
-        f"Motor burns {rate} kg/s with {fuel} kg propellant. Burn time "
-        f"(s)? Answer with just the number.",
+        "params.json has burn_rate_kgs and fuel_kg for a motor. Burn time "
+        "(s)? Answer with just the number.",
         answer_mode="answer", max_turns=5, tags=["rocket"], template="fuel_time",
         seed=rng.randint(0, 10**6), split=split,
+        setup_files={"params.json": json_dumps(
+            {"burn_rate_kgs": rate, "fuel_kg": fuel})},
         test_py=answer_test(exp, 1e-4),
-        solution_sh=f"python3 -c 'print({fuel}/{rate})' > answer.txt\n")
+        solution_sh=_params_sol("p['fuel_kg']/p['burn_rate_kgs']"))
 
 
 def pressure_alt(rng, idx, out_root, split):
@@ -320,12 +348,13 @@ def pressure_alt(rng, idx, out_root, split):
     tid = f"palt-{split}-{idx:03d}"
     return write_task(
         out_root, tid, 1, "physics",
-        f"Pressure altitude for P={p} hPa (ISA: h=44330*(1-(P/1013.25)^"
-        f"0.1903) m). Answer with just the number.",
+        "params.json has pressure_hpa. Pressure altitude (ISA: "
+        "h=44330*(1-(P/1013.25)^0.1903) m). Answer with just the number.",
         answer_mode="answer", max_turns=5, tags=["atmo"], template="pressure_alt",
         seed=rng.randint(0, 10**6), split=split,
+        setup_files={"params.json": json_dumps({"pressure_hpa": p})},
         test_py=answer_test(exp, 1e-4),
-        solution_sh=f"python3 -c 'print(44330*(1-({p}/1013.25)**0.1903))' > answer.txt\n")
+        solution_sh=_params_sol("44330*(1-(p['pressure_hpa']/1013.25)**0.1903)"))
 
 
 def mach_speed(rng, idx, out_root, split):
@@ -336,12 +365,15 @@ def mach_speed(rng, idx, out_root, split):
     tid = f"mach-{split}-{idx:03d}"
     return write_task(
         out_root, tid, 1, "physics",
-        f"At T={t_c}C the speed of sound is a=331.3*sqrt(1+T/273.15) m/s. "
-        f"What is Mach {mach} in m/s? Answer with just the number.",
+        "params.json has temp_c and mach. Speed of sound "
+        "a=331.3*sqrt(1+T/273.15) m/s; what is Mach N in m/s? Answer with "
+        "just the number.",
         answer_mode="answer", max_turns=5, tags=["aero"], template="mach_speed",
         seed=rng.randint(0, 10**6), split=split,
+        setup_files={"params.json": json_dumps({"temp_c": t_c, "mach": mach})},
         test_py=answer_test(exp, 1e-4),
-        solution_sh=f"python3 -c 'import math;print({mach}*331.3*math.sqrt(1+{t_c}/273.15))' > answer.txt\n")
+        solution_sh=_params_sol(
+            "p['mach']*331.3*math.sqrt(1+p['temp_c']/273.15)"))
 
 
 def impulse_int(rng, idx, out_root, split):
@@ -375,12 +407,13 @@ def glide_ratio(rng, idx, out_root, split):
     tid = f"glide-{split}-{idx:03d}"
     return write_task(
         out_root, tid, 2, "physics",
-        f"Glide ratio L/D for CL={cl}, CD={cd}. Answer with just the "
-        f"number.",
+        "params.json has cl and cd. Glide ratio L/D? Answer with just the "
+        "number.",
         answer_mode="answer", max_turns=4, tags=["aero"], template="glide_ratio",
         seed=rng.randint(0, 10**6), split=split,
+        setup_files={"params.json": json_dumps({"cl": cl, "cd": cd})},
         test_py=answer_test(exp, 1e-4),
-        solution_sh=f"python3 -c 'print({cl}/{cd})' > answer.txt\n")
+        solution_sh=_params_sol("p['cl']/p['cd']"))
 
 
 # ---------------- train-only physics ------------------------------------

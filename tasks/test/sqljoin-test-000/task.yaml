@@ -8,6 +8,6 @@ max_turns: 8
 tags:
 - sqlite
 - join
-seed: 391840
+seed: 151352
 split: test
 template: sqlite_join

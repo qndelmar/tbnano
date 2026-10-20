@@ -7,6 +7,6 @@ answer_mode: answer
 max_turns: 6
 tags:
 - sqlite
-seed: 287477
+seed: 118555
 split: test
 template: sqlite_count

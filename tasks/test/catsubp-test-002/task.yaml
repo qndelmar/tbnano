@@ -1,0 +1,15 @@
+id: catsubp-test-002
+level: 0
+category: files_text
+instruction: There is a text file somewhere under this directory. Answer with its
+  contents.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- find
+- l0_plain
+seed: 260234
+split: test
+template: l0_cat_sub
+track: plain

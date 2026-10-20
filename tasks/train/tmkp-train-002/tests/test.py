@@ -3,7 +3,7 @@ from pathlib import Path
 
 BASE = Path(os.environ.get("TBNANO_TASK_DIR", "/task"))
 EXPECTED = ''
-OUT = 'x/y/f.txt'
+OUT = 'a/b/c/f.txt'
 
 def test_file_present():
     assert (BASE / OUT).exists(), f"{OUT} missing"

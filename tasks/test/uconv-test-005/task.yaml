@@ -1,11 +1,12 @@
 id: uconv-test-005
 level: 1
 category: physics
-instruction: Convert 500 grams to kg. Answer with just the number.
+instruction: params.json has {value, factor, from_unit, to_unit}. Convert value to
+  to_unit (value * factor). Answer with just the number.
 answer_mode: answer
-max_turns: 4
+max_turns: 5
 tags:
 - convert
-seed: 909904
+seed: 296708
 split: test
 template: unit_conv

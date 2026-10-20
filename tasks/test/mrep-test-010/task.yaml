@@ -9,6 +9,6 @@ max_turns: 12
 tags:
 - telemetry
 - report
-seed: 724492
+seed: 294639
 split: test
 template: multi_report

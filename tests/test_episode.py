@@ -77,9 +77,41 @@ def test_max_turns(tmp_path, sandbox):
          "<|tool_call_end|>\n") * 5
     )
     b = ScriptedBackend(script=f"file:{replies}")
-    ep = run_episode(spec, b, get_adapter("json_tags"), sandbox, TOK)
+    ep = run_episode(spec, b, get_adapter("json_tags"), sandbox, TOK,
+                     loop_stop=False)
     assert ep.end_reason == "max_turns"
     assert ep.turns_used == 3
+
+
+def test_loop_stop(tmp_path, sandbox):
+    """3 identical consecutive calls end the episode (spec v2 3)."""
+    spec = make_spec(tmp_path, max_turns=6)
+    replies = tmp_path / "replies.txt"
+    replies.write_text(
+        ('<|tool_call|>{"name":"run","arguments":{"cmd":"true"}}'
+         "<|tool_call_end|>\n") * 5
+    )
+    b = ScriptedBackend(script=f"file:{replies}")
+    ep = run_episode(spec, b, get_adapter("json_tags"), sandbox, TOK)
+    assert ep.end_reason == "loop"
+    assert ep.turns_used == 3
+
+
+def test_loop_stop_different_calls(tmp_path, sandbox):
+    """Different calls in between break the streak."""
+    spec = make_spec(tmp_path, max_turns=6)
+    replies = tmp_path / "replies.txt"
+    one = ('<|tool_call|>{"name":"run","arguments":{"cmd":"true"}}'
+           "<|tool_call_end|>")
+    two = ('<|tool_call|>{"name":"run","arguments":{"cmd":"ls"}}'
+           "<|tool_call_end|>")
+    fin = ('<|tool_call|>{"name":"finish","arguments":{"answer":""}}'
+           "<|tool_call_end|>")
+    replies.write_text("\n".join([one, one, two, one, one, one, fin]))
+    b = ScriptedBackend(script=f"file:{replies}")
+    ep = run_episode(spec, b, get_adapter("json_tags"), sandbox, TOK)
+    assert ep.end_reason == "loop"  # 3x same after the interrupt
+    assert ep.turns_used == 6
 
 
 def test_invalid_call_counts(tmp_path, sandbox):

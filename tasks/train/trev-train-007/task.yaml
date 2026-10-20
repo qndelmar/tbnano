@@ -6,6 +6,6 @@ answer_mode: files
 max_turns: 4
 tags:
 - tac
-seed: 713296
+seed: 272590
 split: train
 template: t_rev_lines

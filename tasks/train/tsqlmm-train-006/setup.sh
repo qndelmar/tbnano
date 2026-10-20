@@ -2,6 +2,6 @@ python3 - <<'PY'
 import sqlite3
 db = sqlite3.connect('m.db')
 db.execute('CREATE TABLE t(id INTEGER, v INTEGER)')
-db.executemany('INSERT INTO t VALUES(?,?)', [(0, 220), (1, 59), (2, 774), (3, 887), (4, 26), (5, 179), (6, 392), (7, 932), (8, 765), (9, 486), (10, 347), (11, 693), (12, 165), (13, 501), (14, 902)])
+db.executemany('INSERT INTO t VALUES(?,?)', [(0, 291), (1, 207), (2, 936), (3, 802), (4, 140), (5, 238), (6, 480), (7, 607), (8, 37), (9, 437), (10, 820), (11, 874), (12, 3), (13, 676), (14, 337), (15, 809)])
 db.commit()
 PY

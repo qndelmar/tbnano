@@ -1,8 +1,8 @@
 id: deltav-test-003
 level: 3
 category: physics
-instruction: 'Tsiolkovsky: Isp=220 s, m0=4.18 kg, mf=3.26 kg, g0=9.81. Delta-v (m/s)?
-  Answer with just the number.'
+instruction: params.json has isp_s, m0_kg, mf_kg (g0=9.81). Tsiolkovsky delta-v (m/s)?
+  Answer with just the number.
 answer_mode: answer
 max_turns: 6
 tags:

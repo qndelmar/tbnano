@@ -7,6 +7,6 @@ answer_mode: files
 max_turns: 8
 tags:
 - script
-seed: 466335
+seed: 907484
 split: test
 template: write_tool

@@ -1,0 +1,15 @@
+id: jkeyg-test-001
+level: 0
+category: data
+instruction: Run `python3 -c "import json;print(json.load(open('config.json'))['mode'])"`
+  and answer with just the value.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- json
+- l0_guided
+seed: 395830
+split: test
+template: l0_json_key
+track: guided

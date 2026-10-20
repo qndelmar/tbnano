@@ -1,0 +1,14 @@
+id: tnthp-train-000
+level: 0
+category: files_text
+instruction: What is line 9 of notes.txt? Answer with just the line.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- sed
+- l0_plain
+seed: 597448
+split: train
+template: t_l0_nth_line
+track: plain

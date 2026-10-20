@@ -1,12 +1,16 @@
-gc pause
-heartbeatheartbeatheartbeatheartbeatheartbeatheartbeat
+heartbeatheartbeatheartbeatheartbeat
+probe failedprobe failedprobe failed
+retry scheduledretry scheduledretry scheduledretry scheduled
+cache misscache misscache misscache miss
+request handledrequest handledrequest handledrequest handled
 probe failedprobe failedprobe failedprobe failed
-job startedjob startedjob startedjob startedjob startedjob started
+write complete
+retry scheduledretry scheduledretry scheduledretry scheduledretry scheduledretry scheduled
+connection openedconnection openedconnection openedconnection opened
+disk check okdisk check okdisk check ok
+request handledrequest handledrequest handledrequest handled
+user loginuser loginuser loginuser login
+heartbeatheartbeatheartbeatheartbeat
 retry scheduled
-connection openedconnection openedconnection opened
-gc pause
-disk check okdisk check okdisk check okdisk check okdisk check ok
-job startedjob startedjob started
-write completewrite completewrite completewrite completewrite complete
-request handledrequest handledrequest handled
-gc pause
+worker spawnedworker spawned
+worker spawnedworker spawnedworker spawnedworker spawnedworker spawnedworker spawned

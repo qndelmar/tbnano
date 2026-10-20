@@ -1,11 +1,12 @@
 id: uconv-test-001
 level: 1
 category: physics
-instruction: Convert 100 pounds to kg. Answer with just the number.
+instruction: params.json has {value, factor, from_unit, to_unit}. Convert value to
+  to_unit (value * factor). Answer with just the number.
 answer_mode: answer
-max_turns: 4
+max_turns: 5
 tags:
 - convert
-seed: 334125
+seed: 590121
 split: test
 template: unit_conv

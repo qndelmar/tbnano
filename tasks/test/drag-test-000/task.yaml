@@ -1,7 +1,7 @@
 id: drag-test-000
 level: 1
 category: physics
-instruction: Drag force at v=51 m/s, Cd=0.41, area=0.0194 m^2, rho=1.225. (N). Answer
+instruction: params.json has v_ms, cd, area_m2 (rho=1.225). Drag force (N)? Answer
   with just the number.
 answer_mode: answer
 max_turns: 5

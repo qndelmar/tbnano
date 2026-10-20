@@ -1,1 +1,1 @@
-sort -rn nums.txt > desc.txt
+sort -rn nums.txt > sorted.txt

@@ -1,0 +1,14 @@
+id: lcntp-test-001
+level: 0
+category: files_text
+instruction: How many lines are in data.txt? Answer with just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- wc
+- l0_plain
+seed: 891702
+split: test
+template: l0_line_count
+track: plain

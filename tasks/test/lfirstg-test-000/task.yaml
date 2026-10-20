@@ -1,0 +1,14 @@
+id: lfirstg-test-000
+level: 0
+category: files_text
+instruction: Run `head -1 notes.txt` and answer with just the line.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- head
+- l0_guided
+seed: 826778
+split: test
+template: l0_first_line
+track: guided

@@ -7,6 +7,6 @@ answer_mode: files
 max_turns: 4
 tags:
 - transform
-seed: 167844
+seed: 32580
 split: test
 template: upper_lines

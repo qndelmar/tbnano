@@ -1,2 +1,2 @@
-echo 'echo hello' > run.sh
+echo 'echo done' > run.sh
 bash run.sh > out.txt

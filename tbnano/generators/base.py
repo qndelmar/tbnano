@@ -28,6 +28,8 @@ def write_task(
     solution_sh: str = "",
     origin: Optional[str] = None,
     rel_tol: Optional[float] = None,
+    track: str = "",
+    exec_files: Optional[list[str]] = None,
 ) -> Path:
     d = Path(out_root) / task_id
     (d / "setup").mkdir(parents=True, exist_ok=True)
@@ -44,6 +46,8 @@ def write_task(
         "split": split,
         "template": template or task_id.rsplit("-", 2)[0],
     }
+    if track:
+        meta["track"] = track  # L0 sub-track: 'guided' | 'plain'
     if origin:
         meta["origin"] = origin
     if rel_tol is not None:
@@ -53,6 +57,8 @@ def write_task(
         p = d / "setup" / rel
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text(content)
+        if exec_files and rel in exec_files:
+            p.chmod(0o755)
     if setup_sh:
         f = d / "setup.sh"
         f.write_text(setup_sh)

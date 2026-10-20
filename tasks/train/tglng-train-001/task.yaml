@@ -1,0 +1,14 @@
+id: tglng-train-001
+level: 0
+category: files_text
+instruction: Run `grep MARKER notes.txt` and answer with just the line.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- grep
+- l0_guided
+seed: 83587
+split: train
+template: t_l0_grep_line
+track: guided

@@ -1,0 +1,14 @@
+id: tnthg-train-000
+level: 0
+category: files_text
+instruction: Run `sed -n '9p' notes.txt` and answer with just the line.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- sed
+- l0_guided
+seed: 378134
+split: train
+template: t_l0_nth_line
+track: guided

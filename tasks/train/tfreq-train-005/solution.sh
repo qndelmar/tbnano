@@ -1,1 +1,1 @@
-tr ' ' '\n' < text.txt | grep -c '^fox$' > answer.txt
+tr ' ' '\n' < text.txt | grep -c '^dog$' > answer.txt

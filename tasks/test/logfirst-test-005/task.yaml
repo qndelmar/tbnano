@@ -1,13 +1,13 @@
 id: logfirst-test-005
 level: 1
 category: files_text
-instruction: What is the 1-based line number of the first [ERROR] line in app.log?
+instruction: What is the 1-based line number of the first [ERROR] line in svc.log?
   Answer with just the number.
 answer_mode: answer
 max_turns: 4
 tags:
 - grep
 - first
-seed: 959128
+seed: 998753
 split: test
 template: log_first_err

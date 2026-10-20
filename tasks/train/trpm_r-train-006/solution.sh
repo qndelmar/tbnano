@@ -1,1 +1,1 @@
-python3 -c 'import math;print(600*2*math.pi/60)' > answer.txt
+python3 -c 'import math;print(3000*2*math.pi/60)' > answer.txt

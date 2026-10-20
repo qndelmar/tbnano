@@ -1,1 +1,5 @@
-python3 -c 'print(0.5*1.225*20**2*0.74*1.15)' > answer.txt
+python3 - <<'PY' > answer.txt
+import json, math
+p = json.load(open('params.json'))
+print(0.5*1.225*p['v_ms']**2*p['area_m2']*p['cl'])
+PY

@@ -6,6 +6,6 @@ answer_mode: files
 max_turns: 4
 tags:
 - sed
-seed: 821726
+seed: 679471
 split: train
 template: t_rm_blank

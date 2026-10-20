@@ -8,6 +8,6 @@ max_turns: 4
 tags:
 - grep
 - count
-seed: 164813
+seed: 614074
 split: test
 template: log_count

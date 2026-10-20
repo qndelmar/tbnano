@@ -1,0 +1,14 @@
+id: tmkdg-train-000
+level: 0
+category: env
+instruction: Run `mkdir out75`.
+answer_mode: files
+max_turns: 4
+tags:
+- l0
+- mkdir
+- l0_guided
+seed: 267898
+split: train
+template: t_l0_mkdir
+track: guided

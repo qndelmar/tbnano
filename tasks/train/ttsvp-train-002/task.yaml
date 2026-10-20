@@ -1,0 +1,15 @@
+id: ttsvp-train-002
+level: 0
+category: data
+instruction: vals.tsv has rows 'a<TAB>b' (header first). Sum the b column. Answer
+  with just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- tsv
+- l0_plain
+seed: 222137
+split: train
+template: t_l0_tsv_sum
+track: plain

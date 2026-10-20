@@ -7,6 +7,6 @@ answer_mode: files
 max_turns: 6
 tags:
 - mkdir
-seed: 129129
+seed: 89462
 split: test
 template: missing_dir

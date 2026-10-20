@@ -1,12 +1,12 @@
 id: lift-test-005
 level: 1
 category: physics
-instruction: 'Wing: area 1.07 m^2, CL 0.63, speed 31 m/s, rho=1.225 kg/m^3. Lift force
-  (N)? Answer with just the number.'
+instruction: params.json has wing area_m2, cl, v_ms (rho=1.225 kg/m^3). Lift force
+  (N)? Answer with just the number.
 answer_mode: answer
 max_turns: 5
 tags:
 - aero
-seed: 902740
+seed: 225222
 split: test
 template: lift_force

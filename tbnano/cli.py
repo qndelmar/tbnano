@@ -36,6 +36,8 @@ def cmd_run(args: argparse.Namespace) -> int:
         model, fmt, backend_kind = "scripted:oracle", "json_tags", "scripted"
     elif args.agent == "quitter":
         model, fmt, backend_kind = "scripted:quitter", "json_tags", "scripted"
+    elif args.agent == "ls_then_quit":
+        model, fmt, backend_kind = "scripted:ls_then_quit", "json_tags", "scripted"
     else:
         fmt, backend_kind = args.format, args.backend
 
@@ -73,8 +75,30 @@ def cmd_run(args: argparse.Namespace) -> int:
         return shared["b"]
 
     tok = None
+    b0 = None
     if backend_kind != "scripted":
-        tok = factory().tokenizer()
+        b0 = factory()
+        tok = b0.tokenizer()
+
+    import subprocess as _sp
+    try:
+        git_hash = _sp.run(["git", "rev-parse", "--short", "HEAD"],
+                           capture_output=True, text=True, cwd=Path(__file__).resolve().parents[1]
+                           ).stdout.strip()
+    except Exception:
+        git_hash = ""
+    from . import __version__
+    protocol = {
+        "format": fmt,
+        "final_answer": args.final_answer,
+        "sampling": args.sampling,
+        "sampling_values": getattr(b0, "gen_cfg", None),
+        "flat_tools": bool(args.flat_tools),
+        "max_context": getattr(b0, "max_context", None),
+        "tbnano_version": __version__,
+        "git_hash": git_hash,
+        "loop_stop": not args.no_loop_stop,
+    }
 
     run_benchmark(
         tasks,
@@ -87,10 +111,63 @@ def cmd_run(args: argparse.Namespace) -> int:
         samples=args.samples,
         resume=args.resume,
         text_final=args.final_answer == "text",
+        loop_stop=not args.no_loop_stop,
+        protocol=protocol,
         temperature=args.temperature,
         seed=args.seed,
         tok=tok,
     )
+    return 0
+
+
+def cmd_metrics(args: argparse.Namespace) -> int:
+    """Recompute process metrics from saved trajectories (spec v2 3).
+
+    Reads runs/<name>/*.jsonl, re-evaluates the per-episode metrics and
+    updates report.json's metric fields in place (model/protocol kept)."""
+    from .metrics import RunRecord, _group_stats
+    from .procmetrics import episode_metrics
+    from .tasksio import iter_tasks
+
+    run_dir = Path(args.run_dir)
+    report_path = run_dir / "report.json"
+    specs = {s.id: s for s in iter_tasks(Path(args.tasks))}
+    records: list[RunRecord] = []
+    for f in sorted(run_dir.glob("*.jsonl")):
+        lines = f.read_text().splitlines()
+        try:
+            s = json.loads(lines[-1])["summary"]
+        except (json.JSONDecodeError, KeyError, IndexError):
+            continue
+        traj = [json.loads(l) for l in lines[:-1]]
+        spec = specs.get(s["task_id"])
+        end_reason = s.get("end_reason", "")
+        rec = RunRecord(
+            task_id=s["task_id"], resolved=s["resolved"],
+            partial=s.get("partial", 0.0), end_reason=end_reason,
+            turns_used=s.get("turns_used", 0), tokens_used=s.get("tokens_used", 0),
+            invalid_calls=s.get("invalid_calls", 0),
+            exec_seconds=s.get("exec_seconds", 0.0),
+            level=spec.level if spec else 0,
+            category=spec.category if spec else "",
+            template=spec.template if spec else "",
+            track=spec.track if spec else "",
+            proc_excluded=end_reason == "harness_error",
+        )
+        if not rec.proc_excluded:
+            for k, v in episode_metrics(
+                    traj, spec.instruction if spec else "", end_reason).items():
+                setattr(rec, k, v)
+        records.append(rec)
+    stats = _group_stats(records)
+    keys = ["valid_call_rate", "grounded_first_call", "loop_rate",
+            "error_recovery", "proper_end", "refusal_rate"]
+    print(json.dumps({k: stats[k] for k in keys}, indent=2))
+    if report_path.exists():
+        rep = json.loads(report_path.read_text())
+        rep.setdefault("overall", {}).update({k: stats[k] for k in keys})
+        report_path.write_text(json.dumps(rep, indent=2))
+        print(f"updated {report_path}")
     return 0
 
 
@@ -104,6 +181,17 @@ def cmd_report(args: argparse.Namespace) -> int:
     if not reports:
         print(f"no report.json under {root}", file=sys.stderr)
         return 1
+    # Runs are only comparable on the same task set; warn on mismatched
+    # hashes or different run protocols (spec v2 4).
+    hashes = {r.get("tasks_hash") for r in reports.values() if r.get("tasks_hash")}
+    if len(hashes) > 1:
+        print("warning: runs used different task sets — numbers are not "
+              "directly comparable", file=sys.stderr)
+    protos = {json.dumps((r.get("protocol") or {}), sort_keys=True)
+              for r in reports.values() if r.get("protocol")}
+    if len(protos) > 1:
+        print("warning: runs used different protocols (format/final_answer/"
+              "sampling/flat_tools) — see report.json 'protocol'", file=sys.stderr)
     print(format_table(reports))
     if args.compare:
         for name, rep in reports.items():
@@ -179,7 +267,7 @@ def main(argv=None) -> int:
                    choices=["json_tags", "lfm_pythonic", "hermes", "qwen_xml", "openai"])
     r.add_argument("--backend", default="auto",
                    choices=["auto", "transformers", "vllm", "mlx", "ours", "openai", "scripted"])
-    r.add_argument("--agent", choices=["oracle", "quitter"], default=None,
+    r.add_argument("--agent", choices=["oracle", "quitter", "ls_then_quit"], default=None,
                    help="built-in validation agents (override --model/--format/--backend)")
     r.add_argument("--tasks", default=str(_default_tasks_dir()))
     r.add_argument("--sandbox", default="docker", choices=["local", "docker"])
@@ -202,6 +290,9 @@ def main(argv=None) -> int:
                         "parameters} instead of {type: function, function: ...}")
     r.add_argument("--resume", action="store_true",
                    help="skip (task, sample) pairs whose trajectory already has a summary")
+    r.add_argument("--no-loop-stop", action="store_true",
+                   help="do not end the episode on 3 identical consecutive calls "
+                        "(comparison with the pilot runs)")
     r.add_argument("--temperature", type=float, default=0.0)
     r.add_argument("--seed", type=int, default=None)
     r.add_argument("--n", type=int, default=None, help="limit number of tasks")
@@ -213,6 +304,11 @@ def main(argv=None) -> int:
     rp.add_argument("runs_dir")
     rp.add_argument("--compare", action="store_true")
     rp.set_defaults(fn=cmd_report)
+
+    m = sub.add_parser("metrics", help="recompute process metrics on saved trajectories")
+    m.add_argument("run_dir")
+    m.add_argument("--tasks", default=str(_default_tasks_dir()))
+    m.set_defaults(fn=cmd_metrics)
 
     g = sub.add_parser("gen", help="generate tasks")
     g.add_argument("--split", required=True, choices=["train", "test"])

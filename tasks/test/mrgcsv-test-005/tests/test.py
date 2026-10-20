@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 BASE = Path(os.environ.get("TBNANO_TASK_DIR", "/task"))
-EXPECTED = '153,6,70\n219,7,85\n240,1,32\n315,2,72\n380,1,43\n419,2,23\n428,1,66\n497,3,21\n505,9,69\n580,5,81\n584,6,56\n594,5,31\n640,3,84\n815,1,70\n903,8,66\n920,1,51\n923,6,23\n972,4,46\n'
+EXPECTED = '304,8,26\n326,8,97\n424,3,72\n442,7,93\n574,8,25\n811,5,97\n912,6,41\n990,1,81\n'
 OUT = 'merged.csv'
 
 def test_file_present():

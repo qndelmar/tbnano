@@ -1,1 +1,1 @@
-sed 's/^PORT=/prod=/' cfg.txt > cfg_fixed.txt
+sed 's/^HOST=/v2=/' cfg.txt > cfg_fixed.txt

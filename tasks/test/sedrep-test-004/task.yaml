@@ -1,12 +1,12 @@
 id: sedrep-test-004
 level: 1
 category: files_text
-instruction: cfg.txt uses the old key 'HOST='. Write cfg_fixed.txt with every 'HOST='
+instruction: cfg.txt uses the old key 'PORT='. Write cfg_fixed.txt with every 'PORT='
   replaced by 'v2='.
 answer_mode: files
 max_turns: 4
 tags:
 - sed
-seed: 986320
+seed: 911004
 split: test
 template: sed_replace

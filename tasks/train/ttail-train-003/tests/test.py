@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 BASE = Path(os.environ.get("TBNANO_TASK_DIR", "/task"))
-EXPECTED = 'L63\nL64\nL65\nL66\nL67\nL68\n'
+EXPECTED = 'L29\nL30\nL31\nL32\nL33\n'
 OUT = 'bottom.txt'
 
 def test_file_present():

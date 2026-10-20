@@ -7,6 +7,6 @@ answer_mode: answer
 max_turns: 7
 tags:
 - telemetry
-seed: 615975
+seed: 158019
 split: test
 template: peak_telem

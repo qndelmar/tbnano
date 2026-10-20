@@ -1,0 +1,1 @@
+echo hotel >> log.txt

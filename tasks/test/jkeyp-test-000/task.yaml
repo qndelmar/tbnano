@@ -1,0 +1,14 @@
+id: jkeyp-test-000
+level: 0
+category: data
+instruction: What is the value of 'mode' in config.json? Answer with just the value.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- json
+- l0_plain
+seed: 72803
+split: test
+template: l0_json_key
+track: plain

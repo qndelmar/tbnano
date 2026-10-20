@@ -1,0 +1,15 @@
+id: csumg-test-002
+level: 0
+category: data
+instruction: Run `awk -F, 'NR>1{s+=$2}END{print s}' vals.csv` and answer with just
+  the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- csv
+- l0_guided
+seed: 582288
+split: test
+template: l0_csv_sum
+track: guided

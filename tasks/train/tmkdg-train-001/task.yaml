@@ -1,0 +1,14 @@
+id: tmkdg-train-001
+level: 0
+category: env
+instruction: Run `mkdir build24`.
+answer_mode: files
+max_turns: 4
+tags:
+- l0
+- mkdir
+- l0_guided
+seed: 811623
+split: train
+template: t_l0_mkdir
+track: guided

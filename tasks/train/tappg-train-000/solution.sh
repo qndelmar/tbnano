@@ -1,0 +1,1 @@
+echo uniform >> log.txt

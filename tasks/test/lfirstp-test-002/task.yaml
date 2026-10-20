@@ -1,0 +1,14 @@
+id: lfirstp-test-002
+level: 0
+category: files_text
+instruction: What is the first line of notes.txt? Answer with just the line.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- head
+- l0_plain
+seed: 111321
+split: test
+template: l0_first_line
+track: plain

@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 BASE = Path(os.environ.get("TBNANO_TASK_DIR", "/task"))
-EXPECTED = 'ALPHA56\nDELTA77\nBETA75\nECHO15\nGAMMA27\nECHO10\nECHO83\nALPHA9\nECHO26\nBETA15\nECHO47\nECHO38\nBETA50\n'
+EXPECTED = 'GAMMA31\nDELTA19\nGAMMA42\nALPHA1\nBETA91\nECHO67\nECHO60\nGAMMA23\nBETA87\nGAMMA16\n'
 OUT = 'upper.txt'
 
 def test_file_present():

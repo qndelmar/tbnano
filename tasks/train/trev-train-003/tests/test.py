@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 BASE = Path(os.environ.get("TBNANO_TASK_DIR", "/task"))
-EXPECTED = 'r14\nr13\nr12\nr11\nr10\nr9\nr8\nr7\nr6\nr5\nr4\nr3\nr2\nr1\nr0\n'
+EXPECTED = 'r11\nr10\nr9\nr8\nr7\nr6\nr5\nr4\nr3\nr2\nr1\nr0\n'
 OUT = 'rev.txt'
 
 def test_file_present():

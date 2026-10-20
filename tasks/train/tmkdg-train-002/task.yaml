@@ -1,0 +1,14 @@
+id: tmkdg-train-002
+level: 0
+category: env
+instruction: Run `mkdir results66`.
+answer_mode: files
+max_turns: 4
+tags:
+- l0
+- mkdir
+- l0_guided
+seed: 200135
+split: train
+template: t_l0_mkdir
+track: guided

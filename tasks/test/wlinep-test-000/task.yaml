@@ -1,0 +1,14 @@
+id: wlinep-test-000
+level: 0
+category: env
+instruction: Create a file done.txt containing exactly the line 'HARBOR-983'.
+answer_mode: files
+max_turns: 4
+tags:
+- l0
+- write
+- l0_plain
+seed: 902041
+split: test
+template: l0_write_line
+track: plain

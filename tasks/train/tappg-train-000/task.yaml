@@ -1,0 +1,14 @@
+id: tappg-train-000
+level: 0
+category: env
+instruction: Run `echo uniform >> log.txt`.
+answer_mode: files
+max_turns: 4
+tags:
+- l0
+- append
+- l0_guided
+seed: 170682
+split: train
+template: t_l0_append
+track: guided

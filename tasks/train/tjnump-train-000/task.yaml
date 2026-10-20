@@ -1,0 +1,14 @@
+id: tjnump-train-000
+level: 0
+category: data
+instruction: What is the value of 'depth' in cfg.json? Answer with just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- json
+- l0_plain
+seed: 238024
+split: train
+template: t_l0_json_num
+track: plain

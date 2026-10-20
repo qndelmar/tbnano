@@ -7,6 +7,6 @@ answer_mode: files
 max_turns: 5
 tags:
 - script
-seed: 557971
+seed: 172491
 split: train
 template: t_write_echo

@@ -1,0 +1,14 @@
+id: tglnp-train-000
+level: 0
+category: files_text
+instruction: Which line of notes.txt contains MARKER? Answer with just the line.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- grep
+- l0_plain
+seed: 418343
+split: train
+template: t_l0_grep_line
+track: plain

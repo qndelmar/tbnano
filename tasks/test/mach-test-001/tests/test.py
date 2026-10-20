@@ -3,7 +3,7 @@ from pathlib import Path
 
 BASE = Path(os.environ.get("TBNANO_TASK_DIR", "/task"))
 ANSWER_FILE = BASE / ".submission" / "answer.txt"
-EXPECTED = 415.35504162300407
+EXPECTED = 397.56
 REL_TOL = 0.0001
 
 def _read_answer():

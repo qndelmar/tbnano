@@ -1,1 +1,1 @@
-tail -n 6 big.txt > bottom.txt
+tail -n 5 big.txt > bottom.txt

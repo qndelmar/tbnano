@@ -1,0 +1,14 @@
+id: runshg-test-000
+level: 0
+category: env
+instruction: Run `./hello.sh` and answer with just what it prints.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- script
+- l0_guided
+seed: 25936
+split: test
+template: l0_run_script
+track: guided

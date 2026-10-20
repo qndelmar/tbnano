@@ -25,7 +25,8 @@ from .budgets import MAX_INSTRUCTION_TOKENS, MAX_TURNS
 from .tokens import Tokenizer
 
 VALID_ANSWER_MODES = {"files", "answer", "both"}
-VALID_LEVELS = {1, 2, 3, 4}
+VALID_LEVELS = {0, 1, 2, 3, 4}
+VALID_TRACKS = {"", "guided", "plain"}
 
 
 @dataclass
@@ -43,6 +44,7 @@ class TaskSpec:
     template: str = ""                    # generator archetype; test∩train = ∅
     rel_tol: float = 1e-3
     split: str = "test"
+    track: str = ""                       # L0 sub-track: 'guided' | 'plain'
 
     @property
     def setup_dir(self) -> Path:
@@ -78,6 +80,7 @@ def load_task(task_dir: Path, split: str = "test") -> TaskSpec:
         template=str(meta.get("template", "")),
         rel_tol=float(meta.get("rel_tol", 1e-3)),
         split=meta.get("split", split),
+        track=str(meta.get("track", "")),
     )
 
 
@@ -104,6 +107,12 @@ def validate_task(spec: TaskSpec, tok: Tokenizer) -> list[str]:
         problems.append("missing solution.sh")
     if spec.level == 1 and spec.max_turns > 6:
         problems.append("level-1 task has max_turns > 6")
+    if spec.level == 0 and spec.max_turns > 4:
+        problems.append("level-0 task has max_turns > 4")
+    if spec.track not in VALID_TRACKS:
+        problems.append(f"track {spec.track!r} invalid")
+    if spec.track and spec.level != 0:
+        problems.append("track set on a non-L0 task")
     if not spec.template:
         problems.append("missing template field")
     return problems

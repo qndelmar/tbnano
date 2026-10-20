@@ -2,12 +2,12 @@ id: logwin-test-000
 level: 2
 category: files_text
 instruction: In app.log, count lines with level [ERROR] whose timestamp hour is between
-  06 and 14 inclusive (format T HH:MM:SSZ). Answer with just the number.
+  01 and 21 inclusive (format T HH:MM:SSZ). Answer with just the number.
 answer_mode: answer
 max_turns: 6
 tags:
 - grep
 - count
-seed: 106815
+seed: 284851
 split: test
 template: log_count_window

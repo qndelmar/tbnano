@@ -40,22 +40,35 @@ def test_n_templates():
 
 @pytest.mark.parametrize("name", sorted(TEST_TEMPLATES))
 def test_template_generates_valid_task(tmp_path, name):
-    d = TEST_TEMPLATES[name](random.Random(7), 0, tmp_path, "test")
-    spec = load_task(d)
-    problems = validate_task(spec, TOK)
-    assert problems == [], f"{name}: {problems}"
-    assert spec.template == name
-    assert TOK.count(spec.instruction) <= MAX_INSTRUCTION_TOKENS
-    assert (d / "solution.sh").exists()
+    res = TEST_TEMPLATES[name](random.Random(7), 0, tmp_path, "test")
+    # L0 generators return a guided+plain pair
+    dirs = res if isinstance(res, list) else [res]
+    for d in dirs:
+        spec = load_task(d)
+        problems = validate_task(spec, TOK)
+        assert problems == [], f"{name}: {problems}"
+        assert spec.template == name
+        assert TOK.count(spec.instruction) <= MAX_INSTRUCTION_TOKENS
+        assert (d / "solution.sh").exists()
+    if name.startswith("l0_"):
+        assert len(dirs) == 2
+        tracks = {load_task(d).track for d in dirs}
+        assert tracks == {"guided", "plain"}
+        # same files and checks for both variants (spec v2 2)
+        assert {f.name for f in (dirs[0] / "setup").rglob("*")} == \
+               {f.name for f in (dirs[1] / "setup").rglob("*")}
+        assert (dirs[0] / "tests" / "test.py").read_text() == \
+               (dirs[1] / "tests" / "test.py").read_text()
 
 
 @pytest.mark.parametrize("name", sorted(TRAIN_TEMPLATES))
 def test_train_template_generates_valid_task(tmp_path, name):
-    d = TRAIN_TEMPLATES[name](random.Random(7), 0, tmp_path, "train")
-    spec = load_task(d)
-    problems = validate_task(spec, TOK)
-    assert problems == [], f"{name}: {problems}"
-    assert spec.template == name
+    res = TRAIN_TEMPLATES[name](random.Random(7), 0, tmp_path, "train")
+    for d in (res if isinstance(res, list) else [res]):
+        spec = load_task(d)
+        problems = validate_task(spec, TOK)
+        assert problems == [], f"{name}: {problems}"
+        assert spec.template == name
 
 
 def test_fingerprints_differ_across_seeds(tmp_path):

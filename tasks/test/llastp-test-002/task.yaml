@@ -1,0 +1,14 @@
+id: llastp-test-002
+level: 0
+category: files_text
+instruction: What is the last line of notes.txt? Answer with just the line.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- tail
+- l0_plain
+seed: 488379
+split: test
+template: l0_last_line
+track: plain

@@ -1,8 +1,8 @@
 id: batt-test-004
 level: 1
 category: physics
-instruction: A battery is 1500 mAh rated 20C. What is the max continuous current (A)?
-  Answer with just the number.
+instruction: params.json has mah and c_rating for a battery. What is the max continuous
+  current (A)? Answer with just the number.
 answer_mode: answer
 max_turns: 5
 tags:

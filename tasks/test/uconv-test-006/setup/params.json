@@ -1,0 +1,6 @@
+{
+  "value": 500,
+  "factor": 0.001,
+  "from_unit": "grams",
+  "to_unit": "kg"
+}

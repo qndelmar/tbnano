@@ -2,11 +2,11 @@ id: sedrep-test-000
 level: 1
 category: files_text
 instruction: cfg.txt uses the old key 'PORT='. Write cfg_fixed.txt with every 'PORT='
-  replaced by 'prod='.
+  replaced by 'v2='.
 answer_mode: files
 max_turns: 4
 tags:
 - sed
-seed: 277981
+seed: 914504
 split: test
 template: sed_replace

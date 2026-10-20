@@ -249,3 +249,65 @@ def test_binary_stdout_does_not_crash_episode(tmp_path):
         assert "�" in ep.trajectory[0]["result"] or "\\ufffd" in ep.trajectory[0]["result"]
     finally:
         sb.close()
+
+
+def _docker_available() -> bool:
+    import shutil
+    import subprocess
+
+    if not shutil.which("docker"):
+        return False
+    r = subprocess.run(["docker", "info"], capture_output=True, timeout=10)
+    return r.returncode == 0
+
+
+@pytest.mark.skipif(not _docker_available(), reason="docker unavailable")
+def test_binary_stdout_docker(tmp_path):
+    """Binary tool output in the real docker sandbox must not crash the
+    episode (spec v2 6.3): the raw bytes are decoded lossy, the model sees
+    replacement chars, and the episode finishes normally."""
+    spec = make_spec(tmp_path)
+    (tmp_path / "t" / "setup" / "blob.bin").write_bytes(b"SQLite format 3\x00\x99\xff\xfe")
+    sb = None
+    try:
+        from tbnano.sandbox.docker import DockerSandbox, DockerUnavailableError
+        try:
+            sb = DockerSandbox(work_root=tmp_path / "dsb")
+        except DockerUnavailableError:
+            pytest.skip("tbnano-sandbox image not built")
+        sb.start(tmp_path / "t" / "setup", "t")
+        b = _scripted_lines(
+            tmp_path,
+            [_call("run", {"cmd": "cat blob.bin"}), _call("finish", {"answer": ""})],
+        )
+        ep = run_episode(spec, b, get_adapter("json_tags"), sb, TOK)
+        assert ep.end_reason == "finish", ep.trajectory
+        assert "�" in ep.trajectory[0]["result"] or "\\ufffd" in ep.trajectory[0]["result"]
+    finally:
+        if sb is not None:
+            sb.close()
+
+
+@pytest.mark.skipif(not _docker_available(), reason="docker unavailable")
+def test_ls_then_quit_docker(tmp_path):
+    """ls_then_quit must score 0% with grounded_first_call (spec v2 8)."""
+    spec = make_spec(tmp_path)
+    (tmp_path / "t" / "setup" / "x.txt").write_text("hello\n")
+    sb = None
+    try:
+        from tbnano.sandbox.docker import DockerSandbox, DockerUnavailableError
+        try:
+            sb = DockerSandbox(work_root=tmp_path / "dsb2")
+        except DockerUnavailableError:
+            pytest.skip("tbnano-sandbox image not built")
+        sb.start(tmp_path / "t" / "setup", "t")
+        b = ScriptedBackend("ls_then_quit")
+        ep = run_episode(spec, b, get_adapter("json_tags"), sb, TOK)
+        assert ep.end_reason == "finish"
+        assert ep.turns_used == 2
+        from tbnano.procmetrics import episode_metrics
+        m = episode_metrics(ep.trajectory, spec.instruction, ep.end_reason)
+        assert m["grounded_first"] is True
+    finally:
+        if sb is not None:
+            sb.close()

@@ -1,0 +1,15 @@
+id: runshp-test-000
+level: 0
+category: env
+instruction: hello.sh is an executable script. What does it print? Answer with just
+  its output.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- script
+- l0_plain
+seed: 156036
+split: test
+template: l0_run_script
+track: plain

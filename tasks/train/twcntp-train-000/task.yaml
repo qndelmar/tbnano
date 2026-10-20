@@ -1,0 +1,14 @@
+id: twcntp-train-000
+level: 0
+category: files_text
+instruction: How many words are in words.txt? Answer with just the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- wc
+- l0_plain
+seed: 758669
+split: train
+template: t_l0_word_count
+track: plain

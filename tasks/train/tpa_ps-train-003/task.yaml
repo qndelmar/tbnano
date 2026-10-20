@@ -1,11 +1,11 @@
 id: tpa_ps-train-003
 level: 1
 category: physics
-instruction: Convert 200000 Pa to psi (x0.000145038). Number only.
+instruction: Convert 100000 Pa to psi (x0.000145038). Number only.
 answer_mode: answer
 max_turns: 4
 tags:
 - convert
-seed: 803031
+seed: 2599
 split: train
 template: t_pa_psi

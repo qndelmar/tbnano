@@ -1,0 +1,14 @@
+id: llastg-test-002
+level: 0
+category: files_text
+instruction: Run `tail -1 notes.txt` and answer with just the line.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- tail
+- l0_guided
+seed: 815365
+split: test
+template: l0_last_line
+track: guided

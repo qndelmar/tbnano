@@ -1,0 +1,15 @@
+id: hwordg-test-000
+level: 0
+category: files_text
+instruction: Run `grep -c 'plugh' data.txt`; answer yes if the count is greater than
+  0, otherwise no.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- grep
+- l0_guided
+seed: 186987
+split: test
+template: l0_has_word
+track: guided

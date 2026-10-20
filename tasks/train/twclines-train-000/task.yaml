@@ -6,6 +6,6 @@ answer_mode: answer
 max_turns: 4
 tags:
 - wc
-seed: 524578
+seed: 87114
 split: train
 template: t_wc_lines

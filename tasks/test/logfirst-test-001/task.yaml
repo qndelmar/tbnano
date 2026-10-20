@@ -8,6 +8,6 @@ max_turns: 4
 tags:
 - grep
 - first
-seed: 975916
+seed: 229998
 split: test
 template: log_first_err

@@ -6,6 +6,6 @@ answer_mode: files
 max_turns: 4
 tags:
 - sort
-seed: 336947
+seed: 570600
 split: train
 template: t_sort_alpha

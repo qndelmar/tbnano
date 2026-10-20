@@ -1,1 +1,1 @@
-sed 's/^MODE=/edge=/' cfg.txt > cfg_fixed.txt
+sed 's/^MODE=/prod=/' cfg.txt > cfg_fixed.txt

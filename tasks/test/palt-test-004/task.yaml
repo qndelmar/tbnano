@@ -1,12 +1,12 @@
 id: palt-test-004
 level: 1
 category: physics
-instruction: 'Pressure altitude for P=950 hPa (ISA: h=44330*(1-(P/1013.25)^0.1903)
+instruction: 'params.json has pressure_hpa. Pressure altitude (ISA: h=44330*(1-(P/1013.25)^0.1903)
   m). Answer with just the number.'
 answer_mode: answer
 max_turns: 5
 tags:
 - atmo
-seed: 745301
+seed: 949911
 split: test
 template: pressure_alt

@@ -6,6 +6,6 @@ answer_mode: files
 max_turns: 4
 tags:
 - sort
-seed: 121536
+seed: 957240
 split: test
 template: sort_desc

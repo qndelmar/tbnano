@@ -1,12 +1,12 @@
 id: longline-test-001
 level: 1
 category: files_text
-instruction: blob.txt has one sentence per line. How many characters are in the longest
+instruction: notes.txt has one sentence per line. How many characters are in the longest
   line? Answer with just the number.
 answer_mode: answer
 max_turns: 4
 tags:
 - wc
-seed: 568152
+seed: 708457
 split: test
 template: longest_line

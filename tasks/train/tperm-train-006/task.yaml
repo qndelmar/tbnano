@@ -7,6 +7,6 @@ answer_mode: files
 max_turns: 5
 tags:
 - chmod
-seed: 872046
+seed: 42641
 split: train
 template: t_perm_read

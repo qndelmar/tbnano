@@ -6,6 +6,6 @@ answer_mode: files
 max_turns: 3
 tags:
 - touch
-seed: 844897
+seed: 95835
 split: train
 template: t_touch_flag

@@ -1,11 +1,11 @@
 id: ttail-train-004
 level: 1
 category: files_text
-instruction: Write the last 7 lines of big.txt to bottom.txt.
+instruction: Write the last 3 lines of big.txt to bottom.txt.
 answer_mode: files
 max_turns: 4
 tags:
 - tail
-seed: 195515
+seed: 629623
 split: train
 template: t_tail_n

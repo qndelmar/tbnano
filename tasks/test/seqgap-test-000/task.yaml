@@ -7,6 +7,6 @@ answer_mode: answer
 max_turns: 5
 tags:
 - seq
-seed: 371510
+seed: 916746
 split: test
 template: seq_gap

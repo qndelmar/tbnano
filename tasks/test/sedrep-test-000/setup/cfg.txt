@@ -1,9 +1,13 @@
 PORT=old
 k1=v1
 k2=v2
-PORT=x
+PORT=dev
 k4=v4
 k5=v5
 PORT=x
 k7=v7
 k8=v8
+PORT=old
+k10=v10
+k11=v11
+PORT=old

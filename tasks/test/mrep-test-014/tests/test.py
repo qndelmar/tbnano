@@ -2,7 +2,7 @@ import math, os
 from pathlib import Path
 
 BASE = Path(os.environ.get("TBNANO_TASK_DIR", "/task"))
-EXPECTED = {'apogee_m': 1200.0, 't_apogee_s': 11.0, 'vmax_ms': 60.0}
+EXPECTED = {'apogee_m': 1200.0, 't_apogee_s': 10.0, 'vmax_ms': 60.0}
 
 def test_file_present():
     assert (BASE / 'report.txt').exists(), "report.txt missing"

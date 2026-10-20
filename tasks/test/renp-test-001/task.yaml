@@ -1,0 +1,14 @@
+id: renp-test-001
+level: 0
+category: env
+instruction: Rename data.log to data.done, keeping its contents.
+answer_mode: files
+max_turns: 4
+tags:
+- l0
+- mv
+- l0_plain
+seed: 767587
+split: test
+template: l0_rename
+track: plain

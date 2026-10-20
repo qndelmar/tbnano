@@ -9,6 +9,6 @@ max_turns: 12
 tags:
 - write
 - csv
-seed: 394881
+seed: 240008
 split: test
 template: merge_csv

@@ -1,13 +1,13 @@
 id: logfirst-test-002
 level: 1
 category: files_text
-instruction: What is the 1-based line number of the first [ERROR] line in server.log?
+instruction: What is the 1-based line number of the first [ERROR] line in daemon.log?
   Answer with just the number.
 answer_mode: answer
 max_turns: 4
 tags:
 - grep
 - first
-seed: 981876
+seed: 556399
 split: test
 template: log_first_err

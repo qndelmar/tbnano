@@ -7,6 +7,6 @@ answer_mode: files
 max_turns: 6
 tags:
 - mv
-seed: 61777
+seed: 623460
 split: test
 template: misplaced_conf

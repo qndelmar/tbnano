@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 BASE = Path(os.environ.get("TBNANO_TASK_DIR", "/task"))
-EXPECTED = 'elm1\nelm10\nelm47\nelm77\nfig29\nfig45\nkiwi31\nkiwi39\nkiwi56\nkiwi74\nkiwi9\noak14\noak28\noak43\noak99\nplum11\nplum41\nplum82\nplum88\nplum96\n'
+EXPECTED = 'elm51\nelm76\nelm81\nfig15\nfig34\nfig54\nfig89\nkiwi3\nkiwi37\nkiwi59\noak26\noak3\noak67\noak76\noak86\nplum2\nplum47\n'
 OUT = 'sorted.txt'
 
 def test_file_present():

@@ -7,6 +7,6 @@ answer_mode: answer
 max_turns: 6
 tags:
 - telemetry
-seed: 338555
+seed: 328938
 split: test
 template: vert_speed

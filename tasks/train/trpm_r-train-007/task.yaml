@@ -1,11 +1,11 @@
 id: trpm_r-train-007
 level: 1
 category: physics
-instruction: Convert 1200 rpm to rad/s. Number only.
+instruction: Convert 600 rpm to rad/s. Number only.
 answer_mode: answer
 max_turns: 4
 tags:
 - convert
-seed: 396255
+seed: 382310
 split: train
 template: t_rpm_rads

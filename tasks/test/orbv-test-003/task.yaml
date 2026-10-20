@@ -1,12 +1,12 @@
 id: orbv-test-003
 level: 1
 category: physics
-instruction: Circular orbit speed at 400 km altitude (mu=3.986e14 m^3/s^2, R_earth=6371
-  km), in m/s. Answer with just the number.
+instruction: params.json has alt_km. Circular orbit speed at that altitude (mu=3.986e14
+  m^3/s^2, R_earth=6371 km), in m/s. Answer with just the number.
 answer_mode: answer
 max_turns: 5
 tags:
 - orbit
-seed: 977745
+seed: 529535
 split: test
 template: orbital_v

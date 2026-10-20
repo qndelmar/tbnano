@@ -2,6 +2,8 @@
 
 Script forms (the part after `scripted:`):
     quitter            -> immediately emits a finish() call
+    ls_then_quit       -> one `ls` then finish — must score 0% but have
+                          grounded_first_call=100% (spec v2 8)
     echo:<fmt>         -> always emits `run(cmd="echo hi")` once, then finish
     oracle             -> replays the task's solution.sh line-by-line through
                           run(), then finishes with the contents of
@@ -40,6 +42,10 @@ class ScriptedBackend:
     def _next(self, step: int) -> str:
         s = self.script
         if s == "quitter":
+            return self._call("finish", {"answer": ""})
+        if s == "ls_then_quit":
+            if step == 0:
+                return self._call("run", {"cmd": "ls"})
             return self._call("finish", {"answer": ""})
         if s == "oracle":
             if step < len(self._oracle_lines):

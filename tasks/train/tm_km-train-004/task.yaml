@@ -1,11 +1,11 @@
 id: tm_km-train-004
 level: 1
 category: physics
-instruction: Convert 4200 m to km. Number only.
+instruction: Convert 2500 m to km. Number only.
 answer_mode: answer
 max_turns: 4
 tags:
 - convert
-seed: 311287
+seed: 105545
 split: train
 template: t_m_km

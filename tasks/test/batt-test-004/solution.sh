@@ -1,1 +1,5 @@
-python3 -c 'print(1500/1000*20)' > answer.txt
+python3 - <<'PY' > answer.txt
+import json, math
+p = json.load(open('params.json'))
+print(p['mah']/1000*p['c_rating'])
+PY

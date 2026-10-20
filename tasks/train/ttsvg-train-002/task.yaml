@@ -1,0 +1,15 @@
+id: ttsvg-train-002
+level: 0
+category: data
+instruction: Run `awk -F'\t' 'NR>1{s+=$2}END{print s}' vals.tsv` and answer with just
+  the number.
+answer_mode: answer
+max_turns: 4
+tags:
+- l0
+- tsv
+- l0_guided
+seed: 622475
+split: train
+template: t_l0_tsv_sum
+track: guided

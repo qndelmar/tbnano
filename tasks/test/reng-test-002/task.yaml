@@ -1,0 +1,14 @@
+id: reng-test-002
+level: 0
+category: env
+instruction: Run `mv data.log data.done`.
+answer_mode: files
+max_turns: 4
+tags:
+- l0
+- mv
+- l0_guided
+seed: 464792
+split: test
+template: l0_rename
+track: guided

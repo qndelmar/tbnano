@@ -1,0 +1,14 @@
+id: tappp-train-000
+level: 0
+category: env
+instruction: Append the line 'uniform' to the end of log.txt.
+answer_mode: files
+max_turns: 4
+tags:
+- l0
+- append
+- l0_plain
+seed: 379254
+split: train
+template: t_l0_append
+track: plain

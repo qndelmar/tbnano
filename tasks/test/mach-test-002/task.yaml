@@ -1,12 +1,12 @@
 id: mach-test-002
 level: 1
 category: physics
-instruction: At T=15C the speed of sound is a=331.3*sqrt(1+T/273.15) m/s. What is
-  Mach 0.8 in m/s? Answer with just the number.
+instruction: params.json has temp_c and mach. Speed of sound a=331.3*sqrt(1+T/273.15)
+  m/s; what is Mach N in m/s? Answer with just the number.
 answer_mode: answer
 max_turns: 5
 tags:
 - aero
-seed: 621193
+seed: 77679
 split: test
 template: mach_speed
