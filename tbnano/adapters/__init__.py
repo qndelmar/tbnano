@@ -8,12 +8,14 @@ from .hermes import HermesAdapter
 from .json_tags import JsonTagsAdapter
 from .lfm_pythonic import LfmPythonicAdapter
 from .openai import OpenAIAdapter
+from .qwen_xml import QwenXmlAdapter
 
 _ADAPTERS = {
     JsonTagsAdapter.name: JsonTagsAdapter,
     LfmPythonicAdapter.name: LfmPythonicAdapter,
     HermesAdapter.name: HermesAdapter,
     OpenAIAdapter.name: OpenAIAdapter,
+    QwenXmlAdapter.name: QwenXmlAdapter,
 }
 
 

@@ -115,3 +115,13 @@ def test_system_prompt_budget(fmt):
     a = get_adapter(fmt)
     n = ApproxTokenizer().count(a.system_prompt())
     assert n <= MAX_SYSTEM_TOKENS, f"{fmt} system prompt {n} tokens > budget"
+
+
+def test_qwen_xml_parses_template_format():
+    from tbnano.adapters import get_adapter
+    ad = get_adapter("qwen_xml")
+    r = ad.parse("<think>\nok\n</think>\n\n<tool_call>\n<function=read_file>\n<parameter=path>\na.txt\n</parameter>\n"
+                 "<parameter=start>\n3\n</parameter>\n</function>\n</tool_call>")
+    assert r.call.name == "read_file" and r.call.arguments == {"path": "a.txt", "start": 3}
+    assert ad.parse("<tool_call>\n<function=nope>\n</function>\n</tool_call>").status.value == "invalid"
+    assert ad.parse("just text").status.value == "text"

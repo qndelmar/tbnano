@@ -18,7 +18,7 @@ import time
 from pathlib import Path
 from typing import Optional
 
-from .base import ExecResult, TestResult, parse_pytest_summary
+from .base import ExecResult, TestResult, finalize_test_result
 
 
 def _limits() -> None:
@@ -90,7 +90,7 @@ class LocalSandbox:
                 env=env,
                 stdin=subprocess.DEVNULL,
                 capture_output=True,
-                text=True,
+                text=True, errors="replace",
                 timeout=timeout,
                 preexec_fn=_limits,
             )
@@ -141,13 +141,18 @@ class LocalSandbox:
         if self._tests_dir.exists():
             shutil.rmtree(self._tests_dir)
         shutil.copytree(tests_dir, self._tests_dir)
-        res = self.run(
-            f"python3 -m pytest {self._tests_dir} -v --no-header "
-            "-o 'python_files=test.py test_*.py' --tb=line 2>&1 | tail -c 8000",
-            timeout=timeout,
-        )
-        out = res.stdout + res.stderr
-        tr = parse_pytest_summary(out)
-        if tr.total == 0 and res.exit_code != 0:
-            tr.error = f"pytest exited {res.exit_code}: {out[-500:]}"
-        return tr
+        # Tests are harness code, not agent code: run them with the harness
+        # interpreter (which has pytest), not whatever python3 the sanitized
+        # agent PATH finds (macOS /usr/bin/python3 has no pytest).
+        env = {**os.environ, "TBNANO_TASK_DIR": str(self.task_dir), "PYTHONDONTWRITEBYTECODE": "1"}
+        try:
+            proc = subprocess.run(
+                [sys.executable, "-m", "pytest", str(self._tests_dir), "-v", "--no-header",
+                 "-p", "no:cacheprovider", "-o", "python_files=test.py test_*.py", "--tb=line"],
+                cwd=self.task_dir, env=env, stdin=subprocess.DEVNULL,
+                capture_output=True, text=True, errors="replace", timeout=timeout,
+            )
+            code, out = proc.returncode, (proc.stdout + proc.stderr)[-8000:]
+        except subprocess.TimeoutExpired as e:
+            code, out = 124, str(e.stdout or "")[-8000:] + f"\n[tbnano: tests killed after {timeout}s]"
+        return finalize_test_result(out, code)

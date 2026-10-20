@@ -165,3 +165,87 @@ def test_harness_error_end_reason(tmp_path, monkeypatch):
         assert ep.end_reason == "harness_error"
     finally:
         sb.close()
+
+
+def test_zero_tests_is_an_error(tmp_path):
+    from tbnano.sandbox.base import finalize_test_result
+    tr = finalize_test_result("no module named pytest\n", 0)
+    assert tr.error and not tr.resolved
+
+
+def test_resume_skips_finished_and_reruns_partial(tmp_path, capsys):
+    # after a crash: finished trajectories are reused, half-written ones re-run
+    from tbnano.cli import main
+
+    tasks = tmp_path / "tasks"
+    for tid in ("task1", "task2"):
+        d = tasks / tid
+        (d / "setup").mkdir(parents=True)
+        (d / "tests").mkdir()
+        (d / "task.yaml").write_text(
+            f"id: {tid}\nlevel: 1\ncategory: x\ninstruction: noop\n"
+            "answer_mode: files\nmax_turns: 3\n")
+        (d / "tests" / "test.py").write_text("def test_ok():\n    assert True\n")
+    args = ["run", "--agent", "quitter", "--sandbox", "local",
+            "--tasks", str(tasks), "--out", str(tmp_path / "runs")]
+    assert main(args) == 0
+    out_dir = next((tmp_path / "runs").iterdir())
+    t1 = (out_dir / "task1.jsonl").read_text()
+    (out_dir / "task2.jsonl").write_text('{"turn": 0}\n')  # crash mid-episode
+    capsys.readouterr()
+    assert main(args + ["--resume"]) == 0
+    assert "resume: 1 done, 1 to run" in capsys.readouterr().out
+    assert (out_dir / "task1.jsonl").read_text() == t1
+    assert json.loads((out_dir / "task2.jsonl").read_text().splitlines()[-1])["summary"]
+    rep = json.loads((out_dir / "report.json").read_text())
+    assert rep["overall"]["n"] == 2
+
+
+def test_text_final_ends_episode_with_text_answer(tmp_path):
+    # --final-answer text: LFM2.5-style plain-text final answer after a tool result
+    spec = make_spec(tmp_path)
+    sb = make_sandbox(tmp_path)
+    b = _scripted_lines(tmp_path, [_call("run", {"cmd": "echo 42"}), "The sum is 42."])
+    try:
+        ep = run_episode(spec, b, get_adapter("json_tags"), sb, TOK, text_final=True)
+        assert ep.end_reason == "finish"
+        assert ep.answer == "The sum is 42."
+        assert [t["kind"] for t in ep.trajectory] == ["call", "final_text"]
+    finally:
+        sb.close()
+
+
+def test_text_final_default_off_still_nudges(tmp_path):
+    spec = make_spec(tmp_path)
+    sb = make_sandbox(tmp_path)
+    b = _scripted_lines(tmp_path, ["hello", "still text"])
+    try:
+        ep = run_episode(spec, b, get_adapter("json_tags"), sb, TOK)
+        assert ep.end_reason == "no_call"
+    finally:
+        sb.close()
+
+
+def test_text_final_system_prompt():
+    from tbnano.tools import FINAL_TEXT, FINAL_TOOL
+
+    ad = get_adapter("lfm_pythonic")
+    for tmpl in (True, False):
+        p = ad.system_prompt(schemas_in_template=tmpl, text_final=True)
+        assert "plain text with no tool call" in p
+        assert FINAL_TOOL not in p
+    assert FINAL_TOOL in ad.system_prompt(schemas_in_template=True)
+
+
+def test_binary_stdout_does_not_crash_episode(tmp_path):
+    # `cat data.db` on a sqlite file used to raise UnicodeDecodeError -> harness_error
+    spec = make_spec(tmp_path)
+    (tmp_path / "t" / "setup" / "blob.bin").write_bytes(b"SQLite format 3\x00\x99\xff\xfe")
+    sb = make_sandbox(tmp_path)
+    b = _scripted_lines(tmp_path, [_call("run", {"cmd": "cat blob.bin"}), _call("finish", {"answer": ""})])
+    try:
+        ep = run_episode(spec, b, get_adapter("json_tags"), sb, TOK)
+        assert ep.end_reason == "finish"
+        assert "�" in ep.trajectory[0]["result"] or "\\ufffd" in ep.trajectory[0]["result"]
+    finally:
+        sb.close()

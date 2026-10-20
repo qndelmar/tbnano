@@ -99,6 +99,22 @@ Rules: exactly one tool call per reply. Output too long is truncated with
 """
 
 
+# Rules only, for backends whose chat template renders the tool schemas itself.
+# --final-answer text: models trained to answer in plain text after the tool
+# result (LFM2.5 docs, step 4) end the episode with a text reply instead of finish()
+FINAL_TOOL = 'Call finish(answer=...) when done; pass the answer\nwhen the task asks for a value.'
+FINAL_TEXT = ('When done, reply in plain text with no tool call; if the\ntask asks for a value, '
+              'that reply is your answer.')
+
+RULES_SHORT = """\
+You operate in a Linux terminal in /task via the provided tools: run (bash, 10s
+timeout, no network, no interactive programs), read_file, write_file, finish.
+Exactly one tool call per reply. Long output is truncated with
+"... [N lines cut] ...". Call finish(answer=...) when done; pass the answer
+when the task asks for a value.
+"""
+
+
 @dataclass
 class ToolCall:
     """A canonical parsed tool call."""

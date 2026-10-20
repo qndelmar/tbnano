@@ -75,9 +75,10 @@ def run_episode(
     tok: Tokenizer,
     temperature: float = 0.0,
     seed: Optional[int] = None,
+    text_final: bool = False,
 ) -> EpisodeResult:
     try:
-        return _run_episode(spec, backend, adapter, sandbox, tok, temperature, seed)
+        return _run_episode(spec, backend, adapter, sandbox, tok, temperature, seed, text_final)
     except Exception as e:  # one bad task/model quirk must not kill the run
         import traceback
 
@@ -96,10 +97,15 @@ def _run_episode(
     tok: Tokenizer,
     temperature: float = 0.0,
     seed: Optional[int] = None,
+    text_final: bool = False,
 ) -> EpisodeResult:
+    """text_final: a plain-text reply ends the episode with that text as the
+    answer (the model's native protocol, e.g. LFM2.5), instead of a nudge."""
     res = EpisodeResult(task_id=spec.id, end_reason=END_MAX_TURNS)
     messages: list[dict[str, Any]] = [
-        {"role": "system", "content": adapter.system_prompt()},
+        {"role": "system", "content": adapter.system_prompt(
+            schemas_in_template=getattr(backend, "renders_tools", False),
+            text_final=text_final)},
         {"role": "user", "content": spec.instruction},
     ]
     # Context limit = min(spec budget, the model's own context) — a model
@@ -143,6 +149,14 @@ def _run_episode(
             call = pr.call
             err = pr.error
 
+        if parsed_status == ParseStatus.TEXT and text_final:
+            messages.append({"role": "assistant", "content": reply_text})
+            res.trajectory.append({"turn": turn, "reply": reply_text, "kind": "final_text"})
+            res.answer = reply_text.strip()
+            res.end_reason = END_FINISH
+            res.turns_used = turn + 1
+            _update_tokens(res, backend, messages)
+            return res
         if parsed_status == ParseStatus.TEXT:
             text_streak += 1
             messages.append({"role": "assistant", "content": reply_text})

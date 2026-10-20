@@ -16,7 +16,7 @@ import time
 from pathlib import Path
 from typing import Optional
 
-from .base import ExecResult, TestResult, parse_pytest_summary
+from .base import ExecResult, TestResult, finalize_test_result
 
 IMAGE = "tbnano-sandbox:latest"
 
@@ -37,7 +37,7 @@ def build_image(dockerfile: Path, image: str = IMAGE) -> None:
     res = subprocess.run(
         ["docker", "build", "-t", image, "-f", str(dockerfile), str(dockerfile.parent)],
         capture_output=True,
-        text=True,
+        text=True, errors="replace",
     )
     if res.returncode != 0:
         raise DockerUnavailableError(
@@ -105,7 +105,7 @@ class DockerSandbox:
                 "sleep", "infinity",
             ],
             capture_output=True,
-            text=True,
+            text=True, errors="replace",
         )
         if res.returncode != 0:
             raise DockerUnavailableError(f"docker run failed: {res.stderr.strip()}")
@@ -136,7 +136,7 @@ class DockerSandbox:
                 ],
                 stdin=subprocess.DEVNULL,
                 capture_output=True,
-                text=True,
+                text=True, errors="replace",
                 timeout=timeout + 5,  # grace for docker exec overhead
             )
             return ExecResult(
@@ -213,14 +213,14 @@ class DockerSandbox:
                     "-w", "/task",
                     self.image,
                     "bash", "-lc",
-                    "cp -r /tests_src /tmp/tests && cd /tmp/tests && "
+                    "set -o pipefail; cp -r /tests_src /tmp/tests && cd /tmp/tests && "
                     "PYTHONDONTWRITEBYTECODE=1 python3 -m pytest /tmp/tests "
                     "-v --no-header -p no:cacheprovider "
                     "-o 'python_files=test.py test_*.py' --tb=line 2>&1 | tail -c 8000",
                 ],
                 stdin=subprocess.DEVNULL,
                 capture_output=True,
-                text=True,
+                text=True, errors="replace",
                 timeout=timeout + 15,
             )
             res = ExecResult(
@@ -237,11 +237,7 @@ class DockerSandbox:
                 elapsed=time.monotonic() - t0,
                 timed_out=True,
             )
-        out = res.stdout + res.stderr
-        tr = parse_pytest_summary(out)
-        if tr.total == 0 and res.exit_code != 0:
-            tr.error = f"pytest exited {res.exit_code}: {out[-500:]}"
-        return tr
+        return finalize_test_result(res.stdout + res.stderr, res.exit_code)
 
 
 def _shq(s: str) -> str:

@@ -17,7 +17,7 @@ class OpenAIAdapter(Adapter):
     name = "openai"
     native_tools = True
 
-    def system_prompt(self) -> str:
+    def system_prompt(self, schemas_in_template: bool = False, text_final: bool = False) -> str:
         # Tool schemas go through the API `tools` param; the system prompt
         # only needs the rules.
         return (

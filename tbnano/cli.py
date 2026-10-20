@@ -65,6 +65,8 @@ def cmd_run(args: argparse.Namespace) -> int:
             kw: dict = {}
             if backend_kind in ("transformers", "vllm", "mlx"):
                 kw["fmt"] = fmt
+                kw["sampling"] = args.sampling
+                kw["flat_tools"] = args.flat_tools
             if backend_kind == "openai":
                 kw["base_url"] = args.base_url
             shared["b"] = make_backend(model, backend_kind, **kw)
@@ -83,6 +85,8 @@ def cmd_run(args: argparse.Namespace) -> int:
         sandbox_kind=args.sandbox,
         jobs=args.jobs,
         samples=args.samples,
+        resume=args.resume,
+        text_final=args.final_answer == "text",
         temperature=args.temperature,
         seed=args.seed,
         tok=tok,
@@ -172,7 +176,7 @@ def main(argv=None) -> int:
     r = sub.add_parser("run", help="run the benchmark")
     r.add_argument("--model", default="scripted:quitter")
     r.add_argument("--format", default="json_tags",
-                   choices=["json_tags", "lfm_pythonic", "hermes", "openai"])
+                   choices=["json_tags", "lfm_pythonic", "hermes", "qwen_xml", "openai"])
     r.add_argument("--backend", default="auto",
                    choices=["auto", "transformers", "vllm", "mlx", "ours", "openai", "scripted"])
     r.add_argument("--agent", choices=["oracle", "quitter"], default=None,
@@ -187,6 +191,17 @@ def main(argv=None) -> int:
                         "(e.g. http://localhost:8000/v1 for `vllm serve`)")
     r.add_argument("--jobs", type=int, default=4)
     r.add_argument("--samples", type=int, default=1)
+    r.add_argument("--final-answer", choices=["tool", "text"], default="tool",
+                   help="tool: end with finish(answer=...); text: a plain-text reply is the "
+                        "final answer (native protocol of e.g. LFM2.5)")
+    r.add_argument("--sampling", choices=["greedy", "model"], default="greedy",
+                   help="model: the model's generation_config.json (temperature, top_k, "
+                        "top_p, min_p, repetition_penalty) instead of --temperature")
+    r.add_argument("--flat-tools", action="store_true",
+                   help="pass tools to the chat template as flat {name, description, "
+                        "parameters} instead of {type: function, function: ...}")
+    r.add_argument("--resume", action="store_true",
+                   help="skip (task, sample) pairs whose trajectory already has a summary")
     r.add_argument("--temperature", type=float, default=0.0)
     r.add_argument("--seed", type=int, default=None)
     r.add_argument("--n", type=int, default=None, help="limit number of tasks")

@@ -15,18 +15,35 @@ template lacks a tool role, they are folded into a user turn.
 from __future__ import annotations
 
 import sys
+from pathlib import Path
 from typing import Any, Optional
 
 from ..tokens import HFTokenizer, Tokenizer
 from .base import BackendReply
 
 # Formats whose chat template understands OpenAI tool schemas.
-_TOOLS_FMTS = {"lfm_pythonic", "hermes", "openai"}
+_TOOLS_FMTS = {"lfm_pythonic", "hermes", "qwen_xml", "openai"}
 
 _TOOL_SYSTEM = (
     "You are a terminal agent. Reply with exactly one tool call using the "
     "provided functions; never answer in plain text."
 )
+
+
+_GEN_KEYS = ("temperature", "top_k", "top_p", "min_p", "repetition_penalty")
+
+
+def _generation_config(model_id: str) -> dict[str, Any]:
+    """The sampling settings the model's authors ship in generation_config.json."""
+    import json
+
+    from huggingface_hub import hf_hub_download
+
+    try:
+        cfg = json.loads(Path(hf_hub_download(model_id, "generation_config.json")).read_text())
+    except Exception:
+        return {}
+    return {k: cfg[k] for k in _GEN_KEYS if cfg.get(k) is not None}
 
 
 class HFBackend:
@@ -39,10 +56,17 @@ class HFBackend:
         fmt: str = "json_tags",
         device: Optional[str] = None,
         load_kwargs: Optional[dict] = None,
+        sampling: str = "greedy",
+        flat_tools: bool = False,
     ):
         self.model_id = model_id
+        self.sampling = sampling
+        self.flat_tools = flat_tools
+        self.gen_cfg: dict[str, Any] = {}
         self.impl = impl
         self.fmt = fmt
+        # the chat template gets tools= and lists the schemas itself
+        self.renders_tools = fmt in _TOOLS_FMTS
         self.device = device
         self.load_kwargs = load_kwargs or {}
         self.template_fallback = False  # set when tools= is unsupported
@@ -101,6 +125,10 @@ class HFBackend:
             kw = dict(self.load_kwargs)
             kw.setdefault("gpu_memory_utilization", 0.85)
             self._model = LLM(model=self.model_id, **kw)
+        if self.sampling == "model":
+            self.gen_cfg = _generation_config(self.model_id)
+            print(f"[tbnano] {self.model_id}: sampling from generation_config {self.gen_cfg}",
+                  file=sys.stderr)
         try:
             mc = getattr(getattr(self._model, "config", None),
                          "max_position_embeddings", None)
@@ -117,12 +145,16 @@ class HFBackend:
     # -- rendering ----------------------------------------------------
     def _render(self, messages: list[dict[str, Any]]) -> str:
         kwargs: dict[str, Any] = {
-            "tokenize": False, "add_generation_prompt": True
+            # enable_thinking=False: hybrid-reasoning templates (Qwen3.x) would
+            # otherwise spend the 256-token reply budget on <think>; templates
+            # without the variable ignore it
+            "tokenize": False, "add_generation_prompt": True, "enable_thinking": False,
         }
         if self.fmt in _TOOLS_FMTS:
             from ..tools import TOOL_SCHEMAS
 
-            kwargs["tools"] = TOOL_SCHEMAS
+            kwargs["tools"] = ([t["function"] for t in TOOL_SCHEMAS] if self.flat_tools
+                               else TOOL_SCHEMAS)
             if not any(m.get("role") == "system" for m in messages):
                 messages = [{"role": "system", "content": _TOOL_SYSTEM}] + list(
                     messages
@@ -180,14 +212,25 @@ class HFBackend:
         prompt = self._render(messages)
         if self.impl == "mlx":
             from mlx_lm import generate as mlx_generate
-            from mlx_lm.sample_utils import make_sampler
+            from mlx_lm.sample_utils import make_logits_processors, make_sampler
 
+            g = self.gen_cfg
+            if g:
+                import mlx.core as mx
+
+                mx.random.seed(seed or 0)
+                sampler = make_sampler(temp=g.get("temperature", 1.0), top_p=g.get("top_p", 0.0) or 0.0,
+                                       min_p=g.get("min_p", 0.0) or 0.0, top_k=g.get("top_k", 0) or 0)
+                procs = make_logits_processors(repetition_penalty=g.get("repetition_penalty"))
+            else:
+                sampler, procs = make_sampler(temp=max(temperature, 1e-5)), None
             text = mlx_generate(
                 self._model,
                 self._tok_hf,
                 prompt=prompt,
                 max_tokens=max_tokens,
-                sampler=make_sampler(temp=max(temperature, 1e-5)),
+                sampler=sampler,
+                logits_processors=procs,
                 verbose=False,
             )
             return BackendReply(text=text)
@@ -211,6 +254,9 @@ class HFBackend:
             "temperature": temperature if temperature > 0 else 1.0,
             "pad_token_id": self._tok_hf.eos_token_id,
         }
+        if self.gen_cfg:
+            gen_kwargs.update({"do_sample": True, **{k: v for k, v in self.gen_cfg.items()
+                                                     if k != "min_p" or v}})
         if seed is not None:
             torch.manual_seed(seed)
         with torch.no_grad():

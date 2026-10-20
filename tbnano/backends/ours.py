@@ -20,7 +20,9 @@ Point tbnano at that repo with TBNANO_OURS_REPO (default:
 from __future__ import annotations
 
 import importlib.util
+import json
 import os
+import re
 import sys
 from pathlib import Path
 from typing import Any, Optional
@@ -38,9 +40,46 @@ def _import_from(path: Path, name: str):
     return mod
 
 
+_CALL_RE = re.compile(r"<\|tool_call\|>(.*?)(?:<\|tool_call_end\|>|$)", re.DOTALL)
+
+
+def _flat_tools() -> list[dict]:
+    """Our SFT data lists tools as flat {"name", "description", "parameters"} (prepare_midtrain.READ_ARTICLE)."""
+    from ..tools import TOOL_SCHEMAS
+    return [t["function"] for t in TOOL_SCHEMAS]
+
+
+def _to_ours(messages: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """tbnano canonical messages -> chat_format.render messages: raw call markup in assistant
+    replies becomes tool_calls (render strips special tokens out of content), tool results
+    become {"role": "tool", "responses": [...]}."""
+    out = []
+    for m in messages:
+        if m.get("role") == "tool":
+            c = m.get("content") or ""
+            try:
+                r = json.loads(c)
+            except (json.JSONDecodeError, TypeError):
+                r = c
+            out.append({"role": "tool", "responses": [r]})
+        elif m.get("role") == "assistant":
+            text = m.get("content") or ""
+            calls = []
+            for payload in _CALL_RE.findall(text):
+                try:
+                    calls.append(json.loads(payload))
+                except json.JSONDecodeError:
+                    pass
+            out.append({"role": "assistant", "content": _CALL_RE.sub("", text).strip(), "tool_calls": calls})
+        else:
+            out.append({"role": m["role"], "content": m.get("content") or ""})
+    return out
+
+
 class OursBackend:
     name = "ours"
     max_context = 1024  # our checkpoints train at ctx 1024
+    renders_tools = True  # render(tools=...) lists the schemas in the system turn, as in our SFT data
 
     def __init__(self, ckpt: str, repo: Optional[str] = None, **_):
         self.ckpt = ckpt
@@ -64,10 +103,12 @@ class OursBackend:
                 raise FileNotFoundError(
                     f"ours backend needs {p} (set TBNANO_OURS_REPO)"
                 )
+        if str(self.repo) not in sys.path:  # chat_format/agent import sibling modules (data_mix, model_torch)
+            sys.path.insert(0, str(self.repo))
         fmt = _import_from(fmt_py, "ours_chat_format")
         self._render = fmt.render
         self._agent_mod = _import_from(agent_py, "ours_agent")
-        self._model, agent_tok, self._device = self._agent_mod.load(self.ckpt)
+        self._model, agent_tok, self._device = self._agent_mod.load(self.ckpt, tokenizer=str(tok_json))
         from tokenizers import Tokenizer
 
         self._tok = Tokenizer.from_file(str(tok_json))
@@ -83,17 +124,12 @@ class OursBackend:
         return _T()
 
     def _prompt_ids(self, messages, tools=None):
-        text = self._render(messages, tools=tools or [])
+        text = self._render(_to_ours(messages), tools=_flat_tools())
         return self._tok.encode(text + GEN_PROMPT_SUFFIX).ids
 
     def count_context(self, messages: list[dict[str, Any]]) -> int:
         self._load()
-        from ..tools import TOOL_SCHEMAS
-
-        try:
-            return len(self._prompt_ids(messages, TOOL_SCHEMAS))
-        except Exception:
-            return len(self._prompt_ids(messages))
+        return len(self._prompt_ids(messages))
 
     def generate(
         self,
@@ -115,4 +151,5 @@ class OursBackend:
         )
         if out_ids and out_ids[: len(ids)] == ids:
             out_ids = out_ids[len(ids):]
-        return BackendReply(text=self._tok.decode(out_ids))
+        # keep special tokens: <|tool_call|> is one, and the adapter parses it
+        return BackendReply(text=self._tok.decode(out_ids, skip_special_tokens=False).split("<|im_end|>")[0])

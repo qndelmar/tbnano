@@ -92,6 +92,15 @@ def parse_pytest_summary(output: str) -> TestResult:
     return tr
 
 
+def finalize_test_result(output: str, exit_code: int) -> TestResult:
+    """Parse pytest output; zero collected tests is always a harness error (a task with
+    no runnable tests must never count as a silent 0/0)."""
+    tr = parse_pytest_summary(output)
+    if tr.total == 0:
+        tr.error = f"no tests ran (pytest exit {exit_code}): {output[-500:]}"
+    return tr
+
+
 class Sandbox(Protocol):
     def start(self, setup_dir: Path, task_id: str) -> None: ...
     def run(self, cmd: str, timeout: float) -> ExecResult: ...

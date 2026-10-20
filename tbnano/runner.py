@@ -89,6 +89,7 @@ def run_one(
     temperature: float = 0.0,
     seed: Optional[int] = None,
     sandbox_kwargs: Optional[dict] = None,
+    text_final: bool = False,
 ) -> tuple[RunRecord, EpisodeResult, str]:
     """Run one episode + verification. Returns (record, episode, test_output)."""
     setup_dir = build_setup_tempdir(spec)
@@ -96,7 +97,8 @@ def run_one(
     try:
         sb.start(setup_dir, spec.id)  # tests stay outside the sandbox
         ep = run_episode(
-            spec, backend, adapter, sb, tok, temperature=temperature, seed=seed
+            spec, backend, adapter, sb, tok, temperature=temperature, seed=seed,
+            text_final=text_final,
         )
         sb.write_submission(ep.answer)
         tests = sb.run_tests(spec.tests_dir, timeout=60.0)
@@ -104,7 +106,9 @@ def run_one(
             task_id=spec.id,
             resolved=tests.resolved,
             partial=tests.partial,
-            end_reason=ep.end_reason,
+            # broken test infra (no tests ran, pytest missing) is the harness's
+            # fault, not the model's: report it apart from model failures
+            end_reason="harness_error" if tests.error else ep.end_reason,
             turns_used=ep.turns_used,
             tokens_used=ep.tokens_used,
             invalid_calls=ep.invalid_calls,
@@ -132,14 +136,41 @@ def run_benchmark(
     tok: Optional[Tokenizer] = None,
     sandbox_kwargs: Optional[dict] = None,
     progress: bool = True,
+    resume: bool = False,
+    text_final: bool = False,
 ) -> Path:
-    """Run all tasks x samples; write trajectories + report.json."""
+    """Run all tasks x samples; write trajectories + report.json.
+
+    resume: reuse trajectories that already end in a summary line (e.g. after
+    a crash) instead of re-running those (task, sample) pairs."""
     tok = tok or ApproxTokenizer()
     out_dir = Path(out_root) / model_name.replace("/", "_")
     out_dir.mkdir(parents=True, exist_ok=True)
 
     lock = threading.Lock()
     records: list[RunRecord] = []
+
+    def traj_path_for(spec: TaskSpec, sample: int) -> Path:
+        return out_dir / f"{spec.id}{'.s' + str(sample) if sample else ''}.jsonl"
+
+    def finished(spec: TaskSpec, sample: int) -> Optional[RunRecord]:
+        path = traj_path_for(spec, sample)
+        if not path.exists():
+            return None
+        lines = path.read_text().splitlines()
+        try:
+            s = json.loads(lines[-1])["summary"] if lines else None
+        except (json.JSONDecodeError, KeyError):
+            return None
+        if s is None:
+            return None
+        return RunRecord(
+            task_id=spec.id, resolved=s["resolved"], partial=s["partial"],
+            end_reason=s["end_reason"], turns_used=s["turns_used"],
+            tokens_used=s["tokens_used"], invalid_calls=s["invalid_calls"],
+            exec_seconds=s["exec_seconds"], level=spec.level,
+            category=spec.category, template=spec.template, sample=sample,
+        )
 
     def worker(spec: TaskSpec, sample: int):
         # Stateful backends (scripted) get a fresh instance per task from
@@ -154,10 +185,12 @@ def run_benchmark(
             temperature=temperature,
             seed=None if seed is None else seed + sample,
             sandbox_kwargs=sandbox_kwargs,
+            text_final=text_final,
         )
         rec.sample = sample
-        traj_path = out_dir / f"{spec.id}{'.s' + str(sample) if sample else ''}.jsonl"
-        with traj_path.open("w") as f:
+        traj_path = traj_path_for(spec, sample)
+        tmp_path = traj_path.with_suffix(".jsonl.tmp")
+        with tmp_path.open("w") as f:
             for entry in ep.trajectory:
                 f.write(json.dumps(entry) + "\n")
             f.write(
@@ -165,6 +198,7 @@ def run_benchmark(
                     {
                         "summary": {
                             **ep.summary_line(),
+                            "end_reason": rec.end_reason,  # harness_error survives a resume
                             "resolved": rec.resolved,
                             "partial": rec.partial,
                             "sample": sample,
@@ -173,13 +207,23 @@ def run_benchmark(
                 )
                 + "\n"
             )
+        tmp_path.replace(traj_path)  # atomic: a crash never leaves a half-written trajectory
         with lock:
             records.append(rec)
             if progress and len(records) % 10 == 0:
                 print(f"  [{len(records)}/{len(tasks) * samples}]", flush=True)
         return rec
 
-    work = [(t, s) for t in tasks for s in range(samples)]
+    work = []
+    for t in tasks:
+        for smp in range(samples):
+            done = finished(t, smp) if resume else None
+            if done is not None:
+                records.append(done)
+            else:
+                work.append((t, smp))
+    if resume and progress:
+        print(f"  resume: {len(records)} done, {len(work)} to run", flush=True)
     with ThreadPoolExecutor(max_workers=jobs) as pool:
         futs = [pool.submit(worker, t, s) for t, s in work]
         for f in as_completed(futs):

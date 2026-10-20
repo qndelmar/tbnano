@@ -6,7 +6,7 @@ import enum
 from dataclasses import dataclass
 from typing import Any, Optional
 
-from ..tools import TOOLS_BRIEF, ToolCall
+from ..tools import FINAL_TEXT, FINAL_TOOL, RULES_SHORT, TOOLS_BRIEF, ToolCall
 
 
 class ParseStatus(enum.Enum):
@@ -36,9 +36,20 @@ class Adapter:
     # True for API models that emit structured tool_calls instead of text.
     native_tools: bool = False
 
-    def system_prompt(self) -> str:
-        """Tool schema block + rules. Must stay <= 600 tokens."""
-        return TOOLS_BRIEF + "\n" + self.call_syntax_help()
+    def system_prompt(self, schemas_in_template: bool = False, text_final: bool = False) -> str:
+        """Tool schema block + rules. Must stay <= 600 tokens.
+
+        schemas_in_template: the backend's chat template already lists the
+        tools (apply_chat_template(tools=...)), so only the rules and the call
+        syntax go here; repeating the schemas would describe every tool twice."""
+        if schemas_in_template:
+            rules = RULES_SHORT.replace(FINAL_TOOL, FINAL_TEXT) if text_final else RULES_SHORT
+            return rules + "\n" + self.call_syntax_help()
+        brief = TOOLS_BRIEF
+        if text_final:
+            brief = brief.replace("Reply without a tool call only if you cannot act.",
+                                  FINAL_TEXT.replace("\n", " "))
+        return brief + "\n" + self.call_syntax_help()
 
     def call_syntax_help(self) -> str:
         """One short paragraph showing the exact call syntax to the model."""
